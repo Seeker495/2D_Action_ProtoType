@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     private const float PLAYER_SPEED = 3.0f;
     private Dictionary<Vector2, Tile> Sprites;
     private Map Map;
+    private bool IsDash;
     // Start is called before the first frame update
     async void Start()
     {
@@ -46,12 +47,18 @@ public class Player : MonoBehaviour
         if (positionWithout_x || positionWithout_y)
             //Rigidbody2D.position = Map.GetCenterPosition();
 
-        Initialize_Controller();
+            Initialize_Controller();
     }
 
     private void Initialize_Controller()
     {
         PlayerInput.actions["Move"].performed += Move;
+        PlayerInput.actions["Move"].canceled += MoveEnd;
+        PlayerInput.actions["Attack"].performed += Attack;
+        PlayerInput.actions["Dash"].started += Dash;
+        PlayerInput.actions["Dash"].canceled += Dash;
+
+
     }
 
     private void Finalize_Controller()
@@ -82,8 +89,37 @@ public class Player : MonoBehaviour
         Vector2 move = context.ReadValue<Vector2>();
         Velocity = move * PLAYER_SPEED;
         Rigidbody2D.velocity = Velocity;
-        gameObject.GetComponent<SpriteRenderer>().sprite = Sprites[move].sprite;
+        //gameObject.GetComponent<SpriteRenderer>().sprite = Velocity != Vector2.zero ? Sprites[move].sprite : gameObject.GetComponent<SpriteRenderer>().sprite;
+        Debug.Log(Rigidbody2D.velocity);
     }
+
+    private void MoveEnd(InputAction.CallbackContext context)
+    {
+        Velocity = Vector2.zero;
+        Rigidbody2D.velocity = Velocity;
+    }
+
+
+    private void Dash(InputAction.CallbackContext context)
+    {
+        switch (context.phase)
+        {
+            case InputActionPhase.Started:
+                Velocity *= 2;
+                break;
+            case InputActionPhase.Canceled:
+                Velocity /= 2;
+                break;
+        }
+        Rigidbody2D.velocity = Velocity;
+        Debug.Log(Rigidbody2D.velocity);
+
+    }
+    private void Attack(InputAction.CallbackContext context)
+    {
+    }
+
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
