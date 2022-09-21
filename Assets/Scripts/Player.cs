@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.AddressableAssets.Build;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.InputSystem;
+using UnityEngine.Tilemaps;
 
 public class Player : MonoBehaviour
 {
@@ -51,11 +53,21 @@ public class Player : MonoBehaviour
     {
     }
 
-    private void Move(InputAction.CallbackContext context)
+    async private void Move(InputAction.CallbackContext context)
     {
         Vector2 move = context.ReadValue<Vector2>();
+        Dictionary<Vector2, int> directionSprite = new Dictionary<Vector2, int>
+        {
+            {Vector2.up,12*3 },
+            {Vector2.right,12*2},
+            {Vector2.left,12*1},
+            {Vector2.down,12*0},
+
+        };
         Velocity = move * PLAYER_SPEED;
         Rigidbody2D.velocity = Velocity;
+        var tile = await Addressables.LoadAssetAsync<Tile>($"Characters_{directionSprite[move]}").Task;
+        gameObject.GetComponent<SpriteRenderer>().sprite = tile.sprite;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
