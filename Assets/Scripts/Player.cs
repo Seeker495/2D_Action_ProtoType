@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEditor;
 using UnityEditor.AddressableAssets.Build;
 using UnityEngine;
@@ -15,14 +16,23 @@ public class Player : MonoBehaviour
     private Vector2 Position;
     private Vector2 Velocity;
     private const float PLAYER_SPEED = 3.0f;
+    private Dictionary<Vector2, Tile> Sprites;
     // Start is called before the first frame update
-    void Start()
+    async void Start()
     {
         Rigidbody2D = GetComponent<Rigidbody2D>();
         PlayerInput = GetComponent<PlayerInput>();
 
         Position = Rigidbody2D.position;
         Velocity = Rigidbody2D.velocity;
+
+        Sprites = new Dictionary<Vector2, Tile>
+    {
+            {Vector2.up,await Addressables.LoadAssetAsync<Tile>("Characters_36").Task },
+            {Vector2.right,await Addressables.LoadAssetAsync<Tile>("Characters_24").Task },
+            {Vector2.left,await Addressables.LoadAssetAsync<Tile>("Characters_12").Task },
+            {Vector2.down,await Addressables.LoadAssetAsync<Tile>("Characters_0").Task },
+    };
 
         Initialize_Controller();
     }
@@ -56,18 +66,9 @@ public class Player : MonoBehaviour
     async private void Move(InputAction.CallbackContext context)
     {
         Vector2 move = context.ReadValue<Vector2>();
-        Dictionary<Vector2, int> directionSprite = new Dictionary<Vector2, int>
-        {
-            {Vector2.up,12*3 },
-            {Vector2.right,12*2},
-            {Vector2.left,12*1},
-            {Vector2.down,12*0},
-
-        };
         Velocity = move * PLAYER_SPEED;
         Rigidbody2D.velocity = Velocity;
-        var tile = await Addressables.LoadAssetAsync<Tile>($"Characters_{directionSprite[move]}").Task;
-        gameObject.GetComponent<SpriteRenderer>().sprite = tile.sprite;
+        gameObject.GetComponent<SpriteRenderer>().sprite = Sprites[move].sprite;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
