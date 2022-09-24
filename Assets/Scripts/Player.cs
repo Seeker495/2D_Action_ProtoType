@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -23,6 +24,10 @@ public class Player : MonoBehaviour
     private Dictionary<Vector2, Tile> Sprites;
     private Map Map;
     private bool IsDash;
+
+    private List<IWeapon> WeaponsList;
+
+    private int WeaponIndex = 0;
     // Start is called before the first frame update
     async void Start()
     {
@@ -36,6 +41,12 @@ public class Player : MonoBehaviour
             {Vector2.right,await Addressables.LoadAssetAsync<Tile>("Characters_24").Task },
             {Vector2.left,await Addressables.LoadAssetAsync<Tile>("Characters_12").Task },
             {Vector2.down,await Addressables.LoadAssetAsync<Tile>("Characters_0").Task },
+        };
+
+        WeaponsList = new List<IWeapon>(2)
+        {
+            GetComponentInChildren<Blade>(),
+            GetComponentInChildren<Bow>(),
         };
 
         Map = GameObject.Find("Map").GetComponent<Map>();
@@ -57,7 +68,8 @@ public class Player : MonoBehaviour
         PlayerInput.actions["Attack"].performed += Attack;
         PlayerInput.actions["Dash"].started += Dash;
         PlayerInput.actions["Dash"].canceled += Dash;
-
+        PlayerInput.actions["ChangeWeaponToLeft"].started += SelectWeaponToLeft;
+        PlayerInput.actions["ChangeWeaponToRight"].started += SelectWeaponToRight;
 
     }
 
@@ -117,9 +129,25 @@ public class Player : MonoBehaviour
     }
     private void Attack(InputAction.CallbackContext context)
     {
+        WeaponsList[WeaponIndex].Attack();
     }
 
 
+    public Sprite GetWeaponSprite()
+    {
+        return WeaponsList[WeaponIndex].GetSprite();
+    }
+    private void SelectWeaponToLeft(InputAction.CallbackContext context)
+    {
+        WeaponIndex = Math.Abs(--WeaponIndex) % WeaponsList.Count;
+        Debug.Log($"SelectLeft:{WeaponIndex}");
+    }
+
+    private void SelectWeaponToRight(InputAction.CallbackContext context)
+    {
+        WeaponIndex = Math.Abs(++WeaponIndex) % WeaponsList.Count;
+        Debug.Log($"SelectRight:{WeaponIndex}");
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
