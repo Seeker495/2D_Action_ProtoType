@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     private const float PLAYER_SPEED = 3.0f;
     private Dictionary<Vector2, Tile> Sprites;
     private Map Map;
-    private bool IsDash;
+    private Vector2 Direction;
 
     private List<IWeapon> WeaponsList;
 
@@ -65,7 +65,7 @@ public class Player : MonoBehaviour
     {
         PlayerInput.actions["Move"].performed += Move;
         PlayerInput.actions["Move"].canceled += MoveEnd;
-        PlayerInput.actions["Attack"].performed += Attack;
+        PlayerInput.actions["Attack"].started += Attack;
         PlayerInput.actions["Dash"].started += Dash;
         PlayerInput.actions["Dash"].canceled += Dash;
         PlayerInput.actions["ChangeWeaponToLeft"].started += SelectWeaponToLeft;
@@ -101,6 +101,7 @@ public class Player : MonoBehaviour
         Vector2 move = context.ReadValue<Vector2>();
         Velocity = move * PLAYER_SPEED;
         Rigidbody2D.velocity = Velocity;
+        Direction = Rigidbody2D.velocity.normalized;
         //gameObject.GetComponent<SpriteRenderer>().sprite = Velocity != Vector2.zero ? Sprites[move].sprite : gameObject.GetComponent<SpriteRenderer>().sprite;
         Debug.Log(Rigidbody2D.velocity);
     }
@@ -129,12 +130,14 @@ public class Player : MonoBehaviour
     }
     private void Attack(InputAction.CallbackContext context)
     {
-        WeaponsList[WeaponIndex].Attack();
+        if (Rigidbody2D.velocity != Vector2.zero && WeaponsList[WeaponIndex].GetTagName() == "Blade") return;
+        WeaponsList[WeaponIndex].Attack(Rigidbody2D.position,Direction);
     }
 
 
     public Sprite GetWeaponSprite()
     {
+        if (WeaponsList[WeaponIndex].GetSprite().Equals(null)) return null;
         return WeaponsList[WeaponIndex].GetSprite();
     }
     private void SelectWeaponToLeft(InputAction.CallbackContext context)
@@ -149,10 +152,6 @@ public class Player : MonoBehaviour
         Debug.Log($"SelectRight:{WeaponIndex}");
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-
-    }
 
 
 }
