@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     private Dictionary<Vector2, Tile> Sprites;
     private Map Map;
     private Map.MapRect mapRect;
-    private Vector2 Direction;
+    private Vector2 Direction = Vector2.up;
 
     private List<IWeapon> WeaponsList;
 
@@ -130,7 +130,7 @@ public class Player : MonoBehaviour
     private void Attack(InputAction.CallbackContext context)
     {
         if (Rigidbody2D.velocity != Vector2.zero && WeaponsList[WeaponIndex].GetTagName() == "Blade") return;
-        WeaponsList[WeaponIndex].Attack(Rigidbody2D.position,Direction);
+        WeaponsList[WeaponIndex].Attack(Rigidbody2D.position, Direction);
     }
 
 
