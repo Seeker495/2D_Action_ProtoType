@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -23,6 +22,7 @@ public class Player : MonoBehaviour
     private const float PLAYER_SPEED = 3.0f;
     private Dictionary<Vector2, Tile> Sprites;
     private Map Map;
+    private Map.MapRect mapRect;
     private Vector2 Direction;
 
     private List<IWeapon> WeaponsList;
@@ -31,6 +31,8 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     async void Start()
     {
+        Map = GameObject.Find("Map").GetComponent<Map>();
+
         Rigidbody2D = GetComponent<Rigidbody2D>();
         PlayerInput = GetComponent<PlayerInput>();
 
@@ -48,17 +50,15 @@ public class Player : MonoBehaviour
             GetComponentInChildren<Blade>(),
             GetComponentInChildren<Bow>(),
         };
+        mapRect = Map.GetEdgeRect();
+        var data = Map.GetMapData();
 
-        Map = GameObject.Find("Map").GetComponent<Map>();
+        StartPosition = new Vector2(Random.Range(0, data.width), Random.Range(-data.height, 0));
         Rigidbody2D.position = StartPosition;
-        var edge = Map.GetEdgeRect();
 
-        bool positionWithout_x = edge.left > StartPosition.x || edge.right < StartPosition.x;
-        bool positionWithout_y = edge.top > StartPosition.y || edge.bottom < StartPosition.y;
-        if (positionWithout_x || positionWithout_y)
-            //Rigidbody2D.position = Map.GetCenterPosition();
 
-            Initialize_Controller();
+
+        Initialize_Controller();
     }
 
     private void Initialize_Controller()
@@ -88,12 +88,11 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Rigidbody2D.position = new Vector2(Mathf.Clamp(Rigidbody2D.position.x, mapRect.left, mapRect.right), Mathf.Clamp(Rigidbody2D.position.y, mapRect.bottom, mapRect.top));
     }
 
     private void FixedUpdate()
     {
-        var edge = Map.GetEdgeRect();
-        Rigidbody2D.position = new Vector2(Mathf.Clamp(Rigidbody2D.position.x, edge.left, edge.right), Mathf.Clamp(Rigidbody2D.position.y, edge.bottom, edge.top));
     }
 
     private void Move(InputAction.CallbackContext context)
@@ -142,13 +141,13 @@ public class Player : MonoBehaviour
     }
     private void SelectWeaponToLeft(InputAction.CallbackContext context)
     {
-        WeaponIndex = Math.Abs(--WeaponIndex) % WeaponsList.Count;
+        WeaponIndex = System.Math.Abs(--WeaponIndex) % WeaponsList.Count;
         Debug.Log($"SelectLeft:{WeaponIndex}");
     }
 
     private void SelectWeaponToRight(InputAction.CallbackContext context)
     {
-        WeaponIndex = Math.Abs(++WeaponIndex) % WeaponsList.Count;
+        WeaponIndex = System.Math.Abs(++WeaponIndex) % WeaponsList.Count;
         Debug.Log($"SelectRight:{WeaponIndex}");
     }
 

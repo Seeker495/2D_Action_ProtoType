@@ -28,15 +28,16 @@ public class Bow : MonoBehaviour,IWeapon
     {
         var arrow = await Addressables.LoadAssetAsync<GameObject>("Arrow").Task;
         Debug.Log(arrow);
+        GameObject[] arrowObjects = new GameObject[arrowNum];
         for (int i = 0; i < arrowNum; i++)
         {
-            Instantiate(arrow, transform);
+            arrowObjects[i] = Instantiate(arrow, transform);
         }
-        var arrows = GetComponentsInChildren<Arrow>();
+
 
         for (int i = 0; i < arrowNum; i++)
         {
-            arrows[i].Shoot(startPosition, startDegree + i * angleInterval,direction);
+            arrowObjects[i].GetComponent<Arrow>().Shoot(startPosition, startDegree + i * angleInterval,direction);
         }
     }
 
