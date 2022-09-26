@@ -83,6 +83,7 @@ public class Map : MonoBehaviour
 
     public LoadStage.MapData GetMapData()
     {
+        if (MapChips.Count == 0) { Start(); }
         return mapData;
     }
 
