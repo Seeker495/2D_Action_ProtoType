@@ -14,7 +14,6 @@ using UnityEngine.Tilemaps;
 public class Player : MonoBehaviour
 {
     Rigidbody2D Rigidbody2D;
-    PlayerInput PlayerInput;
 
     [SerializeField]
     private Vector2 StartPosition;
@@ -34,7 +33,6 @@ public class Player : MonoBehaviour
         Map = GameObject.Find("Map").GetComponent<Map>();
 
         Rigidbody2D = GetComponent<Rigidbody2D>();
-        PlayerInput = GetComponent<PlayerInput>();
 
 
         Sprites = new Dictionary<Vector2, Tile>(4)
@@ -55,34 +53,8 @@ public class Player : MonoBehaviour
 
         StartPosition = new Vector2(Random.Range(0, data.width), Random.Range(-data.height, 0));
         Rigidbody2D.position = StartPosition;
-
-
-
-        Initialize_Controller();
     }
 
-    private void Initialize_Controller()
-    {
-        PlayerInput.actions["Move"].performed += Move;
-        PlayerInput.actions["Move"].canceled += MoveEnd;
-        PlayerInput.actions["Attack"].started += Attack;
-        PlayerInput.actions["Dash"].started += Dash;
-        PlayerInput.actions["Dash"].canceled += Dash;
-        PlayerInput.actions["ChangeWeaponToLeft"].started += SelectWeaponToLeft;
-        PlayerInput.actions["ChangeWeaponToRight"].started += SelectWeaponToRight;
-
-    }
-
-    private void Finalize_Controller()
-    {
-        //PlayerInput.actions["Move"].performed -= Move;
-    }
-
-    private void OnDisable()
-    {
-        Finalize_Controller();
-        PlayerInput.enabled = false;
-    }
 
 
     // Update is called once per frame
@@ -95,7 +67,7 @@ public class Player : MonoBehaviour
     {
     }
 
-    private void Move(InputAction.CallbackContext context)
+    public void Move(InputAction.CallbackContext context)
     {
         Vector2 move = context.ReadValue<Vector2>();
         Velocity = move * PLAYER_SPEED;
@@ -105,14 +77,14 @@ public class Player : MonoBehaviour
         Debug.Log(Rigidbody2D.velocity);
     }
 
-    private void MoveEnd(InputAction.CallbackContext context)
+    public void MoveEnd(InputAction.CallbackContext context)
     {
         Velocity = Vector2.zero;
         Rigidbody2D.velocity = Velocity;
     }
 
 
-    private void Dash(InputAction.CallbackContext context)
+    public void Dash(InputAction.CallbackContext context)
     {
         switch (context.phase)
         {
@@ -127,7 +99,7 @@ public class Player : MonoBehaviour
         Debug.Log(Rigidbody2D.velocity);
 
     }
-    private void Attack(InputAction.CallbackContext context)
+    public void Attack(InputAction.CallbackContext context)
     {
         if (Rigidbody2D.velocity != Vector2.zero && WeaponsList[WeaponIndex].GetTagName() == "Blade") return;
         WeaponsList[WeaponIndex].Attack(Rigidbody2D.position, Direction);
@@ -139,13 +111,13 @@ public class Player : MonoBehaviour
         if (WeaponsList[WeaponIndex].GetSprite().Equals(null)) return null;
         return WeaponsList[WeaponIndex].GetSprite();
     }
-    private void SelectWeaponToLeft(InputAction.CallbackContext context)
+    public void SelectWeaponToLeft(InputAction.CallbackContext context)
     {
         WeaponIndex = System.Math.Abs(--WeaponIndex) % WeaponsList.Count;
         Debug.Log($"SelectLeft:{WeaponIndex}");
     }
 
-    private void SelectWeaponToRight(InputAction.CallbackContext context)
+    public void SelectWeaponToRight(InputAction.CallbackContext context)
     {
         WeaponIndex = System.Math.Abs(++WeaponIndex) % WeaponsList.Count;
         Debug.Log($"SelectRight:{WeaponIndex}");
