@@ -1,23 +1,35 @@
+using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class FollowCamera : MonoBehaviour
 {
-    private Camera Camera;
-    [SerializeField]
-    private GameObject Following_Object;
-    private Vector3 EyePosition;
-    // Start is called before the first frame update
-    void Start()
+    public enum eCameraDistanceRatio
     {
-        Camera = GetComponent<Camera>();
+        NEAR,NORAML,FAR,RATIO_NUM,
     }
 
-    // Update is called once per frame
-    void Update()
+    public eCameraDistanceRatio CameraDistanceRatio = eCameraDistanceRatio.NORAML;
+
+    Dictionary<eCameraDistanceRatio, float> CameraDistance = new Dictionary<eCameraDistanceRatio, float>((int)eCameraDistanceRatio.RATIO_NUM)
     {
-        EyePosition = new Vector3(Following_Object.transform.position.x, Following_Object.transform.position.y, Camera.transform.position.z);
-        Camera.transform.position = EyePosition;
+        {eCameraDistanceRatio.NEAR,7.0f },
+        {eCameraDistanceRatio.NORAML,15.0f },
+        {eCameraDistanceRatio.FAR,25.0f },
+    };
+
+
+    public void AdjustCameraDistance(InputAction.CallbackContext context)
+    {
+        int cameraDistanceRatio = (int)CameraDistanceRatio;
+        CameraDistanceRatio = (eCameraDistanceRatio)(Math.Abs(++cameraDistanceRatio) % (int)eCameraDistanceRatio.RATIO_NUM);
+        CinemachineComponentBase componentBase = GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent(CinemachineCore.Stage.Body);
+        if (componentBase is CinemachineFramingTransposer)
+        {
+            (componentBase as CinemachineFramingTransposer).m_CameraDistance = CameraDistance[CameraDistanceRatio];
+        }
     }
 }

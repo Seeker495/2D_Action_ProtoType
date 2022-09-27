@@ -1135,7 +1135,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1675f22ff15cfdf4385ba71ea337aa69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Following_Object: {fileID: 685740612}
 --- !u!114 &1876305126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1205,6 +1204,7 @@ MonoBehaviour:
     Dash: {fileID: 5903642876474502853, guid: 130c7e511cfa0e44fad9e49839c173b2, type: 3}
     ChangeWeaponToLeft: {fileID: -65532931349300092, guid: 130c7e511cfa0e44fad9e49839c173b2, type: 3}
     ChangeWeaponToRight: {fileID: -8631926725245180223, guid: 130c7e511cfa0e44fad9e49839c173b2, type: 3}
+    AdjustCameraDistance: {fileID: 8452548583630671974, guid: 130c7e511cfa0e44fad9e49839c173b2, type: 3}
 --- !u!4 &2041486794
 Transform:
   m_ObjectHideFlags: 0
