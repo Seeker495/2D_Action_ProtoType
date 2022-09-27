@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,17 +23,19 @@ public class Arrow : MonoBehaviour
 
     }
 
-    public void Shoot(Vector2 startPosition, float degree,Vector2 direction)
+    public void Shoot(Vector2 startPosition, float degree, Vector2 direction)
     {
         rb.position = startPosition;
         transform.rotation = Quaternion.Euler(0, 0, -degree);
         rb.velocity = transform.rotation * direction * ARROW_SPEED;
+        float angle = (Mathf.Atan2(rb.velocity.y, rb.velocity.x) + Mathf.PI / 2) * Mathf.Rad2Deg;
+        transform.localEulerAngles = new Vector3(0, 0, angle + Mathf.PI * Mathf.Rad2Deg);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Enemy"))
-        Destroy(gameObject);
+        if (collision.CompareTag("Enemy"))
+            Destroy(gameObject);
     }
 
 }
