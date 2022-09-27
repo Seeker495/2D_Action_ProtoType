@@ -8,6 +8,7 @@ TagManager:
   - Stage
   - Enemy
   - Weapon
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -47,6 +48,9 @@ TagManager:
     locked: 0
   - name: Stage
     uniqueID: 1594375965
+    locked: 0
+  - name: Obstacle
+    uniqueID: 1552039031
     locked: 0
   - name: Weapon
     uniqueID: 2962183501

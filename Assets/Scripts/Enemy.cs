@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Weapon"))
+        if(collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("Blade"))
             Damage(1);
         if (!IsArrive())
             Dead();
@@ -33,7 +33,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Weapon"))
+        if (collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("Blade"))
             Damage(1);
         if (!IsArrive())
             Dead();
