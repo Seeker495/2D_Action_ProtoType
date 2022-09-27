@@ -34,7 +34,13 @@ public class Arrow : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy") || collision.CompareTag("Obstacle"))
+        if (collision.CompareTag("Enemy") || collision.CompareTag("NormalObstacle"))
+            Destroy(gameObject);
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Wall"))
             Destroy(gameObject);
     }
 

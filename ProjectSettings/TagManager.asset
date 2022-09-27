@@ -8,7 +8,9 @@ TagManager:
   - Stage
   - Enemy
   - Weapon
-  - Obstacle
+  - NormalObstacle
+  - WaterObstacle
+  - Wall
   layers:
   - Default
   - TransparentFX
