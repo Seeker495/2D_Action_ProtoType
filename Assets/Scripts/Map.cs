@@ -48,7 +48,6 @@ public class Map : MonoBehaviour
             chip.transform.localScale = gameObject.transform.localScale;
             chip.transform.position = new Vector3(0.0f + (i / Width) * chip.transform.localScale.x, 0.0f - (i % Width) * chip.transform.localScale.y, 0.0f);
             MapChips.Add(Instantiate(chip, transform));
-            Debug.Log(chip.transform.position);
         }
 
     }

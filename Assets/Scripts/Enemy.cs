@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -10,6 +11,8 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         Rigidbody = GetComponent<Rigidbody2D>();
+        GetComponentInChildren<ParticleSystem>().Stop();
+
     }
 
     // Update is called once per frame
@@ -24,10 +27,10 @@ public class Enemy : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("Blade"))
-            Damage(1);
-        if (!IsArrive())
-            Dead();
+        //if(collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("Blade"))
+        //    Damage(1);
+        //if (!IsArrive())
+        //    Dead();
 
     }
 
@@ -71,6 +74,7 @@ public class Enemy : MonoBehaviour
 
     IEnumerator OnDead(float duration, float interval)
     {
+        var particleSystem = GetComponentInChildren<ParticleSystem>();
         while (duration > 0.0f)
         {
             duration -= Time.deltaTime;
@@ -78,7 +82,17 @@ public class Enemy : MonoBehaviour
             yield return new WaitForSeconds(Time.deltaTime);
             GetComponent<SpriteRenderer>().color = Color.white;
         }
-        Destroy(gameObject);
+        particleSystem.Play();
+        if (particleSystem.isPlaying)
+        {
+            particleSystem.transform.SetParent(transform.parent, false);
+            particleSystem.transform.position = transform.position;
+            GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+            GetComponent<BoxCollider2D>().enabled = false;
+        }
+        if (particleSystem.isStopped)
+            Destroy(gameObject);
+
     }
 
 

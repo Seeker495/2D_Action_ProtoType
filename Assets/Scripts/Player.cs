@@ -108,7 +108,6 @@ public class Player : MonoBehaviour
 
     public Sprite GetWeaponSprite()
     {
-        if (WeaponsList[WeaponIndex].GetSprite().Equals(null)) return null;
         return WeaponsList[WeaponIndex].GetSprite();
     }
     public void SelectWeaponToLeft(InputAction.CallbackContext context)

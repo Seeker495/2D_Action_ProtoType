@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1048051617165730498}
   - component: {fileID: 1048051617165730499}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EnemyManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,3 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91479e795a64b3c4ba996b4c5f5b7a19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Map: {fileID: 0}

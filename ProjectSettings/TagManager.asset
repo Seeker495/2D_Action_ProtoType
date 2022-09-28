@@ -18,11 +18,11 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
+  - Stage
+  - Obstacle
+  - Weapon
   - 
   - 
   - 
@@ -62,4 +62,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 1322359581
+    locked: 0
+  - name: Particle
+    uniqueID: 1836040107
     locked: 0

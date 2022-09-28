@@ -9,7 +9,6 @@ public class EnemyManager : MonoBehaviour
     private List<GameObject> Enemies = new List<GameObject>();
     [SerializeField]
     private GameObject Map;
-    private Map.MapRect mapRect;
 
     async void Start()
     {
@@ -24,7 +23,7 @@ public class EnemyManager : MonoBehaviour
             float height = Random.Range(-(info.height), 0.0f);
             Enemies.Add(Instantiate(enemy, transform));
             Enemies[i].GetComponent<Enemy>().transform.position = new Vector2(-height,-width);
-            Debug.Log(Map.GetComponent<Map>().Width);
+            Enemies[i].GetComponentInChildren<ParticleSystem>().Stop();
         }
     }
 

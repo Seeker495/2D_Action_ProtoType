@@ -62,14 +62,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
-        playerController.Move.action.performed -= Player.GetComponent<Player>().Move;
-        playerController.Move.action.canceled -= Player.GetComponent<Player>().MoveEnd;
-        playerController.Attack.action.started -= Player.GetComponent<Player>().Attack;
-        playerController.Dash.action.started -= Player.GetComponent<Player>().Dash;
-        playerController.Dash.action.canceled -= Player.GetComponent<Player>().Dash;
-        playerController.ChangeWeaponToLeft.action.started -= Player.GetComponent<Player>().SelectWeaponToLeft;
-        playerController.ChangeWeaponToRight.action.started -= Player.GetComponent<Player>().SelectWeaponToRight;
-        playerController.AdjustCameraDistance.action.started -= Camera.GetComponent<FollowCamera>().AdjustCameraDistance;
         playerController.Disable();
     }
 }
