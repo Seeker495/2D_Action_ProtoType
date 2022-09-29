@@ -8,22 +8,34 @@ public class Enemy : MonoBehaviour
 {
     private int HP = 2;
     public Rigidbody2D Rigidbody;
+    private bool IsNotified = false;
+    private const float ENEMY_SPEED = 2.5f;
+    MagicManager MagicManager;
+    private const float INTERVAL = 1.0f;
+    private float time = 0.0f;
     void Start()
     {
-        Rigidbody = GetComponent<Rigidbody2D>();
         GetComponentInChildren<ParticleSystem>().Stop();
+        MagicManager = GetComponentInChildren<MagicManager>();
 
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (IsNotified)
+            time += Time.deltaTime;
+        else
+            time = 0.0f;
+        if(IsNotified && time >= INTERVAL)
+        {
+            MagicManager.Attack(Rigidbody.position, Rigidbody.velocity.normalized);
+            time = 0.0f;
+        }
     }
 
     public void FixedUpdate()
     {
-
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -99,6 +111,26 @@ public class Enemy : MonoBehaviour
     public void SetPosition(ref float minX, ref float maxX, ref float minY, ref float maxY)
     {
         Rigidbody.position = new Vector2(Mathf.Clamp(Rigidbody.position.x, minX, maxX), Mathf.Clamp(Rigidbody.position.y, minY, maxY));
+    }
+
+    public void AttachNotify()
+    {
+        IsNotified = true;
+    }
+    public void Chasing(in GameObject chaseTarget)
+    {
+        if (!IsNotified)
+        {
+            Rigidbody.velocity = Vector2.zero;
+            return;
+        }
+
+        Rigidbody.velocity = (chaseTarget.GetComponent<Rigidbody2D>().position - Rigidbody.position).normalized * ENEMY_SPEED;
+    }
+
+    public void DetachNotify()
+    {
+        IsNotified = false;
     }
 
 }

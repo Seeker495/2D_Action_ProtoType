@@ -61,6 +61,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         Rigidbody2D.position = new Vector2(Mathf.Clamp(Rigidbody2D.position.x, mapRect.left, mapRect.right), Mathf.Clamp(Rigidbody2D.position.y, mapRect.bottom, mapRect.top));
+
     }
 
     private void FixedUpdate()
