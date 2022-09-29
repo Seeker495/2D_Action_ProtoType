@@ -33,6 +33,10 @@ MonoBehaviour:
     m_Address: Enemy
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 23b96047f968e4347b4ceac1c78d614e
+    m_Address: Fire
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 748aadb2ffbc1cb429aa884851ecdeff, type: 2}
   m_SchemaSet:
