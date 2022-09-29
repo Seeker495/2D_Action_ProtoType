@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -39,7 +38,9 @@ public class Enemy : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //if(collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("Blade"))
+        if (collision.gameObject.CompareTag("Notify")) return;
+
+        //if (collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("Blade"))
         //    Damage(1);
         //if (!IsArrive())
         //    Dead();
@@ -48,6 +49,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.CompareTag("Notify")) return;
         if (collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("Blade"))
             Damage(1);
         if (!IsArrive())
@@ -74,12 +76,19 @@ public class Enemy : MonoBehaviour
 
     IEnumerator OnDamage(float duration,float interval)
     {
-        while(duration > 0.0f)
+        bool changed = false;
+        int inter = 0;
+        while (duration > 0.0f)
         {
+            inter++;
             duration -= Time.deltaTime;
-            GetComponent<SpriteRenderer>().color = Color.red;
-            yield return new WaitForSeconds(Time.deltaTime);
-            GetComponent<SpriteRenderer>().color = Color.white;
+            if (inter % 30 == 0)
+                changed = !changed;
+            if (changed)
+                GetComponent<SpriteRenderer>().color = Color.red;
+            else
+                GetComponent<SpriteRenderer>().color = Color.white;
+            yield return null;
         }
         GetComponent<SpriteRenderer>().color = Color.white;
     }
@@ -102,9 +111,9 @@ public class Enemy : MonoBehaviour
             GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
             GetComponent<BoxCollider2D>().enabled = false;
         }
+        gameObject.SetActive(false);
         if (particleSystem.isStopped)
             Destroy(gameObject);
-
     }
 
 
@@ -119,13 +128,15 @@ public class Enemy : MonoBehaviour
     }
     public void Chasing(in GameObject chaseTarget)
     {
-        if (!IsNotified)
-        {
-            Rigidbody.velocity = Vector2.zero;
-            return;
-        }
-
         Rigidbody.velocity = (chaseTarget.GetComponent<Rigidbody2D>().position - Rigidbody.position).normalized * ENEMY_SPEED;
+        if (!chaseTarget.GetComponent<Player>().IsArrive())
+            StopChasing();
+    }
+
+    public void StopChasing()
+    {
+        Rigidbody.velocity = Vector2.zero;
+        DetachNotify();
     }
 
     public void DetachNotify()

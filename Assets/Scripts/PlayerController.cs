@@ -15,12 +15,13 @@ public class PlayerController : MonoBehaviour
         public InputActionReference ChangeWeaponToLeft;
         public InputActionReference ChangeWeaponToRight;
         public InputActionReference AdjustCameraDistance;
+        public InputActionReference Resurrection;
 
         public void Enable()
         {
-            List<InputActionReference> inputActionReferences = new List<InputActionReference>(6)
+            List<InputActionReference> inputActionReferences = new List<InputActionReference>(7)
             {
-                Move, Attack, Dash, ChangeWeaponToLeft, ChangeWeaponToRight,AdjustCameraDistance,
+                Move, Attack, Dash, ChangeWeaponToLeft, ChangeWeaponToRight,AdjustCameraDistance,Resurrection,
             };
             foreach (var inputActionReference in inputActionReferences)
             {
@@ -42,7 +43,7 @@ public class PlayerController : MonoBehaviour
         }
     }
     [SerializeField]
-    Controller playerController;
+    public Controller playerController;
     GameObject Player;
     GameObject Camera;
     private void Start()
@@ -58,6 +59,8 @@ public class PlayerController : MonoBehaviour
         playerController.ChangeWeaponToLeft.action.started += Player.GetComponent<Player>().SelectWeaponToLeft;
         playerController.ChangeWeaponToRight.action.started += Player.GetComponent<Player>().SelectWeaponToRight;
         playerController.AdjustCameraDistance.action.started += Camera.GetComponent<FollowCamera>().AdjustCameraDistance;
+        playerController.Resurrection.action.started += Player.GetComponent<Player>().Resurrection;
+
     }
 
     private void OnDisable()

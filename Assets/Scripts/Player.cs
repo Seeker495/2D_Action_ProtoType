@@ -23,7 +23,8 @@ public class Player : MonoBehaviour
     private Map Map;
     private Map.MapRect mapRect;
     private Vector2 Direction = Vector2.up;
-
+    public int HP = 5;
+    private bool IsDamaged = false;
     private List<IWeapon> WeaponsList;
 
     private int WeaponIndex = 0;
@@ -61,7 +62,6 @@ public class Player : MonoBehaviour
     void Update()
     {
         Rigidbody2D.position = new Vector2(Mathf.Clamp(Rigidbody2D.position.x, mapRect.left, mapRect.right), Mathf.Clamp(Rigidbody2D.position.y, mapRect.bottom, mapRect.top));
-
     }
 
     private void FixedUpdate()
@@ -123,6 +123,79 @@ public class Player : MonoBehaviour
         Debug.Log($"SelectRight:{WeaponIndex}");
     }
 
+    public void Resurrection(InputAction.CallbackContext context)
+    {
+        gameObject.SetActive(true);
+        if (IsArrive()) return;
+        gameObject.tag = "Player";
+        HP = 10;
+        IsDamaged = false;
+        GameObject.Find("PlayerController").GetComponent<PlayerController>().playerController.Enable();
 
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (IsDamaged) return;
+        if (collision.gameObject.CompareTag("Enemy"))
+            Damage(1);
+        if (!IsArrive())
+            Dead();
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (IsDamaged && !collision.CompareTag("Wall") && !collision.CompareTag("NormalObstacle") && !collision.CompareTag("WaterObstacle")) return;
+        if (collision.gameObject.CompareTag("Magic"))
+            Damage(2);
+        if (!IsArrive())
+            Dead();
+
+    }
+
+
+    public bool IsArrive()
+    {
+        return 0 < HP;
+    }
+
+    private void Dead()
+    {
+        gameObject.tag = "Untagged";
+        Debug.Log("Dead!!!!");
+        GameObject.Find("PlayerController").GetComponent<PlayerController>().playerController.Disable();
+        gameObject.SetActive(false);
+
+        //StartCoroutine(OnDead(0.1f, 0.3f));
+    }
+
+    void Damage(in int damage = 0)
+    {
+        HP -= damage;
+        StartCoroutine(OnDamage(2.0f, 0.3f));
+    }
+
+    IEnumerator OnDamage(float duration, float interval)
+    {
+        IsDamaged = true;
+        bool changed = false;
+        int inter = 0;
+        while (duration > 0.0f)
+        {
+            inter++;
+            duration -= Time.deltaTime;
+            if (inter % 30 == 0)
+                changed = !changed;
+            if(changed)
+            GetComponent<SpriteRenderer>().color = Color.red;
+            else
+            GetComponent<SpriteRenderer>().color = Color.white;
+            yield return null;
+        }
+        GetComponent<SpriteRenderer>().color = Color.white;
+        IsDamaged = false;
+    }
 
 }
