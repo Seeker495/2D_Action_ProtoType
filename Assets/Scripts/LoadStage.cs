@@ -15,7 +15,13 @@ public static class LoadStage
     public static MapData Load(string fileName)
     {
         MapData map = new MapData();
-        using (StreamReader reader = new StreamReader($"Assets/Stage/{fileName}.csv", Encoding.UTF8))
+        string StagePath = "";
+#if UNITY_EDITOR
+        StagePath = $"Assets/Stage/";
+#endif
+        if (Application.platform == RuntimePlatform.WindowsPlayer)
+            StagePath = $"Stage/";
+        using (StreamReader reader = new StreamReader($"{StagePath}{fileName}.csv", Encoding.UTF8))
         {
             string line = string.Empty;
             map.stage = new List<int>();

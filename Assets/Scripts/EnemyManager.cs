@@ -12,7 +12,7 @@ public class EnemyManager : MonoBehaviour
 
     async void Start()
     {
-        MAX_ENEMY_NUM = Random.Range(10, 20);
+        MAX_ENEMY_NUM = 5/*Random.Range(10, 20)*/;
         var enemy = await Addressables.LoadAssetAsync<GameObject>("Enemy").Task;
         var data = Map.GetComponent<Map>();
         var info = data.GetMapData();
