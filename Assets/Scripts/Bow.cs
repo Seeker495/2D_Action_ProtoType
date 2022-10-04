@@ -4,10 +4,11 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-public class Bow : MonoBehaviour,IWeapon
+public class Bow : MonoBehaviour,IAttack
 {
     // Start is called before the first frame update
 
+    private static Vector2 m_direction;
     void Start()
     {
 
@@ -19,35 +20,39 @@ public class Bow : MonoBehaviour,IWeapon
 
     }
 
-    public void Attack(Vector2 startPosition,Vector2 direction)
+    void IAttack.Attack()
     {
-        Shoot(startPosition,-30.0f, 30.0f, 3,direction);
+        Shoot(-30.0f, 30.0f, 3);
     }
 
-    public async void Shoot(Vector2 startPosition,float startDegree, float angleInterval, int arrowNum,Vector2 direction)
+    Sprite IAttack.GetSprite()
+    {
+        return GetComponent<SpriteRenderer>().sprite;
+    }
+
+    eAttackType IAttack.GetAttackType()
+    {
+        return eAttackType.BOW;
+    }
+
+    public async void Shoot(float startDegree, float angleInterval, int arrowNum)
     {
         var arrow = await Addressables.LoadAssetAsync<GameObject>("Arrow").Task;
-        Debug.Log(arrow);
+
+        var startPosition = transform.parent.GetComponent<Rigidbody2D>().position;
+        m_direction = transform.parent.GetComponent<IActor>().GetDirection();
+
         GameObject[] arrowObjects = new GameObject[arrowNum];
-        for (int i = 0; i < arrowNum; i++)
+        for (int i = 0; i < arrowObjects.Length; ++i)
         {
             arrowObjects[i] = Instantiate(arrow, transform);
         }
 
 
-        for (int i = 0; i < arrowNum; i++)
+        for (int i = 0; i < arrowObjects.Length; ++i)
         {
-            arrowObjects[i].GetComponent<Arrow>().Shoot(startPosition, startDegree + i * angleInterval,direction);
+            arrowObjects[i].GetComponent<Arrow>().Shoot(startPosition, startDegree + i * angleInterval, m_direction);
         }
     }
 
-    public Sprite GetSprite()
-    {
-        return GetComponent<SpriteRenderer>().sprite;
-    }
-
-    public string GetTagName()
-    {
-        return gameObject.tag;
-    }
 }

@@ -9,12 +9,15 @@ public class FollowCamera : MonoBehaviour
 {
     public enum eCameraDistanceRatio
     {
-        NEAR,NORAML,FAR,RATIO_NUM,
+        NEAR,
+        NORAML,
+        FAR,
+        RATIO_NUM,
     }
 
-    public eCameraDistanceRatio CameraDistanceRatio = eCameraDistanceRatio.NORAML;
+    public eCameraDistanceRatio m_cameraDistanceRatio = eCameraDistanceRatio.NORAML;
 
-    Dictionary<eCameraDistanceRatio, float> CameraDistance = new Dictionary<eCameraDistanceRatio, float>((int)eCameraDistanceRatio.RATIO_NUM)
+    Dictionary<eCameraDistanceRatio, float> m_cameraDistance = new Dictionary<eCameraDistanceRatio, float>((int)eCameraDistanceRatio.RATIO_NUM)
     {
         {eCameraDistanceRatio.NEAR,7.0f },
         {eCameraDistanceRatio.NORAML,15.0f },
@@ -24,12 +27,12 @@ public class FollowCamera : MonoBehaviour
 
     public void AdjustCameraDistance(InputAction.CallbackContext context)
     {
-        int cameraDistanceRatio = (int)CameraDistanceRatio;
-        CameraDistanceRatio = (eCameraDistanceRatio)(Math.Abs(++cameraDistanceRatio) % (int)eCameraDistanceRatio.RATIO_NUM);
+        int cameraDistanceRatio = (int)m_cameraDistanceRatio;
+        m_cameraDistanceRatio = (eCameraDistanceRatio)(Math.Abs(++cameraDistanceRatio) % (int)eCameraDistanceRatio.RATIO_NUM);
         CinemachineComponentBase componentBase = GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent(CinemachineCore.Stage.Body);
         if (componentBase is CinemachineFramingTransposer)
         {
-            (componentBase as CinemachineFramingTransposer).m_CameraDistance = CameraDistance[CameraDistanceRatio];
+            (componentBase as CinemachineFramingTransposer).m_CameraDistance = m_cameraDistance[m_cameraDistanceRatio];
         }
     }
 }

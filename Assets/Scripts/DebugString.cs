@@ -5,16 +5,18 @@ using UnityEngine;
 
 public class DebugString : MonoBehaviour
 {
-    Player player;
+    Player m_player;
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        // プレイヤーのゲームオブジェクトを見つけた上でプレイヤーのコンポーネントを入手する
+        m_player = GameObject.FindWithTag("Player").GetComponent<Player>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        GetComponentInChildren<TextMeshProUGUI>().text = $"HP: {player.HP}";
+        // テキストを設定する
+        GetComponentInChildren<TextMeshProUGUI>().text = $"HP: ";
     }
 }

@@ -43,28 +43,29 @@ public class PlayerController : MonoBehaviour
         }
     }
     [SerializeField]
-    public Controller playerController;
-    GameObject Player;
-    GameObject Camera;
+    private Controller m_playerController;
+    public Controller Player_Controller => m_playerController;
+    GameObject m_player;
+    GameObject m_camera;
     private void Start()
     {
-        Player = GameObject.Find("Player");
-        Camera = GameObject.Find("CM vcam1");
-        playerController.Enable();
-        playerController.Move.action.performed += Player.GetComponent<Player>().Move;
-        playerController.Move.action.canceled += Player.GetComponent<Player>().MoveEnd;
-        playerController.Attack.action.started += Player.GetComponent<Player>().Attack;
-        playerController.Dash.action.started += Player.GetComponent<Player>().Dash;
-        playerController.Dash.action.canceled += Player.GetComponent<Player>().Dash;
-        playerController.ChangeWeaponToLeft.action.started += Player.GetComponent<Player>().SelectWeaponToLeft;
-        playerController.ChangeWeaponToRight.action.started += Player.GetComponent<Player>().SelectWeaponToRight;
-        playerController.AdjustCameraDistance.action.started += Camera.GetComponent<FollowCamera>().AdjustCameraDistance;
-        playerController.Resurrection.action.started += Player.GetComponent<Player>().Resurrection;
+        m_player = GameObject.Find("Player");
+        m_camera = GameObject.Find("CM vcam1");
+        m_playerController.Enable();
+        m_playerController.Move.action.performed += m_player.GetComponent<Player>().Move;
+        m_playerController.Move.action.canceled += m_player.GetComponent<Player>().MoveEnd;
+        m_playerController.Attack.action.started += m_player.GetComponent<Player>().Attack;
+        m_playerController.Dash.action.started += m_player.GetComponent<Player>().Dash;
+        m_playerController.Dash.action.canceled += m_player.GetComponent<Player>().Dash;
+        m_playerController.ChangeWeaponToLeft.action.started += m_player.GetComponent<Player>().SelectWeaponToLeft;
+        m_playerController.ChangeWeaponToRight.action.started += m_player.GetComponent<Player>().SelectWeaponToRight;
+        m_playerController.AdjustCameraDistance.action.started += m_camera.GetComponent<FollowCamera>().AdjustCameraDistance;
+        m_playerController.Resurrection.action.started += m_player.GetComponent<Player>().Resurrection;
 
     }
 
     private void OnDisable()
     {
-        playerController.Disable();
+        m_playerController.Disable();
     }
 }

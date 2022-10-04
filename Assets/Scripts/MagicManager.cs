@@ -16,17 +16,18 @@ public class MagicManager : MonoBehaviour
 
     }
 
-    public void Attack(Vector2 startPosition, Vector2 direction)
+    public void Attack()
     {
-        Shoot(startPosition, direction);
+        Shoot();
     }
 
-    public async void Shoot(Vector2 startPosition, Vector2 direction)
+    public async void Shoot()
     {
         var magic = await Addressables.LoadAssetAsync<GameObject>("Fire").Task;
         Debug.Log(magic);
         GameObject magicObject = Instantiate(magic, transform);
-        magicObject.GetComponent<Fire>().Attack(startPosition, direction);
+        IAttack fire = magicObject.GetComponent<Fire>();
+        fire.Attack();
     }
 
 }

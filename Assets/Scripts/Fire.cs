@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fire : MonoBehaviour,IWeapon
+public class Fire : MonoBehaviour,IAttack
 {
     [SerializeField]
     Rigidbody2D Rigidbody2D;
@@ -19,22 +19,27 @@ public class Fire : MonoBehaviour,IWeapon
 
     }
 
-    public void Attack(Vector2 startPosition, Vector2 direction)
+    public void Attack()
     {
-        Rigidbody2D.position = startPosition;
-        transform.rotation = Quaternion.Euler(direction.x, direction.y, 0.0f);
-        Rigidbody2D.velocity = transform.rotation * direction * ATTACK_SPEED;
         //float angle = (Mathf.Atan2(Rigidbody2D.velocity.y, Rigidbody2D.velocity.x) + Mathf.PI / 2) * Mathf.Rad2Deg;
         //transform.localEulerAngles = new Vector3(0, 0, angle + Mathf.PI * Mathf.Rad2Deg);
     }
 
-    public Sprite GetSprite()
+    void IAttack.Attack()
     {
-        return GetComponent<SpriteRenderer>().sprite;
+        var direction = transform.parent.parent.GetComponent<IActor>().GetDirection();
+        Rigidbody2D.position = transform.parent.parent.GetComponent<Rigidbody2D>().position;
+        transform.rotation = Quaternion.Euler(direction.x, direction.y, 0.0f);
+        Rigidbody2D.velocity = transform.rotation * direction * ATTACK_SPEED;
     }
 
-    public string GetTagName()
+    Sprite IAttack.GetSprite()
     {
-        return gameObject.tag;
+        return null;
+    }
+
+    eAttackType IAttack.GetAttackType()
+    {
+        return eAttackType.FIRE;
     }
 }

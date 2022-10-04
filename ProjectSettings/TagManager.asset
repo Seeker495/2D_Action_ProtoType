@@ -13,6 +13,8 @@ TagManager:
   - Wall
   - Magic
   - Notify
+  - Map
+  - EnemyManager
   layers:
   - Default
   - TransparentFX

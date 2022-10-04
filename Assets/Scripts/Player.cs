@@ -8,29 +8,27 @@ using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IActor
 {
-    Rigidbody2D Rigidbody2D;
+    Rigidbody2D m_rigidbody2D;
 
     [SerializeField]
-    private Vector2 StartPosition;
-    private Vector2 Velocity;
-    private const float PLAYER_SPEED = 3.0f;
+    private Vector2 m_startPosition;
+    private Vector2 m_velocity;
+    private Vector2 m_direction;
     private Dictionary<Vector2, Tile> Sprites;
-    private Map Map;
-    private Map.MapRect mapRect;
-    private Vector2 Direction = Vector2.up;
-    public int HP = 5;
-    private bool IsDamaged = false;
-    private List<IWeapon> WeaponsList;
+    private PlayerStatus m_playerStatus;
+    private bool m_isDamaged = false;
+    private List<IAttack> m_weapons;
 
     private int WeaponIndex = 0;
     // Start is called before the first frame update
     async void Start()
     {
-        Map = GameObject.Find("Map").GetComponent<Map>();
+        m_playerStatus.actorStatus.hp = 10;
+        m_playerStatus.actorStatus.speed = 3.0f;
 
-        Rigidbody2D = GetComponent<Rigidbody2D>();
+        m_rigidbody2D = GetComponent<Rigidbody2D>();
 
 
         Sprites = new Dictionary<Vector2, Tile>(4)
@@ -41,16 +39,11 @@ public class Player : MonoBehaviour
             {Vector2.down,await Addressables.LoadAssetAsync<Tile>("Characters_0").Task },
         };
 
-        WeaponsList = new List<IWeapon>(2)
+        m_weapons = new List<IAttack>(2)
         {
             GetComponentInChildren<Blade>(),
             GetComponentInChildren<Bow>(),
         };
-        mapRect = Map.GetEdgeRect();
-        var data = Map.GetMapData();
-
-        StartPosition = new Vector2(Random.Range(0, data.width), Random.Range(-data.height, 0));
-        Rigidbody2D.position = StartPosition;
     }
 
 
@@ -58,7 +51,6 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Rigidbody2D.position = new Vector2(Mathf.Clamp(Rigidbody2D.position.x, mapRect.left, mapRect.right), Mathf.Clamp(Rigidbody2D.position.y, mapRect.bottom, mapRect.top));
     }
 
     private void FixedUpdate()
@@ -68,17 +60,15 @@ public class Player : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         Vector2 move = context.ReadValue<Vector2>();
-        Velocity = move * PLAYER_SPEED;
-        Rigidbody2D.velocity = Velocity;
-        Direction = Rigidbody2D.velocity.normalized;
-        //gameObject.GetComponent<SpriteRenderer>().sprite = Velocity != Vector2.zero ? Sprites[move].sprite : gameObject.GetComponent<SpriteRenderer>().sprite;
-        Debug.Log(Rigidbody2D.velocity);
+        m_velocity = move * m_playerStatus.actorStatus.speed;
+        m_rigidbody2D.velocity = m_velocity;
+        m_direction = m_rigidbody2D.velocity.normalized;
     }
 
     public void MoveEnd(InputAction.CallbackContext context)
     {
-        Velocity = Vector2.zero;
-        Rigidbody2D.velocity = Velocity;
+        m_velocity = Vector2.zero;
+        m_rigidbody2D.velocity = m_velocity;
     }
 
 
@@ -87,37 +77,34 @@ public class Player : MonoBehaviour
         switch (context.phase)
         {
             case InputActionPhase.Started:
-                Velocity *= 2;
+                m_velocity *= 2;
                 break;
             case InputActionPhase.Canceled:
-                Velocity /= 2;
+                m_velocity /= 2;
                 break;
         }
-        Rigidbody2D.velocity = Velocity;
-        Debug.Log(Rigidbody2D.velocity);
+        m_rigidbody2D.velocity = m_velocity;
 
     }
     public void Attack(InputAction.CallbackContext context)
     {
-        if (Rigidbody2D.velocity != Vector2.zero && WeaponsList[WeaponIndex].GetTagName() == "Blade") return;
-        WeaponsList[WeaponIndex].Attack(Rigidbody2D.position, Direction);
+        if (m_rigidbody2D.velocity != Vector2.zero && m_weapons[WeaponIndex].GetAttackType().Equals(eAttackType.BLADE)) return;
+        m_weapons[WeaponIndex].Attack();
     }
 
 
     public Sprite GetWeaponSprite()
     {
-        return WeaponsList[WeaponIndex].GetSprite();
+        return m_weapons[WeaponIndex].GetSprite();
     }
     public void SelectWeaponToLeft(InputAction.CallbackContext context)
     {
-        WeaponIndex = System.Math.Abs(--WeaponIndex) % WeaponsList.Count;
-        Debug.Log($"SelectLeft:{WeaponIndex}");
+        WeaponIndex = System.Math.Abs(--WeaponIndex) % m_weapons.Count;
     }
 
     public void SelectWeaponToRight(InputAction.CallbackContext context)
     {
-        WeaponIndex = System.Math.Abs(++WeaponIndex) % WeaponsList.Count;
-        Debug.Log($"SelectRight:{WeaponIndex}");
+        WeaponIndex = System.Math.Abs(++WeaponIndex) % m_weapons.Count;
     }
 
     public void Resurrection(InputAction.CallbackContext context)
@@ -125,16 +112,16 @@ public class Player : MonoBehaviour
         gameObject.SetActive(true);
         if (IsArrive()) return;
         gameObject.tag = "Player";
-        HP = 10;
-        IsDamaged = false;
-        GameObject.Find("PlayerController").GetComponent<PlayerController>().playerController.Enable();
+        m_playerStatus.actorStatus.hp = 10;
+        m_isDamaged = false;
+        GameObject.Find("PlayerController").GetComponent<PlayerController>().Player_Controller.Enable();
 
     }
 
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (IsDamaged) return;
+        if (m_isDamaged) return;
         if (collision.gameObject.CompareTag("Enemy"))
             Damage(1);
         if (!IsArrive())
@@ -144,7 +131,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (IsDamaged && !collision.CompareTag("Wall") && !collision.CompareTag("NormalObstacle") && !collision.CompareTag("WaterObstacle")) return;
+        if (m_isDamaged && !collision.CompareTag("Wall") && !collision.CompareTag("NormalObstacle") && !collision.CompareTag("WaterObstacle")) return;
         if (collision.gameObject.CompareTag("Magic"))
             Damage(2);
         if (!IsArrive())
@@ -155,28 +142,40 @@ public class Player : MonoBehaviour
 
     public bool IsArrive()
     {
-        return 0 < HP;
+        return 0 < m_playerStatus.actorStatus.hp;
     }
 
     private void Dead()
     {
         gameObject.tag = "Untagged";
-        Debug.Log("Dead!!!!");
-        GameObject.Find("PlayerController").GetComponent<PlayerController>().playerController.Disable();
+        GameObject.Find("PlayerController").GetComponent<PlayerController>().Player_Controller.Disable();
         gameObject.SetActive(false);
 
         //StartCoroutine(OnDead(0.1f, 0.3f));
     }
 
+    public void SetMoveRange(ref Map map)
+    {
+        var range = map.GetEdgeRect();
+        m_rigidbody2D.position = new Vector2(Mathf.Clamp(m_rigidbody2D.position.x, range.left, range.right), Mathf.Clamp(m_rigidbody2D.position.y, range.bottom, range.top));
+    }
+
+    public void SetSpawnPosition(ref Map map)
+    {
+        var data = map.GetMapData();
+        m_startPosition = new Vector2(Random.Range(0, data.width), Random.Range(-data.height, 0));
+        m_rigidbody2D.position = m_startPosition;
+    }
+
     void Damage(in int damage = 0)
     {
-        HP -= damage;
+        m_playerStatus.actorStatus.hp -= damage;
         StartCoroutine(OnDamage(2.0f, 0.3f));
     }
 
     IEnumerator OnDamage(float duration, float interval)
     {
-        IsDamaged = true;
+        m_isDamaged = true;
         bool changed = false;
         int inter = 0;
         while (duration > 0.0f)
@@ -192,7 +191,11 @@ public class Player : MonoBehaviour
             yield return null;
         }
         GetComponent<SpriteRenderer>().color = Color.white;
-        IsDamaged = false;
+        m_isDamaged = false;
     }
 
+    Vector2 IActor.GetDirection()
+    {
+        return m_direction;
+    }
 }

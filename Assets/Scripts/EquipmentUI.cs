@@ -5,19 +5,19 @@ using UnityEngine.UI;
 
 public class EquipmentUI : MonoBehaviour
 {
-    private Player Player;
+    private Player m_player;
     // Start is called before the first frame update
     void Start()
     {
-        Player = GameObject.Find("Player").GetComponent<Player>();
+        m_player = GameObject.Find("Player").GetComponent<Player>();
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Player.GetWeaponSprite().Equals(null)) return;
-        if(GetComponent<Image>().sprite != Player.GetWeaponSprite())
-            GetComponent<Image>().sprite = Player.GetWeaponSprite();
+        if (m_player.GetWeaponSprite().Equals(null)) return;
+        if(GetComponent<Image>().sprite != m_player.GetWeaponSprite())
+            GetComponent<Image>().sprite = m_player.GetWeaponSprite();
     }
 }

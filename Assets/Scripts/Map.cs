@@ -10,28 +10,33 @@ public class Map : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    private List<GameObject> MapChips = new List<GameObject>();
+    private List<GameObject> m_mapChips = new List<GameObject>();
     [SerializeField]
-    private string StageName;
-    public int Width;
-    public int Height;
+    private string m_stageName;
+    private bool m_isLoadFinished = false;
+    public bool IsLoadFinished => m_isLoadFinished;
 
-    LoadStage.MapData mapData;
     public struct MapRect
     {
         public float left, top, right, bottom;
     }
 
-    MapRect mapRect;
+    private MapRect m_mapRect;
 
-    void Start()
+    public struct MapInfo
     {
-        Load("SampleStage");
+        public int width, height;
     }
 
-    public async void Load(string stageName)
+    private MapInfo m_mapInfo;
+
+
+    public async Task Load(string stageName)
     {
-        mapData = LoadStage.Load(stageName);
+        m_isLoadFinished = false;
+        m_mapChips.Clear();
+        m_stageName = stageName;
+        var mapData = LoadStage.Load(m_stageName);
 
         var mapObjects = new List<GameObject>(2)
         {
@@ -39,17 +44,19 @@ public class Map : MonoBehaviour
             await Addressables.LoadAssetAsync<GameObject>($"Object_1").Task,
         };
 
-        Width = mapData.width;
-        Height = mapData.height;
+
+        m_mapInfo.width = mapData.width;
+        m_mapInfo.height = mapData.height;
 
         for (int i = 0; i < mapData.stage.Count; i++)
         {
             var chip = mapObjects[mapData.stage[i]];
             chip.transform.localScale = gameObject.transform.localScale;
-            chip.transform.position = new Vector3(0.0f + (i / Width) * chip.transform.localScale.x, 0.0f - (i % Width) * chip.transform.localScale.y, 0.0f);
-            MapChips.Add(Instantiate(chip, transform));
-        }
+            chip.transform.position = new Vector3(0.0f + (i / m_mapInfo.width) * chip.transform.localScale.x, 0.0f - (i % m_mapInfo.width) * chip.transform.localScale.y, 0.0f);
+            m_mapChips.Add(Instantiate(chip, transform));
 
+        }
+        m_isLoadFinished = true;
     }
 
     // Update is called once per frame
@@ -62,28 +69,23 @@ public class Map : MonoBehaviour
 
     public Vector2 GetCenterPosition()
     {
-        Vector2 chipScale = MapChips.First().transform.localScale;
-        return new Vector2(MapChips[Width / 2].transform.position.x - 0.5f * chipScale.x, MapChips[Width * (Height / 2)].transform.position.y + 0.5f * chipScale.y);
+        Vector2 chipScale = m_mapChips.First().transform.localScale;
+        return new Vector2(m_mapChips[m_mapInfo.width / 2].transform.position.x - 0.5f * chipScale.x, m_mapChips[m_mapInfo.width * (m_mapInfo.height / 2)].transform.position.y + 0.5f * chipScale.y);
     }
 
     public MapRect GetEdgeRect()
     {
-        if (MapChips.Count == 0) { Start(); }
-        else
-        {
-            Vector2 chipScale = MapChips.First().transform.localScale;
-            mapRect.left = MapChips.First().transform.position.x - 0.5f * chipScale.x;
-            mapRect.top = MapChips.First().transform.position.y + 0.5f * chipScale.y;
-            mapRect.right = MapChips.Last().transform.position.x + 0.5f * chipScale.x;
-            mapRect.bottom = MapChips.Last().transform.position.y - 0.5f * chipScale.y;
-        }
-        return mapRect;
+        Vector2 chipScale = m_mapChips.First().transform.localScale;
+        m_mapRect.left = m_mapChips.First().transform.position.x - 0.5f * chipScale.x;
+        m_mapRect.top = m_mapChips.First().transform.position.y + 0.5f * chipScale.y;
+        m_mapRect.right = m_mapChips.Last().transform.position.x + 0.5f * chipScale.x;
+        m_mapRect.bottom = m_mapChips.Last().transform.position.y - 0.5f * chipScale.y;
+        return m_mapRect;
     }
 
-    public LoadStage.MapData GetMapData()
+    public MapInfo GetMapData()
     {
-        if (MapChips.Count == 0) { Start(); }
-        return mapData;
+        return m_mapInfo;
     }
 
 }

@@ -5,16 +5,15 @@ using static UnityEngine.ParticleSystem;
 
 public class ExpTrigger : MonoBehaviour
 {
-    ParticleSystem ParticleSystem;
-    int exp = 0;
-   List<ParticleSystem.Particle> ParticleEnter = new List<ParticleSystem.Particle>();
-    List<ParticleSystem.Particle> ParticleOutSide = new List<ParticleSystem.Particle>();
+    ParticleSystem m_particleSystem;
+    List<ParticleSystem.Particle> m_particleEnter = new List<ParticleSystem.Particle>();
+    List<ParticleSystem.Particle> m_particleOutSide = new List<ParticleSystem.Particle>();
     const float EXP_SPEED = 5.0f;
 
     void OnEnable()
     {
-        ParticleSystem = GetComponent<ParticleSystem>();
-        ParticleSystem.trigger.AddCollider(GameObject.FindWithTag("Player").GetComponent<BoxCollider2D>());
+        m_particleSystem = GetComponent<ParticleSystem>();
+        m_particleSystem.trigger.AddCollider(GameObject.FindWithTag("Player").GetComponent<BoxCollider2D>());
 
     }
 
@@ -25,36 +24,33 @@ public class ExpTrigger : MonoBehaviour
 
     void OnParticleTrigger()
     {
-        var main = ParticleSystem.main;
+        var main = m_particleSystem.main;
         if (main.maxParticles <= 0)
             Destroy(gameObject);
 
-        ParticleSystem.TriggerModule trigger = ParticleSystem.trigger;
-        int numEnter = ParticleSystem.GetTriggerParticles(ParticleSystemTriggerEventType.Enter, ParticleEnter);
-        int numOutSide = ParticleSystem.GetTriggerParticles(ParticleSystemTriggerEventType.Outside, ParticleOutSide);
+        ParticleSystem.TriggerModule trigger = m_particleSystem.trigger;
+        int numEnter = m_particleSystem.GetTriggerParticles(ParticleSystemTriggerEventType.Enter, m_particleEnter);
+        int numOutSide = m_particleSystem.GetTriggerParticles(ParticleSystemTriggerEventType.Outside, m_particleOutSide);
 
 
         for (int i = 0; i < numEnter; i++)
         {
-            Debug.Log($"Exp: {++exp}");
             --main.maxParticles;
-
         }
-        var playerPosition = ParticleSystem.trigger.GetCollider(0).gameObject.GetComponent<Rigidbody2D>().position;
+        var playerPosition = m_particleSystem.trigger.GetCollider(0).gameObject.GetComponent<Rigidbody2D>().position;
         for (int i = 0; i < numOutSide; ++i)
         {
-            var particle = ParticleOutSide[i];
-            var velocity = ParticleSystem.transform.TransformPoint(particle.velocity);
-            var position = ParticleSystem.transform.TransformPoint(particle.position);
+            var particle = m_particleOutSide[i];
+            var position = m_particleSystem.transform.TransformPoint(particle.position);
             if (particle.startLifetime - particle.remainingLifetime <= 99.0f)
                 position = Vector3.MoveTowards(position, new Vector3(playerPosition.x, playerPosition.y, 0.0f), EXP_SPEED * Time.deltaTime);
-            particle.position = ParticleSystem.transform.InverseTransformPoint(position);
-            ParticleOutSide[i] = particle;
+            particle.position = m_particleSystem.transform.InverseTransformPoint(position);
+            m_particleOutSide[i] = particle;
         }
 
         // 変更したパーティクルをパーティクルシステムに再割り当てします
-        ParticleSystem.SetTriggerParticles(ParticleSystemTriggerEventType.Enter, ParticleEnter);
-        ParticleSystem.SetTriggerParticles(ParticleSystemTriggerEventType.Outside, ParticleOutSide);
+        m_particleSystem.SetTriggerParticles(ParticleSystemTriggerEventType.Enter, m_particleEnter);
+        m_particleSystem.SetTriggerParticles(ParticleSystemTriggerEventType.Outside, m_particleOutSide);
 
         if (numEnter > 0)
             trigger.enter = ParticleSystemOverlapAction.Kill;

@@ -3,15 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IActor
 {
     private int HP = 2;
     public Rigidbody2D Rigidbody;
-    private bool IsNotified = false;
+    private bool m_isNotified = false;
     private const float ENEMY_SPEED = 2.5f;
     MagicManager MagicManager;
     private const float INTERVAL = 1.0f;
     private float time = 0.0f;
+    private Vector2 m_direction;
     void Start()
     {
         GetComponentInChildren<ParticleSystem>().Stop();
@@ -22,13 +23,14 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IsNotified)
+        if (m_isNotified)
             time += Time.deltaTime;
         else
             time = 0.0f;
-        if(IsNotified && time >= INTERVAL)
+        if(m_isNotified && time >= INTERVAL)
         {
-            MagicManager.Attack(Rigidbody.position, Rigidbody.velocity.normalized);
+            m_direction = Rigidbody.velocity.normalized;
+            MagicManager.Attack();
             time = 0.0f;
         }
     }
@@ -124,7 +126,7 @@ public class Enemy : MonoBehaviour
 
     public void AttachNotify()
     {
-        IsNotified = true;
+        m_isNotified = true;
     }
     public void Chasing(in GameObject chaseTarget)
     {
@@ -141,7 +143,16 @@ public class Enemy : MonoBehaviour
 
     public void DetachNotify()
     {
-        IsNotified = false;
+        m_isNotified = false;
     }
 
+    public bool IsNotified()
+    {
+        return m_isNotified;
+    }
+
+    Vector2 IActor.GetDirection()
+    {
+        return m_direction;
+    }
 }

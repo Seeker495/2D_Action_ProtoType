@@ -1,20 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class Arrow : MonoBehaviour
 {
     [SerializeField]
-    Rigidbody2D rb;
+    Rigidbody2D m_rigidBody2D;
 
+    // 矢のスピード
     const float ARROW_SPEED = 3.0f;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        //rb.position = Vector3.zero;
+        m_rigidBody2D = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -23,23 +19,30 @@ public class Arrow : MonoBehaviour
 
     }
 
+    /*
+     * 関数名: Shoot
+     * 概要: 矢の発射
+     * 引数: 開始位置,角度,方向
+     */
     public void Shoot(Vector2 startPosition, float degree, Vector2 direction)
     {
-        rb.position = startPosition;
+        m_rigidBody2D.position = startPosition;
         transform.rotation = Quaternion.Euler(0, 0, -degree);
-        rb.velocity = transform.rotation * direction * ARROW_SPEED;
-        float angle = (Mathf.Atan2(rb.velocity.y, rb.velocity.x) + Mathf.PI / 2) * Mathf.Rad2Deg;
+        m_rigidBody2D.velocity = transform.rotation * direction * ARROW_SPEED;
+        float angle = (Mathf.Atan2(m_rigidBody2D.velocity.y, m_rigidBody2D.velocity.x) + Mathf.PI / 2) * Mathf.Rad2Deg;
         transform.localEulerAngles = new Vector3(0, 0, angle + Mathf.PI * Mathf.Rad2Deg);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // 敵及び通常の障害物に接触したら破壊する
         if (collision.CompareTag("Enemy") || collision.CompareTag("NormalObstacle"))
             Destroy(gameObject);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        // 壁(マップの範囲外)に出たら破壊する
         if (collision.CompareTag("Wall"))
             Destroy(gameObject);
     }
