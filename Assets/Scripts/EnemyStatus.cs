@@ -3,7 +3,6 @@ using System;
 [Serializable]
 public struct EnemyStatus
 {
-    public string name;
+    public int id;
     public ActorStatus actorStatus;
-    public int dropAmount;
 }

@@ -5,18 +5,28 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, IActor
 {
-    private int HP = 2;
-    public Rigidbody2D Rigidbody;
+    private EnemyStatus m_status;
+
+    public Rigidbody2D m_rigidBody2D;
     private bool m_isNotified = false;
-    private const float ENEMY_SPEED = 2.5f;
-    MagicManager MagicManager;
+    MagicManager m_magicManager;
     private const float INTERVAL = 1.0f;
     private float time = 0.0f;
     private Vector2 m_direction;
+
+    void Awake()
+    {
+        m_status.actorStatus.hp = 4;
+        m_status.actorStatus.attack = 1;
+        m_status.actorStatus.defence = 1;
+        m_status.actorStatus.speed = 2.5f;
+    }
+
     void Start()
     {
         GetComponentInChildren<ParticleSystem>().Stop();
-        MagicManager = GetComponentInChildren<MagicManager>();
+        m_magicManager = GetComponentInChildren<MagicManager>();
+        m_rigidBody2D = GetComponent<Rigidbody2D>();
 
     }
 
@@ -29,14 +39,16 @@ public class Enemy : MonoBehaviour, IActor
             time = 0.0f;
         if(m_isNotified && time >= INTERVAL)
         {
-            m_direction = Rigidbody.velocity.normalized;
-            MagicManager.Attack();
+            m_direction = m_rigidBody2D.velocity.normalized;
+            m_magicManager.Attack();
             time = 0.0f;
         }
     }
 
     public void FixedUpdate()
     {
+        if (!m_isNotified)
+            m_rigidBody2D.velocity = Vector2.zero;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -51,9 +63,10 @@ public class Enemy : MonoBehaviour, IActor
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Notify")) return;
-        if (collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("Blade"))
-            Damage(1);
+        if (collision.gameObject.CompareTag("Arrow"))
+            Damage(collision.transform.parent.parent.GetComponent<IActor>().GetBaseStatus().attack * 2);
+        if (collision.gameObject.CompareTag("Blade"))
+            Damage(collision.transform.parent.GetComponent<IActor>().GetBaseStatus().attack * 3);
         if (!IsArrive())
             Dead();
 
@@ -62,7 +75,7 @@ public class Enemy : MonoBehaviour, IActor
 
     private bool IsArrive()
     {
-        return 0 < HP;
+        return 0 < m_status.actorStatus.hp;
     }
 
     private void Dead()
@@ -70,9 +83,10 @@ public class Enemy : MonoBehaviour, IActor
         StartCoroutine(OnDead(0.1f, 0.3f));
     }
 
-    void Damage(in int damage = 0)
+    void Damage(in float attack = 0.0f)
     {
-        HP -= damage;
+        int damage = Mathf.RoundToInt(attack - m_status.actorStatus.defence);
+        m_status.actorStatus.hp -= damage;
         StartCoroutine(OnDamage(0.1f, 0.3f));
     }
 
@@ -121,7 +135,7 @@ public class Enemy : MonoBehaviour, IActor
 
     public void SetPosition(ref float minX, ref float maxX, ref float minY, ref float maxY)
     {
-        Rigidbody.position = new Vector2(Mathf.Clamp(Rigidbody.position.x, minX, maxX), Mathf.Clamp(Rigidbody.position.y, minY, maxY));
+        m_rigidBody2D.position = new Vector2(Mathf.Clamp(m_rigidBody2D.position.x, minX, maxX), Mathf.Clamp(m_rigidBody2D.position.y, minY, maxY));
     }
 
     public void AttachNotify()
@@ -130,14 +144,14 @@ public class Enemy : MonoBehaviour, IActor
     }
     public void Chasing(in GameObject chaseTarget)
     {
-        Rigidbody.velocity = (chaseTarget.GetComponent<Rigidbody2D>().position - Rigidbody.position).normalized * ENEMY_SPEED;
+        m_rigidBody2D.velocity = (chaseTarget.GetComponent<Rigidbody2D>().position - m_rigidBody2D.position).normalized * m_status.actorStatus.speed;
         if (!chaseTarget.GetComponent<Player>().IsArrive())
             StopChasing();
     }
 
     public void StopChasing()
     {
-        Rigidbody.velocity = Vector2.zero;
+        m_rigidBody2D.velocity = Vector2.zero;
         DetachNotify();
     }
 
@@ -155,4 +169,10 @@ public class Enemy : MonoBehaviour, IActor
     {
         return m_direction;
     }
+
+    ActorStatus IActor.GetBaseStatus()
+    {
+        return m_status.actorStatus;
+    }
+
 }

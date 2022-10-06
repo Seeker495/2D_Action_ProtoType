@@ -15,6 +15,7 @@ TagManager:
   - Notify
   - Map
   - EnemyManager
+  - Arrow
   layers:
   - Default
   - TransparentFX

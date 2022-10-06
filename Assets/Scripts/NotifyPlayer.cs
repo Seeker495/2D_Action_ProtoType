@@ -7,38 +7,27 @@ public class NotifyPlayer : MonoBehaviour
     [SerializeField]
     private Enemy Enemy;
     private Rigidbody2D m_rigidBody2D;
+    private Player m_player;
     void Start()
     {
+        m_player = GameObject.FindWithTag("Player").GetComponent<Player>();
         m_rigidBody2D = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (Vector2.Distance(Enemy.GetComponent<Rigidbody2D>().position, m_player.GetComponent<Rigidbody2D>().position) <= 10.0f)
+            Enemy.AttachNotify();
+        else
+            Enemy.DetachNotify();
+        if (Enemy.IsNotified())
+            Enemy.Chasing(m_player.gameObject);
     }
 
     private void FixedUpdate()
     {
         m_rigidBody2D.position = Enemy.GetComponent<Rigidbody2D>().position;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.CompareTag("Player"))
-            Enemy.AttachNotify();
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (Enemy.IsNotified() && collision.CompareTag("Player"))
-            Enemy.Chasing(collision.gameObject);
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-            Enemy.DetachNotify();
     }
 
 }

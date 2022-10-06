@@ -1421,6 +1421,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6649572322791377976, guid: cea359171febcd743aa54a5940e622e6, type: 3}
+      propertyPath: m_Mass
+      value: 0.0001
+      objectReference: {fileID: 0}
+    - target: {fileID: 6649572322791377976, guid: cea359171febcd743aa54a5940e622e6, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6649572322791377976, guid: cea359171febcd743aa54a5940e622e6, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6649572322791377979, guid: cea359171febcd743aa54a5940e622e6, type: 3}
+      propertyPath: m_Size.x
+      value: 0.2126374
+      objectReference: {fileID: 0}
+    - target: {fileID: 6649572322791377979, guid: cea359171febcd743aa54a5940e622e6, type: 3}
+      propertyPath: m_Size.y
+      value: 0.3726374
+      objectReference: {fileID: 0}
+    - target: {fileID: 6649572322791377979, guid: cea359171febcd743aa54a5940e622e6, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.009255391
+      objectReference: {fileID: 0}
+    - target: {fileID: 6649572322791377979, guid: cea359171febcd743aa54a5940e622e6, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.02961725
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cea359171febcd743aa54a5940e622e6, type: 3}
 --- !u!1001 &8538431508185666816

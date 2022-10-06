@@ -10,7 +10,7 @@ public class Fire : MonoBehaviour,IAttack
     // Start is called before the first frame update
     void Start()
     {
-
+        Rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
