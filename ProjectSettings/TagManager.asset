@@ -16,8 +16,6 @@ TagManager:
   - Map
   - EnemyManager
   - Arrow
-  - Exp
-  - Money
   layers:
   - Default
   - TransparentFX

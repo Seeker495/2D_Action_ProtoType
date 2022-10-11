@@ -37,14 +37,6 @@ MonoBehaviour:
     m_Address: Fire
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 6071676a9d8991a43ba1ee4674f9ae86
-    m_Address: Exp
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: d5dcb5806d2d87549be98769a6fd5567
-    m_Address: Money
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 748aadb2ffbc1cb429aa884851ecdeff, type: 2}
   m_SchemaSet:
