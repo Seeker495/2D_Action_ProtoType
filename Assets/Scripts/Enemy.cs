@@ -20,13 +20,15 @@ public class Enemy : MonoBehaviour, IActor
         m_status.actorStatus.attack = 1;
         m_status.actorStatus.defence = 1;
         m_status.actorStatus.speed = 2.5f;
+        m_status.exp = 9;
+        m_status.money = 9;
+        m_magicManager = GetComponentInChildren<MagicManager>();
+        m_rigidBody2D = GetComponent<Rigidbody2D>();
+
     }
 
     void Start()
     {
-        GetComponentInChildren<ParticleSystem>().Stop();
-        m_magicManager = GetComponentInChildren<MagicManager>();
-        m_rigidBody2D = GetComponent<Rigidbody2D>();
 
     }
 
@@ -37,7 +39,7 @@ public class Enemy : MonoBehaviour, IActor
             time += Time.deltaTime;
         else
             time = 0.0f;
-        if(m_isNotified && time >= INTERVAL)
+        if (m_isNotified && time >= INTERVAL)
         {
             m_direction = m_rigidBody2D.velocity.normalized;
             m_magicManager.Attack();
@@ -80,7 +82,7 @@ public class Enemy : MonoBehaviour, IActor
 
     private void Dead()
     {
-        StartCoroutine(OnDead(0.1f, 0.3f));
+        StartCoroutine(OnDead(1.0f, 0.3f));
     }
 
     void Damage(in float attack = 0.0f)
@@ -90,7 +92,7 @@ public class Enemy : MonoBehaviour, IActor
         StartCoroutine(OnDamage(0.1f, 0.3f));
     }
 
-    IEnumerator OnDamage(float duration,float interval)
+    IEnumerator OnDamage(float duration, float interval)
     {
         bool changed = false;
         int inter = 0;
@@ -111,7 +113,11 @@ public class Enemy : MonoBehaviour, IActor
 
     IEnumerator OnDead(float duration, float interval)
     {
-        var particleSystem = GetComponentInChildren<ParticleSystem>();
+        var dropManager = GetComponentInChildren<DropManager>();
+        StartCoroutine(dropManager.Diffusion());
+        dropManager.transform.position = transform.position;
+        dropManager.transform.SetParent(null, true);
+
         while (duration > 0.0f)
         {
             duration -= Time.deltaTime;
@@ -119,17 +125,13 @@ public class Enemy : MonoBehaviour, IActor
             yield return new WaitForSeconds(Time.deltaTime);
             GetComponent<SpriteRenderer>().color = Color.white;
         }
-        particleSystem.Play();
-        if (particleSystem.isPlaying)
-        {
-            particleSystem.transform.SetParent(transform.parent, false);
-            particleSystem.transform.position = transform.position;
-            GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
-            GetComponent<BoxCollider2D>().enabled = false;
-        }
+
+        GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+        GetComponent<BoxCollider2D>().enabled = false;
+
+
         gameObject.SetActive(false);
-        if (particleSystem.isStopped)
-            Destroy(gameObject);
+        Destroy(gameObject);
     }
 
 
@@ -175,4 +177,13 @@ public class Enemy : MonoBehaviour, IActor
         return m_status.actorStatus;
     }
 
+    public int GetExp()
+    {
+        return m_status.exp;
+    }
+
+    public int GetMoney()
+    {
+        return m_status.money;
+    }
 }

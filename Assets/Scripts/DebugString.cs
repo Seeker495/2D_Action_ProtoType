@@ -17,6 +17,9 @@ public class DebugString : MonoBehaviour
     void Update()
     {
         // テキストを設定する
-        GetComponentInChildren<TextMeshProUGUI>().text = $"HP: {m_player.GetComponent<IActor>().GetBaseStatus().hp}";
+        GetComponentInChildren<TextMeshProUGUI>().text =
+            $"HP: {m_player.GetComponent<IActor>().GetBaseStatus().hp}\n" +
+            $"Exp: {m_player.GetExp()}\n" +
+            $"Money: {m_player.GetMoney()}\n";
     }
 }
