@@ -189,4 +189,11 @@ public class Enemy : MonoBehaviour, IActor
     {
         return m_status.money;
     }
+
+    public void HighSpeedMove()
+    {
+        if (!GetComponent<HighSpeedMove>()) return;
+        StartCoroutine(GetComponent<HighSpeedMove>().Move(gameObject, false));
+    }
+
 }

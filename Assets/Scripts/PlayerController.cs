@@ -16,12 +16,12 @@ public class PlayerController : MonoBehaviour
         public InputActionReference ChangeWeaponToRight;
         public InputActionReference AdjustCameraDistance;
         public InputActionReference Resurrection;
-
+        public InputActionReference HighSpeedMove;
         public void Enable()
         {
-            List<InputActionReference> inputActionReferences = new List<InputActionReference>(7)
+            List<InputActionReference> inputActionReferences = new List<InputActionReference>(8)
             {
-                Move, Attack, Dash, ChangeWeaponToLeft, ChangeWeaponToRight,AdjustCameraDistance,Resurrection,
+                Move, Attack, Dash, ChangeWeaponToLeft, ChangeWeaponToRight,AdjustCameraDistance,Resurrection,HighSpeedMove,
             };
             foreach (var inputActionReference in inputActionReferences)
             {
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
         m_playerController.ChangeWeaponToRight.action.started += m_player.GetComponent<Player>().SelectWeaponToRight;
         m_playerController.AdjustCameraDistance.action.started += m_camera.GetComponent<FollowCamera>().AdjustCameraDistance;
         m_playerController.Resurrection.action.started += m_player.GetComponent<Player>().Resurrection;
-
+        m_playerController.HighSpeedMove.action.started += m_player.GetComponent<Player>().HighSpeedMove;
     }
 
     private void OnDisable()

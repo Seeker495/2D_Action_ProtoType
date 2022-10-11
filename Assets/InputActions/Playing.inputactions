@@ -67,6 +67,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "HighSpeedMove",
+                    "type": "Button",
+                    "id": "a5ecc2f1-b314-4a4e-8cd2-03361e4f35d6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -210,6 +219,28 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Resurrection",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a383c1e3-c528-4985-a80e-dda565fdf291",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HighSpeedMove",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "94795cba-0b04-4179-bb05-02f14adb7dfd",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "HighSpeedMove",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

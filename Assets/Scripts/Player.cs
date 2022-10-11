@@ -263,4 +263,9 @@ public class Player : MonoBehaviour, IActor
         return m_status.exp;
     }
 
+    public void HighSpeedMove(InputAction.CallbackContext context)
+    {
+        if (!GetComponent<HighSpeedMove>()) return;
+        StartCoroutine(GetComponent<HighSpeedMove>().Move(gameObject, false));
+    }
 }
