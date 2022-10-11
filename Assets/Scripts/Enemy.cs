@@ -39,6 +39,7 @@ public class Enemy : MonoBehaviour, IActor
             time += Time.deltaTime;
         else
             time = 0.0f;
+
         if (m_isNotified && time >= INTERVAL && IsArrive())
         {
             m_direction = m_rigidBody2D.velocity.normalized;
