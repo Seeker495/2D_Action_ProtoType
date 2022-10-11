@@ -29,7 +29,7 @@ public class Player : MonoBehaviour, IActor
         m_status.actorStatus.attack = 1;
         m_status.actorStatus.defence = 1;
         m_status.actorStatus.speed = 3.0f;
-
+        m_status.exp = m_status.money = 0;
         m_rigidbody2D = GetComponent<Rigidbody2D>();
 
 
@@ -175,6 +175,7 @@ public class Player : MonoBehaviour, IActor
     }
 
 
+
     public bool IsArrive()
     {
         return 0 < m_status.actorStatus.hp;
@@ -240,4 +241,26 @@ public class Player : MonoBehaviour, IActor
     {
         return m_status.actorStatus;
     }
+
+    public void AddExp(in int exp)
+    {
+        m_status.exp += exp * 2;
+    }
+
+
+    public void AddMoney(in int money)
+    {
+        m_status.money += money * 1;
+    }
+
+    public int GetMoney()
+    {
+        return m_status.money;
+    }
+
+    public int GetExp()
+    {
+        return m_status.exp;
+    }
+
 }

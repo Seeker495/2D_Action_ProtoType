@@ -19,10 +19,6 @@ public class EnemyManager : MonoBehaviour
             Enemies.Add(Instantiate(enemy, transform));
         }
 
-        for(int i = 0;i<Enemies.Count;++i)
-        {
-            Enemies[i].GetComponentInChildren<ParticleSystem>().Stop();
-        }
     }
 
     // Update is called once per frame
