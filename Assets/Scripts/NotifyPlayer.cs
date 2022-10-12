@@ -5,12 +5,12 @@ using UnityEngine;
 public class NotifyPlayer : MonoBehaviour
 {
     [SerializeField]
-    private Enemy m_enemy;
+    private EnemyBase m_enemy;
     private Rigidbody2D m_rigidBody2D;
     private Player m_player;
     void Start()
     {
-        m_enemy = transform.parent.GetComponent<Enemy>();
+        m_enemy = transform.parent.GetComponent<EnemyBase>();
         m_player = GameObject.FindWithTag("Player").GetComponent<Player>();
         m_rigidBody2D = GetComponent<Rigidbody2D>();
     }

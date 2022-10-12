@@ -20,14 +20,14 @@ public class RecoveryObject : MonoBehaviour
     {
         if (collision.CompareTag("Exp"))
         {
-            m_player.AddExp(collision.GetComponent<IDropObject>().Get());
+            m_player.AddExp(collision.GetComponent<DropObjectBase>().Get());
             Destroy(collision.gameObject);
 
         }
 
         if (collision.CompareTag("Money"))
         {
-            m_player.AddMoney(collision.GetComponent<IDropObject>().Get());
+            m_player.AddMoney(collision.GetComponent<DropObjectBase>().Get());
             Destroy(collision.gameObject);
         }
     }

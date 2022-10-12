@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Blade : MonoBehaviour,IAttack
+public class Blade : AttackBase
 {
     [SerializeField]
     Rigidbody2D m_rigidBody2D;
@@ -29,18 +29,14 @@ public class Blade : MonoBehaviour,IAttack
      * 引数: 開始位置,方向
      */
 
-    void IAttack.Attack()
+    public override void Attack()
     {
         // 攻撃関数を開始する
         StartCoroutine(Attacking(120.0f));
     }
 
-    Sprite IAttack.GetSprite()
-    {
-        return GetComponent<SpriteRenderer>().sprite;
-    }
 
-    eAttackType IAttack.GetAttackType()
+    public override eAttackType GetAttackType()
     {
         return eAttackType.BLADE;
     }

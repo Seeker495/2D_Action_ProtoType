@@ -19,7 +19,7 @@ public class Player : MonoBehaviour, IActor
     private Dictionary<Vector2, Tile> Sprites;
     private PlayerStatus m_status;
     private bool m_isDamaged = false;
-    private List<IAttack> m_weapons;
+    private List<AttackBase> m_weapons;
 
     private int WeaponIndex = 0;
     // Start is called before the first frame update
@@ -41,7 +41,7 @@ public class Player : MonoBehaviour, IActor
             {Vector2.down,await Addressables.LoadAssetAsync<Tile>("Characters_0").Task },
         };
 
-        m_weapons = new List<IAttack>(2)
+        m_weapons = new List<AttackBase>(2)
         {
             GetComponentInChildren<Blade>(),
             GetComponentInChildren<Bow>(),

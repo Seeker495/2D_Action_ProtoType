@@ -23,16 +23,16 @@ public class DropManager : MonoBehaviour
 
         Dictionary<eDropSize, int> expAmounts = new Dictionary<eDropSize, int>(3)
         {
-            {eDropSize.SMALL,   transform.parent.GetComponent<Enemy>().GetExp() % 10 },
-            {eDropSize.MEDIUM,  (transform.parent.GetComponent<Enemy>().GetExp() / 10) % 10 },
-            {eDropSize.LARGE,   transform.parent.GetComponent<Enemy>().GetExp() / 100 },
+            {eDropSize.SMALL,   transform.parent.GetComponent<EnemyBase>().GetExp() % 10 },
+            {eDropSize.MEDIUM,  (transform.parent.GetComponent<EnemyBase>().GetExp() / 10) % 10 },
+            {eDropSize.LARGE,   transform.parent.GetComponent<EnemyBase>().GetExp() / 100 },
         };
 
         Dictionary<eDropSize, int> moneyAmounts = new Dictionary<eDropSize, int>(3)
         {
-            {eDropSize.SMALL,   transform.parent.GetComponent<Enemy>().GetMoney() % 10 },
-            {eDropSize.MEDIUM,  (transform.parent.GetComponent<Enemy>().GetMoney() / 10) % 10 },
-            {eDropSize.LARGE,   transform.parent.GetComponent<Enemy>().GetMoney() / 100 },
+            {eDropSize.SMALL,   transform.parent.GetComponent<EnemyBase>().GetMoney() % 10 },
+            {eDropSize.MEDIUM,  (transform.parent.GetComponent<EnemyBase>().GetMoney() / 10) % 10 },
+            {eDropSize.LARGE,   transform.parent.GetComponent<EnemyBase>().GetMoney() / 100 },
         };
 
         Dictionary<eDropSize, float> objectScale = new Dictionary<eDropSize, float>(3)
@@ -50,7 +50,7 @@ public class DropManager : MonoBehaviour
                 var exp = await Addressables.LoadAssetAsync<GameObject>("Exp").Task;
                 m_exp.Add(Instantiate(exp, transform));
                 m_exp[i].transform.localScale = new Vector3(objectScale[size], objectScale[size], 0.0f);
-                m_exp[i].GetComponent<IDropObject>().SetSize(size);
+                m_exp[i].GetComponent<DropObjectBase>().SetSize(size);
                 m_exp[i].SetActive(false);
             }
         }
@@ -62,7 +62,7 @@ public class DropManager : MonoBehaviour
                 var money = await Addressables.LoadAssetAsync<GameObject>("Money").Task;
                 m_money.Add(Instantiate(money, transform));
                 m_money[i].transform.localScale = new Vector3(objectScale[size], objectScale[size], 0.0f);
-                m_money[i].GetComponent<IDropObject>().SetSize(size);
+                m_money[i].GetComponent<DropObjectBase>().SetSize(size);
                 m_money[i].SetActive(false);
             }
         }

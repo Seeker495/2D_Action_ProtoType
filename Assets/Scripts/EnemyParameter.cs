@@ -5,9 +5,16 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="EnemyData",menuName ="CreateEnemyData")]
 public class EnemyParameter : ScriptableObject
 {
-
     [SerializeField]
-    private int m_maxHP;
+    private int m_id;
+    [SerializeField]
+    private string m_name;
+    [SerializeField]
+    private int m_exp;
+    [SerializeField]
+    private int m_money;
+    [SerializeField]
+    private int m_hp;
     [SerializeField]
     private float m_attack;
     [SerializeField]
@@ -15,18 +22,18 @@ public class EnemyParameter : ScriptableObject
     [SerializeField]
     private float m_speed;
     [SerializeField]
-    private int m_exp;
+    private float m_touchPower;
     [SerializeField]
-    private int m_money;
-    [SerializeField]
-    private List<ItemInfo> m_items;
+    private int m_movePattern;
 
-    public int MaxHP => m_maxHP;
+    public int ID => m_id;
+    public string Name => m_name;
+    public int Exp => m_exp;
+    public int Money => m_money;
+    public int HP => m_hp;
     public float Attack => m_attack;
     public float Defence => m_defence;
     public float Speed => m_speed;
-    public int Exp => m_exp;
-    public int Money => m_money;
-    public List<ItemInfo> Items => m_items;
-
+    public float TouchPower => m_touchPower;
+    public int MovePattern => m_movePattern;
 }

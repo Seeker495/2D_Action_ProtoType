@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, IActor
+public abstract class EnemyBase : MonoBehaviour, IActor
 {
     private EnemyStatus m_status;
-
+    public EnemyParameter m_enemyParameter;
     public Rigidbody2D m_rigidBody2D;
     private bool m_isNotified = false;
     MagicManager m_magicManager;

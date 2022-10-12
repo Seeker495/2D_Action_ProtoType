@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-public class Bow : MonoBehaviour,IAttack
+public class Bow : AttackBase
 {
     // Start is called before the first frame update
 
@@ -20,17 +20,12 @@ public class Bow : MonoBehaviour,IAttack
 
     }
 
-    void IAttack.Attack()
+    public override void Attack()
     {
         Shoot(-30.0f, 30.0f, 3);
     }
 
-    Sprite IAttack.GetSprite()
-    {
-        return GetComponent<SpriteRenderer>().sprite;
-    }
-
-    eAttackType IAttack.GetAttackType()
+    public override eAttackType GetAttackType()
     {
         return eAttackType.BOW;
     }

@@ -26,7 +26,7 @@ public class MagicManager : MonoBehaviour
         var magic = await Addressables.LoadAssetAsync<GameObject>("Fire").Task;
         Debug.Log(magic);
         GameObject magicObject = Instantiate(magic, transform);
-        IAttack fire = magicObject.GetComponent<Fire>();
+        AttackBase fire = magicObject.GetComponent<Fire>();
         fire.Attack();
     }
 

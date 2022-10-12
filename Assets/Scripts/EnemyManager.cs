@@ -37,7 +37,7 @@ public class EnemyManager : MonoBehaviour
         {
             float width = Random.Range(0.0f, info.width);
             float height = Random.Range(-(info.height), 0.0f);
-            Enemies[i].GetComponent<Enemy>().transform.position = new Vector2(-height, -width);
+            Enemies[i].GetComponent<EnemyBase>().transform.position = new Vector2(-height, -width);
         }
 
     }
@@ -47,7 +47,7 @@ public class EnemyManager : MonoBehaviour
         var range = map.GetEdgeRect();
         foreach (var enemy in Enemies)
         {
-            enemy.GetComponent<Enemy>().SetPosition(ref range.left, ref range.right, ref range.top, ref range.bottom);
+            enemy.GetComponent<EnemyBase>().SetPosition(ref range.left, ref range.right, ref range.top, ref range.bottom);
         }
     }
 }
