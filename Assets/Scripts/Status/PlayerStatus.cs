@@ -8,8 +8,10 @@ public struct PlayerStatus
 {
     public ActorStatus actorStatus;
     public int maxHP;
+    public float maxAttack;
+    public float maxDefense;
     public int exp;
     public int money;
-    public float foodGauge;
-    public float waterGauge;
+    public int foodGauge;
+    public int waterGauge;
 }

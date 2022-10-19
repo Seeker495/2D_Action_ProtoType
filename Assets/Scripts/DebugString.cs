@@ -20,6 +20,8 @@ public class DebugString : MonoBehaviour
         GetComponentInChildren<TextMeshProUGUI>().text =
             $"HP: {m_player.GetComponent<IActor>().GetBaseStatus().hp}\n" +
             $"Exp: {m_player.GetExp()}\n" +
-            $"Money: {m_player.GetMoney()}\n";
+            $"Money: {m_player.GetMoney()}\n" +
+            $"Attack: {m_player.GetComponent<IActor>().GetBaseStatus().attack}" +
+            $"Defence: {m_player.GetComponent<IActor>().GetBaseStatus().defense}";
     }
 }

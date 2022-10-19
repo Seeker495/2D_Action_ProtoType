@@ -8,7 +8,7 @@ public class NotifyPlayer : MonoBehaviour
     private EnemyBase m_enemy;
     private Rigidbody2D m_rigidBody2D;
     private Player m_player;
-    void Start()
+    void Awake()
     {
         m_enemy = transform.parent.GetComponent<EnemyBase>();
         m_player = GameObject.FindWithTag("Player").GetComponent<Player>();

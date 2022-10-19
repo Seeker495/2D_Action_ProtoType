@@ -10,13 +10,14 @@ public class EquipmentUI : MonoBehaviour
     void Start()
     {
         m_player = GameObject.Find("Player").GetComponent<Player>();
-        GetComponent<Image>().sprite = m_player.GetWeaponSprite();
+        if(m_player?.GetWeaponSprite() != null)
+        GetComponent<Image>().sprite = m_player?.GetWeaponSprite();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(GetComponent<Image>().sprite != m_player.GetWeaponSprite())
-            GetComponent<Image>().sprite = m_player.GetWeaponSprite();
+        if(GetComponent<Image>().sprite != m_player?.GetWeaponSprite() && m_player?.GetWeaponSprite() != null)
+            GetComponent<Image>().sprite = m_player?.GetWeaponSprite();
     }
 }

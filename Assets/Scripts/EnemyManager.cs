@@ -47,7 +47,7 @@ public class EnemyManager : MonoBehaviour
         var range = map.GetEdgeRect();
         foreach (var enemy in Enemies)
         {
-            enemy.GetComponent<EnemyBase>().SetPosition(ref range.left, ref range.right, ref range.top, ref range.bottom);
+            enemy.GetComponent<EnemyBase>().SetPosition(ref range.left, ref range.right, ref range.bottom, ref range.top);
         }
     }
 }

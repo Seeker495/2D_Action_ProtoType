@@ -20,16 +20,21 @@ public class Player : MonoBehaviour, IActor
     private PlayerStatus m_status;
     private bool m_isDamaged = false;
     private List<AttackBase> m_weapons;
-
+    private float m_noWaterTime = 0.0f;
+    private bool m_isNoFood = false;
     private int WeaponIndex = 0;
+    private const float DAMAGE_INTERVAL = 2.0f;
+    private const float GAUGE_DECREASE_INTERVAL = 3.0f;
+    private float m_stageTime = 0.0f;
     // Start is called before the first frame update
-    async void Start()
+    async void Awake()
     {
-        m_status.actorStatus.hp = 7;
-        m_status.actorStatus.attack = 1;
-        m_status.actorStatus.defence = 1;
+        m_status.actorStatus.hp = m_status.maxHP = 100;
+        m_status.actorStatus.attack = m_status.maxAttack = 1;
+        m_status.actorStatus.defense = m_status.maxDefense = 1;
         m_status.actorStatus.speed = 3.0f;
         m_status.exp = m_status.money = 0;
+        m_status.waterGauge = m_status.foodGauge = 100;
         m_rigidbody2D = GetComponent<Rigidbody2D>();
 
 
@@ -53,6 +58,16 @@ public class Player : MonoBehaviour, IActor
     // Update is called once per frame
     void Update()
     {
+
+
+        if (!HaveWater())
+            Debuff_HP(DAMAGE_INTERVAL);
+        m_isNoFood = !HaveFood();
+        Debuff_Status(m_isNoFood);
+        if (!IsArrive())
+            Dead();
+        DecreaseGauge();
+
     }
 
     private void FixedUpdate()
@@ -129,10 +144,6 @@ public class Player : MonoBehaviour, IActor
             Damage(collision.transform.GetComponent<IActor>().GetBaseStatus().attack * 2);
             m_rigidbody2D.AddForce(collision.transform.GetComponent<Rigidbody2D>().velocity.normalized * Time.deltaTime);
         }
-        if (!IsArrive())
-            Dead();
-
-
     }
 
     IEnumerator KnockBack()
@@ -151,8 +162,6 @@ public class Player : MonoBehaviour, IActor
         if (collision.gameObject.CompareTag("Enemy"))
             m_rigidbody2D.velocity = Vector2.zero;
 
-        if (!IsArrive())
-            Dead();
 
 
     }
@@ -168,10 +177,6 @@ public class Player : MonoBehaviour, IActor
         if (m_isDamaged && !collision.CompareTag("Wall") && !collision.CompareTag("NormalObstacle") && !collision.CompareTag("WaterObstacle")) return;
         if (collision.CompareTag("Magic"))
             Damage(collision.transform.parent.parent.GetComponent<IActor>().GetBaseStatus().attack * 3);
-
-        if (!IsArrive())
-            Dead();
-
     }
 
 
@@ -179,6 +184,58 @@ public class Player : MonoBehaviour, IActor
     public bool IsArrive()
     {
         return 0 < m_status.actorStatus.hp;
+    }
+
+    public bool HaveWater()
+    {
+        return 0.0f < m_status.waterGauge;
+    }
+
+    private void Debuff_HP(in float interval)
+    {
+        m_noWaterTime += Time.deltaTime;
+        if (m_noWaterTime > interval)
+        {
+            m_status.actorStatus.hp -= (int)System.Math.Round(m_status.maxHP * 0.02f);
+            m_noWaterTime = 0.0f;
+        }
+    }
+
+    private void DecreaseGauge()
+    {
+        m_stageTime += Time.deltaTime;
+        if (m_stageTime > GAUGE_DECREASE_INTERVAL)
+        {
+            m_status.waterGauge--;
+            m_status.foodGauge--;
+            m_stageTime = 0.0f;
+        }
+    }
+
+
+    private void Debuff_Status(bool isNoFood)
+    {
+        float attack = m_status.maxAttack;
+        float defence = m_status.maxDefense;
+
+
+        if(isNoFood)
+        {
+            attack *= 0.5f;
+            defence *= 0.5f;
+        }
+        else
+        {
+            attack *= 2.0f;
+            defence *= 2.0f;
+        }
+        m_status.actorStatus.attack = Mathf.Clamp(attack, m_status.maxAttack * 0.5f, m_status.maxAttack);
+        m_status.actorStatus.defense = Mathf.Clamp(defence, m_status.maxDefense * 0.5f, m_status.maxDefense);
+    }
+
+    public bool HaveFood()
+    {
+        return 0.0f < m_status.foodGauge;
     }
 
     private void Dead()
@@ -205,7 +262,7 @@ public class Player : MonoBehaviour, IActor
 
     void Damage(in float attack = 0.0f)
     {
-        int damage = Mathf.RoundToInt(attack - m_status.actorStatus.defence);
+        int damage = Mathf.RoundToInt(attack - m_status.actorStatus.defense);
         m_status.actorStatus.hp -= damage;
         StartCoroutine(OnDamage(2.0f, 0.3f));
     }
@@ -242,6 +299,11 @@ public class Player : MonoBehaviour, IActor
         return m_status.actorStatus;
     }
 
+    public PlayerStatus GetStatus()
+    {
+        return m_status;
+    }
+
     public void AddExp(in int exp)
     {
         m_status.exp += exp * 2;
@@ -261,6 +323,16 @@ public class Player : MonoBehaviour, IActor
     public int GetExp()
     {
         return m_status.exp;
+    }
+
+    public int GetWaterGauge()
+    {
+        return m_status.waterGauge;
+    }
+
+    public int GetFoodGauge()
+    {
+        return m_status.foodGauge;
     }
 
     public void HighSpeedMove(InputAction.CallbackContext context)

@@ -45,6 +45,10 @@ MonoBehaviour:
     m_Address: Money
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: e58998bfafe19004382b6d3646ef3134
+    m_Address: Text
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 748aadb2ffbc1cb429aa884851ecdeff, type: 2}
   m_SchemaSet:

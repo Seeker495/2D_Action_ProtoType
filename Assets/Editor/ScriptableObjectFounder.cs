@@ -20,12 +20,6 @@ public class ScriptableObjectFounder<T> : EditorWindow where T : ScriptableObjec
         foreach (var line in allLines)
         {
             string[] splits = line.Split(",");
-            switch (typeof(T))
-            {
-
-                default:
-                    break;
-            }
             if(typeof(T) == typeof(EnemyParameter))
             {
                 (obj as EnemyParameter).ID = int.Parse(splits[0]);

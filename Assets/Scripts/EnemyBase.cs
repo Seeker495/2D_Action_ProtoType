@@ -14,11 +14,11 @@ public abstract class EnemyBase : MonoBehaviour, IActor
     private float time = 0.0f;
     private Vector2 m_direction;
 
-    void Awake()
+    public void Awake()
     {
         m_status.actorStatus.hp = 4;
         m_status.actorStatus.attack = 1;
-        m_status.actorStatus.defence = 1;
+        m_status.actorStatus.defense = 1;
         m_status.actorStatus.speed = 2.5f;
         m_status.exp = 9;
         m_status.money = 9;
@@ -27,13 +27,13 @@ public abstract class EnemyBase : MonoBehaviour, IActor
 
     }
 
-    void Start()
+    public void Start()
     {
 
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         if (m_isNotified)
             time += Time.deltaTime;
@@ -88,7 +88,7 @@ public abstract class EnemyBase : MonoBehaviour, IActor
 
     void Damage(in float attack = 0.0f)
     {
-        int damage = Mathf.RoundToInt(attack - m_status.actorStatus.defence);
+        int damage = Mathf.RoundToInt(attack - m_status.actorStatus.defense);
         m_status.actorStatus.hp -= damage;
         StartCoroutine(OnDamage(0.1f, 0.3f));
     }
