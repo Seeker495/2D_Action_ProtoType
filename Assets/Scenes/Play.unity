@@ -384,7 +384,6 @@ MonoBehaviour:
   m_enemyManager: {fileID: 62416901}
   m_wall: {fileID: 1219612493}
   m_cameraObject: {fileID: 0}
-  m_gameOverText: {fileID: 0}
 --- !u!4 &466821779
 Transform:
   m_ObjectHideFlags: 0
@@ -1390,6 +1389,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4999840462222587815, guid: 1ca31a23a2e863e4e9e2d245506bd7b2, type: 3}
+      propertyPath: m_gameOverText
+      value: 
+      objectReference: {fileID: 603858229}
     - target: {fileID: 5137377647239955238, guid: 1ca31a23a2e863e4e9e2d245506bd7b2, type: 3}
       propertyPath: m_Value
       value: 0

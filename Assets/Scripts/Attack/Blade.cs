@@ -41,6 +41,10 @@ public class Blade : AttackBase
         return eAttackType.BLADE;
     }
 
+    public override void SetTarget(in GameObject target)
+    {
+    }
+
 
     /*
      * UŒ‚’†ŠÖ”

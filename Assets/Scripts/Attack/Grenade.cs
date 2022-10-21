@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-public class Bow : AttackBase
+public class Grenade : AttackBase
 {
     // Start is called before the first frame update
 
@@ -27,30 +27,21 @@ public class Bow : AttackBase
 
     public override eAttackType GetAttackType()
     {
-        return eAttackType.BOW;
+        return eAttackType.GRENADE;
     }
 
     public override void SetTarget(in GameObject target)
     {
     }
+
     public async void Shoot(float startDegree, float angleInterval, int arrowNum)
     {
-        var arrow = await Addressables.LoadAssetAsync<GameObject>("Arrow").Task;
-
         var startPosition = transform.parent.GetComponent<Rigidbody2D>().position;
         m_direction = transform.parent.GetComponent<IActor>().GetDirection();
 
-        GameObject[] arrowObjects = new GameObject[arrowNum];
-        for (int i = 0; i < arrowObjects.Length; ++i)
-        {
-            arrowObjects[i] = Instantiate(arrow, transform);
-        }
+        GameObject grenade = await Addressables.LoadAssetAsync<GameObject>("Grenade").Task; ;
 
-
-        for (int i = 0; i < arrowObjects.Length; ++i)
-        {
-            arrowObjects[i].GetComponent<Arrow>().Shoot(startPosition, startDegree + i * angleInterval, m_direction);
-        }
+        //grenade.GetComponent<Grenade>().Shoot(startPosition, startDegree, m_direction);
     }
 
 }

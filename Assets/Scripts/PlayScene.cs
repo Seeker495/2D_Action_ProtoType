@@ -19,8 +19,6 @@ public class PlayScene : MonoBehaviour
     private Wall m_wall;
     [SerializeField]
     private GameObject m_cameraObject;
-    [SerializeField]
-    private GameObject m_gameOverText;
 
     private async void Awake()
     {
@@ -29,8 +27,6 @@ public class PlayScene : MonoBehaviour
         m_enemyManager = GameObject.FindWithTag("EnemyManager").GetComponent<EnemyManager>();
         m_wall = GameObject.FindWithTag("Wall").GetComponent<Wall>();
         m_cameraObject = GameObject.Find("CM vcam1");
-        m_gameOverText = Instantiate(await Addressables.LoadAssetAsync<GameObject>("Text").Task,GameObject.Find("Canvas").transform);
-        m_gameOverText?.SetActive(false);
     }
 
     // Start is called before the first frame update
@@ -47,12 +43,6 @@ public class PlayScene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!m_player.IsArrive())
-        {
-            m_gameOverText?.SetActive(true);
-            m_gameOverText.GetComponent<TextMeshProUGUI>().text = "GameOver";
-            m_gameOverText.GetComponent<TextMeshProUGUI>().fontSize = 100.0f;
-        }
     }
 
     private void FixedUpdate()

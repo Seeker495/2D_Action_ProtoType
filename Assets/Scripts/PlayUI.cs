@@ -4,6 +4,7 @@ using System.Linq;
 using TMPro;
 using UnityEditor.Build.Pipeline;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 public class PlayUI : MonoBehaviour
@@ -14,11 +15,13 @@ public class PlayUI : MonoBehaviour
     private GameObject m_water;
     private GameObject m_food;
     private Image m_hpColorSprite;
+    [SerializeField]
+    private GameObject m_gameOverText;
 
 
     private GameObject m_player;
     // Start is called before the first frame update
-    void Awake()
+    async void Awake()
     {
         m_hp = GameObject.Find("PlayUI/HP");
         m_attack = GameObject.Find("PlayUI/Attack");
@@ -26,6 +29,8 @@ public class PlayUI : MonoBehaviour
         m_water = GameObject.Find("PlayUI/Water");
         m_food = GameObject.Find("PlayUI/Food");
         m_hpColorSprite = m_hp.GetComponentsInChildren<Image>()[2];
+        m_gameOverText = Instantiate(await Addressables.LoadAssetAsync<GameObject>("Text").Task, new Vector3(960, 540, 0), Quaternion.identity, GameObject.Find("Canvas").transform);
+        m_gameOverText.SetActive(false);
 
         m_player = GameObject.FindWithTag("Player");
     }
@@ -48,6 +53,16 @@ public class PlayUI : MonoBehaviour
     {
         DisplayStatus();
         ChangeStatusColor();
+
+        if(!m_player.GetComponent<Player>().IsArrive())
+        {
+            m_gameOverText.SetActive(true);
+            m_gameOverText.GetComponent<TextMeshProUGUI>().text = "GameOver";
+            m_gameOverText.GetComponent<TextMeshProUGUI>().fontSize = 100.0f;
+
+        }
+
+
 
     }
 
