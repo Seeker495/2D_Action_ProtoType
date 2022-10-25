@@ -8,4 +8,5 @@ public struct ActorStatus
     public float defense;
     public float speed;
     public int level;
+    public float touchPower;
 }

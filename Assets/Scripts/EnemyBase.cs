@@ -16,12 +16,13 @@ public abstract class EnemyBase : MonoBehaviour, IActor
 
     public void Awake()
     {
-        m_status.actorStatus.hp = 4;
-        m_status.actorStatus.attack = 1;
-        m_status.actorStatus.defense = 1;
-        m_status.actorStatus.speed = 2.5f;
-        m_status.exp = 9;
-        m_status.money = 9;
+        m_status.actorStatus.hp = m_enemyParameter.HP;
+        m_status.actorStatus.attack = m_enemyParameter.Attack;
+        m_status.actorStatus.defense = m_enemyParameter.Defense;
+        m_status.actorStatus.speed = m_enemyParameter.Speed;
+        m_status.actorStatus.touchPower = m_enemyParameter.TouchPower;
+        m_status.exp = m_enemyParameter.Exp;
+        m_status.money = m_enemyParameter.Money;
         m_magicManager = GetComponentInChildren<MagicManager>();
         m_rigidBody2D = GetComponent<Rigidbody2D>();
 

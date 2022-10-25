@@ -149,8 +149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d62916accaaaf1d478351765780dfee5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_enemyParameter: {fileID: 0}
-  m_rigidBody2D: {fileID: 0}
+  m_enemyParameter: {fileID: 11400000, guid: 94cddc8dd91fd48468129a8c3a1dad81, type: 2}
+  m_rigidBody2D: {fileID: 6354339916395392677}
 --- !u!1 &6376655641012485701
 GameObject:
   m_ObjectHideFlags: 0

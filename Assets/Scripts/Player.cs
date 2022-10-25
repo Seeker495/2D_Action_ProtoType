@@ -32,7 +32,7 @@ public class Player : MonoBehaviour, IActor
         m_status.actorStatus.hp = m_status.maxHP = 100;
         m_status.actorStatus.attack = m_status.maxAttack = 1;
         m_status.actorStatus.defense = m_status.maxDefense = 1;
-        m_status.actorStatus.speed = 3.0f;
+        m_status.actorStatus.speed = 10.0f;
         m_status.exp = m_status.money = 0;
         m_status.waterGauge = m_status.foodGauge = 100;
         m_rigidbody2D = GetComponent<Rigidbody2D>();
