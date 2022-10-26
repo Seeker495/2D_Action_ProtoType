@@ -4,6 +4,10 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
+/*******************************************************************
+ *  <概要>
+ *  弓クラス。
+ *******************************************************************/
 public class Bow : AttackBase
 {
     // Start is called before the first frame update

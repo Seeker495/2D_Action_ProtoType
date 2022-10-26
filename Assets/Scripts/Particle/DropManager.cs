@@ -7,6 +7,10 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Audio;
 
+/*******************************************************************
+ *  <概要>
+ *  敵のドロップするオブジェクト(主に経験値やお金)を管理するクラス。
+ *******************************************************************/
 public class DropManager : MonoBehaviour
 {
     private List<GameObject> m_exp = new List<GameObject>();

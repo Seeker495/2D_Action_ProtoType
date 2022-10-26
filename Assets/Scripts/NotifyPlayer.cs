@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*******************************************************************
+ *  <概要>
+ *  プレイヤーを感知するクラス。(敵に持たせている)
+ *  <仕組み>
+ *  一定範囲内にプレイヤーが入った場合,攻撃をしてきたり,追尾してきたりする
+ *******************************************************************/
 public class NotifyPlayer : MonoBehaviour
 {
     [SerializeField]

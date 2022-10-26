@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
+/*******************************************************************
+ *  <概要>
+ *  ステージを表示するクラス。
+ *******************************************************************/
 public class Map : MonoBehaviour
 {
     // Start is called before the first frame update

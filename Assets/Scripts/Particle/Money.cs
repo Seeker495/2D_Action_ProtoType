@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*******************************************************************
+ *  <概要>
+ *  お金クラス。
+ *******************************************************************/
 public class Money : DropObjectBase
 {
     public override void Awake()

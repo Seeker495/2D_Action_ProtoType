@@ -4,6 +4,13 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
+/*******************************************************************
+ *  <概要>
+ *  敵の管理クラス。
+ *  <仕組み>
+ *  EnemyManagerを生成する際に敵のプレハブをあらかじめ読み込んでおき,
+ *  複製しやすいようにしている(つもり)
+ *******************************************************************/
 public class EnemyManager : MonoBehaviour
 {
     private int MAX_ENEMY_NUM;

@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*******************************************************************
+ *  <概要>
+ *  剣クラス。
+ *******************************************************************/
 public class Blade : AttackBase
 {
     [SerializeField]

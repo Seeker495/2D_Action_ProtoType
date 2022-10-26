@@ -7,6 +7,12 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
+/*******************************************************************
+ *  <概要>
+ *  プレイヤーの情報をUIで表示するためのクラス。
+ *  <やれる事>
+ *  プレイヤーのステータスを表示できる。
+ *******************************************************************/
 public class PlayUI : MonoBehaviour
 {
     private GameObject m_hp;
@@ -32,7 +38,7 @@ public class PlayUI : MonoBehaviour
         m_gameOverText = Instantiate(await Addressables.LoadAssetAsync<GameObject>("Text").Task, new Vector3(960, 540, 0), Quaternion.identity, GameObject.Find("Canvas").transform);
         m_gameOverText.SetActive(false);
 
-        m_player = GameObject.FindWithTag("Player");
+        m_player = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Start()

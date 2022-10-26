@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*******************************************************************
+ *  <概要>
+ *  ゲーム内で使う定数を定義するクラス。
+ *******************************************************************/
 public static class Parameter
 {
     // ゲームデータ関連

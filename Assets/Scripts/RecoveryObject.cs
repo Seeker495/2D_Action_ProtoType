@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*******************************************************************
+ *  <概要>
+ *  主に経験値やお金を回収するクラス。
+ *******************************************************************/
+
 public class RecoveryObject : MonoBehaviour
 {
     private Player m_player;

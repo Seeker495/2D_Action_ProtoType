@@ -6,6 +6,12 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
+/*******************************************************************
+ *  <概要>
+ *  ステージを読み込むクラス
+ *  <仕組み>
+ *  CSVから数字に応じたものを読み込んでステージを作成することが出来る。
+ *******************************************************************/
 public static class LoadStage
 {
     public struct MapData

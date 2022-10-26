@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*******************************************************************
+ *  <äTóv>
+ *  ìGÇÃîhê∂ÉNÉâÉXÅB
+ *******************************************************************/
 public class Enemy_8 : EnemyBase
 {
     // Start is called before the first frame update

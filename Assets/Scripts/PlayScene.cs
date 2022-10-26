@@ -6,6 +6,10 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
+/*******************************************************************
+ *  <概要>
+ *  プレイシーンのオブジェクトを管理するクラス。
+ *******************************************************************/
 public class PlayScene : MonoBehaviour
 {
 

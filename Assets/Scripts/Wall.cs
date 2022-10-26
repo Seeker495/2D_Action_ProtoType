@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*******************************************************************
+ *  <概要>
+ *  ステージの制限を行うために壁を設けてプレイヤーの行動範囲を制限するクラス。
+ *******************************************************************/
 public class Wall : MonoBehaviour
 {
     // Start is called before the first frame update

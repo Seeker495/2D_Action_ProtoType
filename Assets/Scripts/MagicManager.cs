@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
+/*******************************************************************
+ *  <概要>
+ *  魔法の管理クラス。(現在,敵の子に持たせている)
+ *******************************************************************/
 public class MagicManager : MonoBehaviour
 {
     void Start()

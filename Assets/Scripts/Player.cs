@@ -8,6 +8,12 @@ using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
+/*******************************************************************
+ *  <概要>
+ *  ユーザーが扱うプレイヤーのクラス。
+ *  <やれる事>
+ *  移動や攻撃など通常のゲームで出来る事が出来る。
+ *******************************************************************/
 public class Player : MonoBehaviour, IActor
 {
     Rigidbody2D m_rigidbody2D;
@@ -29,12 +35,13 @@ public class Player : MonoBehaviour, IActor
     // Start is called before the first frame update
     async void Awake()
     {
-        m_status.actorStatus.hp = m_status.maxHP = 100;
-        m_status.actorStatus.attack = m_status.maxAttack = 1;
-        m_status.actorStatus.defense = m_status.maxDefense = 1;
-        m_status.actorStatus.speed = 10.0f;
+        m_status.actorStatus.hp = m_status.maxHP = Parameter.PLAYER_MAX_HP;
+        m_status.actorStatus.attack = m_status.maxAttack = Parameter.PLAYER_INIT_ATTACK;
+        m_status.actorStatus.defense = m_status.maxDefense = Parameter.PLAYER_INIT_DEFENCE;
+        m_status.actorStatus.speed = Parameter.PLAYER_NORMAL_VELOCITY;
         m_status.exp = m_status.money = 0;
-        m_status.waterGauge = m_status.foodGauge = 100;
+        m_status.foodGauge = Parameter.FOOD_GAUGE_MAX;
+        m_status.waterGauge = Parameter.WATER_GAUGE_MAX;
         m_rigidbody2D = GetComponent<Rigidbody2D>();
 
 
@@ -61,7 +68,7 @@ public class Player : MonoBehaviour, IActor
 
 
         if (!HaveWater())
-            Debuff_HP(DAMAGE_INTERVAL);
+            Debuff_HP(Parameter.WATER_GAUGE_DECREASE_HP_INTERVAL);
         m_isNoFood = !HaveFood();
         Debuff_Status(m_isNoFood);
         if (!IsArrive())
@@ -94,10 +101,10 @@ public class Player : MonoBehaviour, IActor
         switch (context.phase)
         {
             case InputActionPhase.Started:
-                m_velocity *= 2;
+                m_velocity *= Parameter.PLAYER_DASH_MULTIPLY;
                 break;
             case InputActionPhase.Canceled:
-                m_velocity /= 2;
+                m_velocity *= 1.0f / Parameter.PLAYER_DASH_MULTIPLY;
                 break;
         }
         m_rigidbody2D.velocity = m_velocity;
@@ -196,20 +203,24 @@ public class Player : MonoBehaviour, IActor
         m_noWaterTime += Time.deltaTime;
         if (m_noWaterTime > interval)
         {
-            m_status.actorStatus.hp -= (int)System.Math.Round(m_status.maxHP * 0.02f);
+            m_status.actorStatus.hp -= (int)System.Math.Round(m_status.maxHP * Parameter.WATER_GAUGE_DECREASE_RATIO_HP);
             m_noWaterTime = 0.0f;
         }
     }
 
     private void DecreaseGauge()
     {
-        m_stageTime += Time.deltaTime;
-        if (m_stageTime > GAUGE_DECREASE_INTERVAL)
+
+        if (0.0f > Parameter.WATER_GAUGE_DECREASE_INTERVAL)
         {
-            m_status.waterGauge--;
-            m_status.foodGauge--;
-            m_stageTime = 0.0f;
+            m_status.waterGauge -= Parameter.WATER_GAUGE_DECREASE;
         }
+
+        if (0.0f > Parameter.FOOD_GAUGE_DECREASE_INTERVAL)
+        {
+            m_status.foodGauge -= Parameter.FOOD_GAUGE_DECREASE;
+        }
+
     }
 
 
@@ -221,16 +232,16 @@ public class Player : MonoBehaviour, IActor
 
         if(isNoFood)
         {
-            attack *= 0.5f;
-            defence *= 0.5f;
+            attack *= Parameter.FOOD_GAUGE_DECREASE_RATIO_ATTACK;
+            defence *= Parameter.FOOD_GAUGE_DECREASE_RATIO_DEFENCE;
         }
         else
         {
-            attack *= 2.0f;
-            defence *= 2.0f;
+            attack *= Parameter.FOOD_GAUGE_DECREASE_RATIO_ATTACK / 1.0f;
+            defence *= Parameter.FOOD_GAUGE_DECREASE_RATIO_DEFENCE / 1.0f;
         }
-        m_status.actorStatus.attack = Mathf.Clamp(attack, m_status.maxAttack * 0.5f, m_status.maxAttack);
-        m_status.actorStatus.defense = Mathf.Clamp(defence, m_status.maxDefense * 0.5f, m_status.maxDefense);
+        m_status.actorStatus.attack = attack;
+        m_status.actorStatus.defense = defence;
     }
 
     public bool HaveFood()

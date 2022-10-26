@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+/*******************************************************************
+ *  <概要>
+ *  一時的にデバッグで情報を表示するためのクラス。
+ *  <やれる事>
+ *  TextMeshProUGUIを使ってプレイヤーの情報を表示できる。
+ *  (オブジェクトを追加する事で増やせるが後々削除する予定のため,使用は非推奨)
+ *******************************************************************/
 public class DebugString : MonoBehaviour
 {
     Player m_player;

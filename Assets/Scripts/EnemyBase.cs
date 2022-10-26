@@ -3,6 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*******************************************************************
+ *  <概要>
+ *  敵の基底クラス。
+ *  <仕組み>
+ *  敵の派生クラスを作る際にSerializeFieldやpublicを用いて
+ *  インスペクタからデータベースの情報を読み取る。
+ *******************************************************************/
 public abstract class EnemyBase : MonoBehaviour, IActor
 {
     private EnemyStatus m_status;

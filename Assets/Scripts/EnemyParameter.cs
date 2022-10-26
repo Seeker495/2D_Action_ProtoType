@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*******************************************************************
+ *  <概要>
+ *  敵のパラメータを保存しておくクラス。
+ *  (ScriptableObjectはUnity特有のものでデータベースとして保存する際に重宝する)
+ *******************************************************************/
 [CreateAssetMenu(fileName ="EnemyData",menuName ="CreateEnemyData")]
 public class EnemyParameter : ScriptableObject
 {

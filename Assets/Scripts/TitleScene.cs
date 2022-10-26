@@ -4,6 +4,10 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 
+/*******************************************************************
+ *  <概要>
+ *  タイトルシーンのオブジェクトを管理するクラス。
+ *******************************************************************/
 public class TitleScene : MonoBehaviour
 {
     [SerializeField]

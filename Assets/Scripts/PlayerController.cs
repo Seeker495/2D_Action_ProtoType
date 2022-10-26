@@ -4,6 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/*******************************************************************
+ *  <概要>
+ *  ユーザーのコントローラークラス。
+ *  <仕組み>
+ *  ボタンに応じて行われるアクションが異なるため,
+ *  インスペクタで対応するアクションを対応させたりする。
+ *******************************************************************/
 public class PlayerController : MonoBehaviour
 {
     [Serializable]

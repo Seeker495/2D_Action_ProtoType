@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*******************************************************************
+ *  <概要>
+ *  経験値クラス。
+ *******************************************************************/
 public class Exp : DropObjectBase
 {
 

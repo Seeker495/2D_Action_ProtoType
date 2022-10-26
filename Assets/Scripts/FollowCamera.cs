@@ -5,6 +5,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/*******************************************************************
+ *  <概要>
+ *  追従カメラのクラス。
+ *  <仕組み>
+ *  Cinemachineというアセットを用いて対象のオブジェクトを追従できるようにしている。
+ *******************************************************************/
 public class FollowCamera : MonoBehaviour
 {
     public enum eCameraDistanceRatio

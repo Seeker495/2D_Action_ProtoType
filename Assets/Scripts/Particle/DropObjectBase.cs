@@ -1,5 +1,9 @@
 using UnityEngine;
 
+/*******************************************************************
+ *  <概要>
+ *  ドロップするオブジェクトの基底クラス。
+ *******************************************************************/
 public abstract class DropObjectBase : MonoBehaviour
 {
     private Rigidbody2D m_rigidBody2D;

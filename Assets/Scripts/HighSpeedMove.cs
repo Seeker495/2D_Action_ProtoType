@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/*******************************************************************
+ *  <概要>
+ *  高速移動を行えるクラス。
+ *******************************************************************/
 public class HighSpeedMove : MonoBehaviour
 {
     // Start is called before the first frame update

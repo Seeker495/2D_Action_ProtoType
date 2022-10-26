@@ -4,6 +4,10 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
+/*******************************************************************
+ *  <概要>
+ *  手榴弾クラス。
+ *******************************************************************/
 public class Grenade : AttackBase
 {
     // Start is called before the first frame update
