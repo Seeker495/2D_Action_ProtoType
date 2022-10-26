@@ -16,6 +16,8 @@ public abstract class EnemyBase : MonoBehaviour, IActor
 
     public void Awake()
     {
+        m_status.id = m_enemyParameter.ID;
+        m_status.name = m_enemyParameter.Name;
         m_status.actorStatus.hp = m_enemyParameter.HP;
         m_status.actorStatus.attack = m_enemyParameter.Attack;
         m_status.actorStatus.defense = m_enemyParameter.Defense;
