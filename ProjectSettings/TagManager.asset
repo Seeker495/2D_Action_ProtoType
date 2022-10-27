@@ -19,6 +19,8 @@ TagManager:
   - Exp
   - Money
   - ChangeColorObject
+  - FoodItem
+  - WaterItem
   layers:
   - Default
   - TransparentFX
@@ -67,6 +69,9 @@ TagManager:
     locked: 0
   - name: Weapon
     uniqueID: 2962183501
+    locked: 0
+  - name: ImmediateItem
+    uniqueID: 13173841
     locked: 0
   - name: Enemy
     uniqueID: 2014406881

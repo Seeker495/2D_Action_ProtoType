@@ -29,9 +29,9 @@ public class Player : MonoBehaviour, IActor
     private float m_noWaterTime = 0.0f;
     private bool m_isNoFood = false;
     private int WeaponIndex = 0;
+    private float[] m_stageTime = new float[2];
     private const float DAMAGE_INTERVAL = 2.0f;
     private const float GAUGE_DECREASE_INTERVAL = 3.0f;
-    private float m_stageTime = 0.0f;
     // Start is called before the first frame update
     async void Awake()
     {
@@ -40,8 +40,8 @@ public class Player : MonoBehaviour, IActor
         m_status.actorStatus.defense = m_status.maxDefense = Parameter.PLAYER_INIT_DEFENCE;
         m_status.actorStatus.speed = Parameter.PLAYER_NORMAL_VELOCITY;
         m_status.exp = m_status.money = 0;
-        m_status.foodGauge = Parameter.FOOD_GAUGE_MAX;
-        m_status.waterGauge = Parameter.WATER_GAUGE_MAX;
+        m_status.foodGauge = Parameter.FOOD_GAUGE_MAX / 2;
+        m_status.waterGauge = Parameter.WATER_GAUGE_MAX / 2;
         m_rigidbody2D = GetComponent<Rigidbody2D>();
 
 
@@ -73,12 +73,14 @@ public class Player : MonoBehaviour, IActor
         Debuff_Status(m_isNoFood);
         if (!IsArrive())
             Dead();
-        DecreaseGauge();
+        m_status.foodGauge = (int)Mathf.Clamp(m_status.foodGauge, 0, Parameter.FOOD_GAUGE_MAX);
+        m_status.waterGauge = (int)Mathf.Clamp(m_status.waterGauge, 0, Parameter.WATER_GAUGE_MAX);
 
     }
 
     private void FixedUpdate()
     {
+        DecreaseGauge();
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -184,6 +186,29 @@ public class Player : MonoBehaviour, IActor
         if (m_isDamaged && !collision.CompareTag("Wall") && !collision.CompareTag("NormalObstacle") && !collision.CompareTag("WaterObstacle")) return;
         if (collision.CompareTag("Magic"))
             Damage(collision.transform.parent.parent.GetComponent<IActor>().GetBaseStatus().attack * 3);
+
+        if (collision.CompareTag("FoodItem"))
+        {
+            m_status.foodGauge +=
+                (int)Mathf.Clamp(
+                    Parameter.FOOD_GAUGE_MAX * collision.GetComponent<ImmediateFoodItem>().GetInfo().healRatio,
+                    -Parameter.FOOD_GAUGE_MAX,
+                    Parameter.FOOD_GAUGE_MAX);
+            m_stageTime[1] = 0.0f;
+
+        }
+
+        if (collision.CompareTag("WaterItem"))
+        {
+            m_status.waterGauge +=
+                (int)Mathf.Clamp(
+                    Parameter.WATER_GAUGE_MAX * collision.GetComponent<ImmediateWaterItem>().GetInfo().healRatio,
+                    -Parameter.WATER_GAUGE_MAX,
+                    Parameter.WATER_GAUGE_MAX);
+            m_stageTime[0] = 0.0f;
+
+        }
+
     }
 
 
@@ -210,19 +235,18 @@ public class Player : MonoBehaviour, IActor
 
     private void DecreaseGauge()
     {
-
-        if (0.0f > Parameter.WATER_GAUGE_DECREASE_INTERVAL)
+        if ((m_stageTime[0] += Time.deltaTime) > Parameter.WATER_GAUGE_DECREASE_INTERVAL)
         {
             m_status.waterGauge -= Parameter.WATER_GAUGE_DECREASE;
+            m_stageTime[0] = 0.0f;
         }
 
-        if (0.0f > Parameter.FOOD_GAUGE_DECREASE_INTERVAL)
+        if ((m_stageTime[1] += Time.deltaTime) > Parameter.FOOD_GAUGE_DECREASE_INTERVAL)
         {
             m_status.foodGauge -= Parameter.FOOD_GAUGE_DECREASE;
+            m_stageTime[1] = 0.0f;
         }
-
     }
-
 
     private void Debuff_Status(bool isNoFood)
     {
@@ -230,7 +254,7 @@ public class Player : MonoBehaviour, IActor
         float defence = m_status.maxDefense;
 
 
-        if(isNoFood)
+        if (isNoFood)
         {
             attack *= (1f - Parameter.FOOD_GAUGE_DECREASE_RATIO_ATTACK);
             defence *= (1f - Parameter.FOOD_GAUGE_DECREASE_RATIO_DEFENCE);
