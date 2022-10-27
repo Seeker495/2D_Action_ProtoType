@@ -25,10 +25,12 @@ public class PlayUI : MonoBehaviour
     private GameObject m_gameOverText;
 
 
-    private GameObject m_player;
+    private Player m_player;
     // Start is called before the first frame update
     async void Awake()
     {
+        m_player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
         m_hp = GameObject.Find("PlayUI/HP");
         m_attack = GameObject.Find("PlayUI/Attack");
         m_defense = GameObject.Find("PlayUI/Defense");
@@ -38,20 +40,19 @@ public class PlayUI : MonoBehaviour
         m_gameOverText = Instantiate(await Addressables.LoadAssetAsync<GameObject>("Text").Task, new Vector3(960, 540, 0), Quaternion.identity, GameObject.Find("Canvas").transform);
         m_gameOverText.SetActive(false);
 
-        m_player = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Start()
     {
-        m_hp.GetComponentInChildren<Slider>().maxValue = m_player.GetComponent<Player>().GetStatus().maxHP;
+        m_hp.GetComponentInChildren<Slider>().maxValue = m_player.GetStatus().maxHP;
         m_water.GetComponentInChildren<Slider>().maxValue = 100;
         m_food.GetComponentInChildren<Slider>().maxValue = 100;
 
-        m_hp.GetComponentInChildren<Slider>().value = m_player.GetComponent<Player>().GetStatus().actorStatus.hp;
-        m_attack.GetComponentInChildren<TextMeshProUGUI>().text = m_player.GetComponent<Player>().GetStatus().actorStatus.attack.ToString();
-        m_defense.GetComponentInChildren<TextMeshProUGUI>().text = m_player.GetComponent<Player>().GetStatus().actorStatus.defense.ToString();
-        m_water.GetComponentInChildren<Slider>().value = m_player.GetComponent<Player>().GetWaterGauge();
-        m_food.GetComponentInChildren<Slider>().value = m_player.GetComponent<Player>().GetFoodGauge();
+        m_hp.GetComponentInChildren<Slider>().value = m_player.GetStatus().actorStatus.hp;
+        m_attack.GetComponentInChildren<TextMeshProUGUI>().text = m_player.GetStatus().actorStatus.attack.ToString();
+        m_defense.GetComponentInChildren<TextMeshProUGUI>().text = m_player.GetStatus().actorStatus.defense.ToString();
+        m_water.GetComponentInChildren<Slider>().value = m_player.GetWaterGauge();
+        m_food.GetComponentInChildren<Slider>().value = m_player.GetFoodGauge();
     }
 
     // Update is called once per frame
@@ -84,11 +85,12 @@ public class PlayUI : MonoBehaviour
 
     private void DisplayStatus()
     {
-        m_hp.GetComponentInChildren<Slider>().value = m_player.GetComponent<Player>().GetStatus().actorStatus.hp;
-        m_attack.GetComponentInChildren<TextMeshProUGUI>().text = m_player.GetComponent<Player>().GetStatus().actorStatus.attack.ToString();
-        m_defense.GetComponentInChildren<TextMeshProUGUI>().text = m_player.GetComponent<Player>().GetStatus().actorStatus.defense.ToString();
-        m_water.GetComponentInChildren<Slider>().value = m_player.GetComponent<Player>().GetWaterGauge();
-        m_food.GetComponentInChildren<Slider>().value = m_player.GetComponent<Player>().GetFoodGauge();
-
+        m_hp.GetComponentInChildren<Slider>().value = m_player.GetStatus().actorStatus.hp;
+        m_attack.GetComponentInChildren<TextMeshProUGUI>().text = m_player.GetStatus().actorStatus.attack.ToString();
+        if (m_player.GetStatus().actorStatus.attack < 1f)
+            Debug.Log("Time"+Time.time);
+        m_defense.GetComponentInChildren<TextMeshProUGUI>().text = m_player.GetStatus().actorStatus.defense.ToString();
+        m_water.GetComponentInChildren<Slider>().value = m_player.GetWaterGauge();
+        m_food.GetComponentInChildren<Slider>().value = m_player.GetFoodGauge();
     }
 }

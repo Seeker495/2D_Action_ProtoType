@@ -232,16 +232,16 @@ public class Player : MonoBehaviour, IActor
 
         if(isNoFood)
         {
-            attack *= Parameter.FOOD_GAUGE_DECREASE_RATIO_ATTACK;
-            defence *= Parameter.FOOD_GAUGE_DECREASE_RATIO_DEFENCE;
+            attack *= (1f - Parameter.FOOD_GAUGE_DECREASE_RATIO_ATTACK);
+            defence *= (1f - Parameter.FOOD_GAUGE_DECREASE_RATIO_DEFENCE);
         }
         else
         {
-            attack *= Parameter.FOOD_GAUGE_DECREASE_RATIO_ATTACK / 1.0f;
-            defence *= Parameter.FOOD_GAUGE_DECREASE_RATIO_DEFENCE / 1.0f;
+            attack *= (1f - Parameter.FOOD_GAUGE_DECREASE_RATIO_ATTACK) / 1.0f;
+            defence *= (1f - Parameter.FOOD_GAUGE_DECREASE_RATIO_DEFENCE) / 1.0f;
         }
-        m_status.actorStatus.attack = attack;
-        m_status.actorStatus.defense = defence;
+        m_status.actorStatus.attack = Mathf.Clamp(attack, m_status.maxAttack * (1f - Parameter.FOOD_GAUGE_DECREASE_RATIO_ATTACK), m_status.maxAttack);
+        m_status.actorStatus.defense = Mathf.Clamp(defence, m_status.maxDefense * (1f - Parameter.FOOD_GAUGE_DECREASE_RATIO_DEFENCE), m_status.maxDefense);
     }
 
     public bool HaveFood()
