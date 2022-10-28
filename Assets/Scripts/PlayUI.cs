@@ -1,7 +1,10 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEditor.Build.Pipeline;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -61,7 +64,7 @@ public class PlayUI : MonoBehaviour
         DisplayStatus();
         ChangeStatusColor();
 
-        if(!m_player.GetComponent<Player>().IsArrive())
+        if (!m_player.GetComponent<Player>().IsArrive())
         {
             m_gameOverText.SetActive(true);
             m_gameOverText.GetComponent<TextMeshProUGUI>().text = "GameOver";
@@ -82,8 +85,21 @@ public class PlayUI : MonoBehaviour
         m_attack.GetComponentInChildren<TextMeshProUGUI>().color = haveFoodColor;
         m_defence.GetComponentInChildren<TextMeshProUGUI>().color = haveFoodColor;
 
-        if(m_player.GetComponent<Player>().GetStatus().actorStatus.hp <= m_player.GetComponent<Player>().GetStatus().maxHP * Parameter.UI_DANGER_HP_RATIO)
+        if (m_player.GetComponent<Player>().GetStatus().actorStatus.hp <= 0)
+        {
             m_hp.GetComponentsInChildren<Image>()[1].color = Color.red;
+        }
+        else if (m_player.GetComponent<Player>().GetStatus().actorStatus.hp <= m_player.GetComponent<Player>().GetStatus().maxHP * Parameter.UI_DANGER_HP_RATIO)
+        {
+            m_hp.GetComponentsInChildren<Image>()[1].color =
+                Vector4.MoveTowards(
+                    new Color(1f, 0f, 0f, 1f),
+                    new Color(1f, 0f, 0f, 0f),
+                    math.fmod(Time.time, 1.0f));
+
+        }
+
+
     }
 
     private void DisplayStatus()
@@ -91,7 +107,7 @@ public class PlayUI : MonoBehaviour
         m_hp.GetComponentInChildren<Slider>().value = m_player.GetStatus().actorStatus.hp;
         m_attack.GetComponentInChildren<TextMeshProUGUI>().text = m_player.GetStatus().actorStatus.attack.ToString();
         if (m_player.GetStatus().actorStatus.attack < 1f)
-            Debug.Log("Time"+Time.time);
+            Debug.Log("Time" + Time.time);
         m_defence.GetComponentInChildren<TextMeshProUGUI>().text = m_player.GetStatus().actorStatus.defence.ToString();
         m_water.GetComponentInChildren<Slider>().value = m_player.GetWaterGauge();
         m_food.GetComponentInChildren<Slider>().value = m_player.GetFoodGauge();
