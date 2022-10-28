@@ -13,7 +13,7 @@ public struct PlayerStatus
     public ActorStatus actorStatus;
     public int maxHP;
     public float maxAttack;
-    public float maxDefense;
+    public float maxdefence;
     public int exp;
     public int money;
     public int foodGauge;

@@ -17,7 +17,7 @@ public class PlayUI : MonoBehaviour
 {
     private GameObject m_hp;
     private GameObject m_attack;
-    private GameObject m_defense;
+    private GameObject m_defence;
     private GameObject m_water;
     private GameObject m_food;
     private Image m_hpColorSprite;
@@ -33,10 +33,10 @@ public class PlayUI : MonoBehaviour
 
         m_hp = GameObject.Find("PlayUI/HP");
         m_attack = GameObject.Find("PlayUI/Attack");
-        m_defense = GameObject.Find("PlayUI/Defense");
+        m_defence = GameObject.Find("PlayUI/Defence");
         m_water = GameObject.Find("PlayUI/Water");
         m_food = GameObject.Find("PlayUI/Food");
-        m_hpColorSprite = m_hp.GetComponentsInChildren<Image>()[2];
+        m_hpColorSprite = m_hp.GetComponentsInChildren<Image>()[3];
         m_gameOverText = Instantiate(await Addressables.LoadAssetAsync<GameObject>("Text").Task, new Vector3(960, 540, 0), Quaternion.identity, GameObject.Find("Canvas").transform);
         m_gameOverText.SetActive(false);
 
@@ -50,7 +50,7 @@ public class PlayUI : MonoBehaviour
 
         m_hp.GetComponentInChildren<Slider>().value = m_player.GetStatus().actorStatus.hp;
         m_attack.GetComponentInChildren<TextMeshProUGUI>().text = m_player.GetStatus().actorStatus.attack.ToString();
-        m_defense.GetComponentInChildren<TextMeshProUGUI>().text = m_player.GetStatus().actorStatus.defense.ToString();
+        m_defence.GetComponentInChildren<TextMeshProUGUI>().text = m_player.GetStatus().actorStatus.defence.ToString();
         m_water.GetComponentInChildren<Slider>().value = m_player.GetWaterGauge();
         m_food.GetComponentInChildren<Slider>().value = m_player.GetFoodGauge();
     }
@@ -80,7 +80,10 @@ public class PlayUI : MonoBehaviour
 
         m_hpColorSprite.color = haveWaterColor;
         m_attack.GetComponentInChildren<TextMeshProUGUI>().color = haveFoodColor;
-        m_defense.GetComponentInChildren<TextMeshProUGUI>().color = haveFoodColor;
+        m_defence.GetComponentInChildren<TextMeshProUGUI>().color = haveFoodColor;
+
+        if(m_player.GetComponent<Player>().GetStatus().actorStatus.hp <= m_player.GetComponent<Player>().GetStatus().maxHP * Parameter.UI_DANGER_HP_RATIO)
+            m_hp.GetComponentsInChildren<Image>()[1].color = Color.red;
     }
 
     private void DisplayStatus()
@@ -89,7 +92,7 @@ public class PlayUI : MonoBehaviour
         m_attack.GetComponentInChildren<TextMeshProUGUI>().text = m_player.GetStatus().actorStatus.attack.ToString();
         if (m_player.GetStatus().actorStatus.attack < 1f)
             Debug.Log("Time"+Time.time);
-        m_defense.GetComponentInChildren<TextMeshProUGUI>().text = m_player.GetStatus().actorStatus.defense.ToString();
+        m_defence.GetComponentInChildren<TextMeshProUGUI>().text = m_player.GetStatus().actorStatus.defence.ToString();
         m_water.GetComponentInChildren<Slider>().value = m_player.GetWaterGauge();
         m_food.GetComponentInChildren<Slider>().value = m_player.GetFoodGauge();
     }

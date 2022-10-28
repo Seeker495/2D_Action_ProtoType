@@ -122,4 +122,9 @@ public static class Parameter
     public const float DROP_EFFECT_SIZE_MULTIPLY = 0.15f;
     #endregion
     #endregion
+
+    #region ABOUT_UI
+    // HP‚ª­‚È‚¢‚Æ”»’f‚·‚éŠî€
+    public const float UI_DANGER_HP_RATIO = 0.4f;
+    #endregion
 }

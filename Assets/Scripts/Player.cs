@@ -37,7 +37,7 @@ public class Player : MonoBehaviour, IActor
     {
         m_status.actorStatus.hp = m_status.maxHP = Parameter.PLAYER_MAX_HP;
         m_status.actorStatus.attack = m_status.maxAttack = Parameter.PLAYER_INIT_ATTACK;
-        m_status.actorStatus.defense = m_status.maxDefense = Parameter.PLAYER_INIT_DEFENCE;
+        m_status.actorStatus.defence = m_status.maxdefence = Parameter.PLAYER_INIT_DEFENCE;
         m_status.actorStatus.speed = Parameter.PLAYER_NORMAL_VELOCITY;
         m_status.exp = m_status.money = 0;
         m_status.foodGauge = Parameter.FOOD_GAUGE_MAX / 2;
@@ -251,7 +251,7 @@ public class Player : MonoBehaviour, IActor
     private void Debuff_Status(bool isNoFood)
     {
         float attack = m_status.maxAttack;
-        float defence = m_status.maxDefense;
+        float defence = m_status.maxdefence;
 
 
         if (isNoFood)
@@ -265,7 +265,7 @@ public class Player : MonoBehaviour, IActor
             defence *= (1f - Parameter.FOOD_GAUGE_DECREASE_RATIO_DEFENCE) / 1.0f;
         }
         m_status.actorStatus.attack = Mathf.Clamp(attack, m_status.maxAttack * (1f - Parameter.FOOD_GAUGE_DECREASE_RATIO_ATTACK), m_status.maxAttack);
-        m_status.actorStatus.defense = Mathf.Clamp(defence, m_status.maxDefense * (1f - Parameter.FOOD_GAUGE_DECREASE_RATIO_DEFENCE), m_status.maxDefense);
+        m_status.actorStatus.defence = Mathf.Clamp(defence, m_status.maxdefence * (1f - Parameter.FOOD_GAUGE_DECREASE_RATIO_DEFENCE), m_status.maxdefence);
     }
 
     public bool HaveFood()
@@ -297,7 +297,7 @@ public class Player : MonoBehaviour, IActor
 
     void Damage(in float attack = 0.0f)
     {
-        int damage = Mathf.RoundToInt(attack - m_status.actorStatus.defense);
+        int damage = Mathf.RoundToInt(attack - m_status.actorStatus.defence);
         m_status.actorStatus.hp -= damage;
         StartCoroutine(OnDamage(2.0f, 0.3f));
     }

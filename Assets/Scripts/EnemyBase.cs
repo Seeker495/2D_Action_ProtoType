@@ -27,7 +27,7 @@ public abstract class EnemyBase : MonoBehaviour, IActor
         m_status.name = m_enemyParameter.Name;
         m_status.actorStatus.hp = m_enemyParameter.HP;
         m_status.actorStatus.attack = m_enemyParameter.Attack;
-        m_status.actorStatus.defense = m_enemyParameter.Defense;
+        m_status.actorStatus.defence = m_enemyParameter.defence;
         m_status.actorStatus.speed = m_enemyParameter.Speed;
         m_status.actorStatus.touchPower = m_enemyParameter.TouchPower;
         m_status.exp = m_enemyParameter.Exp;
@@ -98,7 +98,7 @@ public abstract class EnemyBase : MonoBehaviour, IActor
 
     void Damage(in float attack = 0.0f)
     {
-        int damage = Mathf.RoundToInt(attack - m_status.actorStatus.defense);
+        int damage = Mathf.RoundToInt(attack - m_status.actorStatus.defence);
         m_status.actorStatus.hp -= damage;
         StartCoroutine(OnDamage(0.1f, 0.3f));
     }

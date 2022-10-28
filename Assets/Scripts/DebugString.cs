@@ -29,6 +29,6 @@ public class DebugString : MonoBehaviour
             $"Exp: {m_player.GetExp()}\n" +
             $"Money: {m_player.GetMoney()}\n" +
             $"Attack: {m_player.GetComponent<IActor>().GetBaseStatus().attack}" +
-            $"Defence: {m_player.GetComponent<IActor>().GetBaseStatus().defense}";
+            $"Defence: {m_player.GetComponent<IActor>().GetBaseStatus().defence}";
     }
 }

@@ -27,7 +27,7 @@ public class ScriptableObjectFounder<T> : EditorWindow where T : ScriptableObjec
                 enemy.Money = int.Parse(splits[3]);
                 enemy.HP = int.Parse(splits[4]);
                 enemy.Attack = float.Parse(splits[5]);
-                enemy.Defense = float.Parse(splits[6]);
+                enemy.defence = float.Parse(splits[6]);
                 enemy.Speed = float.Parse(splits[7]);
                 enemy.TouchPower = float.Parse(splits[8]);
                 enemy.MovePattern = int.Parse(splits[9]);
