@@ -21,6 +21,7 @@ TagManager:
   - ChangeColorObject
   - FoodItem
   - WaterItem
+  - SoundManager
   layers:
   - Default
   - TransparentFX
