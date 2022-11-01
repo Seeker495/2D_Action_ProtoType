@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class SoundManager_2 : MonoBehaviour
 {
+    [SerializeField]
+    AudioSource bgmAudioSource;
+
+    [SerializeField]
+    AudioSource seAudioSource;
+
     [System.Serializable]
     public struct AudioInfo 
     {
@@ -15,13 +21,30 @@ public class SoundManager_2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        AudioInfo audio;
-        //audio.clip = m_bgmList;
     }
 
     // Update is called once per frame
     void Update()
     {
       
+    }
+
+    public void PlayBgm(int num)
+    {
+        bgmAudioSource.clip = m_bgmList[num].clip;
+        if (m_bgmList[num].clip == null)
+        {
+            return;
+        }
+        bgmAudioSource.Play();
+    }
+    public void PlaySe(int num)
+    {
+        seAudioSource.clip = m_seList[num].clip;
+        if (m_seList[num].clip == null)
+        {
+            return;
+        }
+        seAudioSource.Play();
     }
 }

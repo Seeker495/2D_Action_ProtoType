@@ -231,6 +231,7 @@ public class Player : MonoBehaviour, IActor
             m_status.actorStatus.hp -= (int)System.Math.Round(m_status.maxHP * Parameter.WATER_GAUGE_DECREASE_RATIO_HP);
             m_noWaterTime = 0.0f;
         }
+        
     }
 
     private void DecreaseGauge()
