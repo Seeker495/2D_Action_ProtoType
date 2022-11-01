@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class BGMScript_2 : MonoBehaviour
 {
+    [SerializeField]
+    SoundManager_2 soundManager_2;
 
     [SerializeField]
-    SoundManager soundManager;
-
-    [SerializeField]
-    AudioClip clip;
+    int soundNum;
 
     void Start()
-    {
-        soundManager.PlayBgm(clip);
+       {
+     soundManager_2.PlayBgm(soundNum);
     }
     private void Update()
     {

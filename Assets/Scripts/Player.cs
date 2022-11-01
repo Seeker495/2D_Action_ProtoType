@@ -33,6 +33,10 @@ public class Player : MonoBehaviour, IActor
     private const float DAMAGE_INTERVAL = 2.0f;
     private const float GAUGE_DECREASE_INTERVAL = 3.0f;
     // Start is called before the first frame update
+
+    // サウンドマネージャー
+    public SoundManager_2 soundManager_2;
+
     async void Awake()
     {
         m_status.actorStatus.hp = m_status.maxHP = Parameter.PLAYER_MAX_HP;
@@ -116,6 +120,16 @@ public class Player : MonoBehaviour, IActor
     {
         if (m_rigidbody2D.velocity != Vector2.zero && m_weapons[WeaponIndex].GetAttackType().Equals(eAttackType.BLADE)) return;
         m_weapons[WeaponIndex].Attack();
+
+        // WeaponIndex に応じた音を出す
+        if(WeaponIndex == 0)
+        {
+            soundManager_2.PlaySe(0);
+        }
+        if(WeaponIndex == 1)
+        {
+            soundManager_2.PlaySe(1);
+        }
     }
 
     public Sprite GetWeaponSprite()
@@ -126,11 +140,17 @@ public class Player : MonoBehaviour, IActor
     public void SelectWeaponToLeft(InputAction.CallbackContext context)
     {
         WeaponIndex = System.Math.Abs(--WeaponIndex) % m_weapons.Count;
+
+        // 武器チェンジの音
+        soundManager_2.PlaySe(2);
     }
 
     public void SelectWeaponToRight(InputAction.CallbackContext context)
     {
         WeaponIndex = System.Math.Abs(++WeaponIndex) % m_weapons.Count;
+
+        // 武器チェンジの音
+        soundManager_2.PlaySe(2);
     }
 
     public void Resurrection(InputAction.CallbackContext context)
@@ -298,6 +318,9 @@ public class Player : MonoBehaviour, IActor
 
     void Damage(in float attack = 0.0f)
     {
+        // ダメージを受ける音
+        soundManager_2.PlaySe(6);
+
         int damage = Mathf.RoundToInt(attack - m_status.actorStatus.defence);
         m_status.actorStatus.hp -= damage;
         StartCoroutine(OnDamage(2.0f, 0.3f));
@@ -342,6 +365,9 @@ public class Player : MonoBehaviour, IActor
 
     public void AddExp(in int exp)
     {
+        // 経験値取得
+        soundManager_2.PlaySe(4);
+
         m_status.exp += exp * 2;
     }
 
@@ -373,6 +399,9 @@ public class Player : MonoBehaviour, IActor
 
     public void HighSpeedMove(InputAction.CallbackContext context)
     {
+        // 早い移動の音
+        soundManager_2.PlaySe(6);
+
         if (!GetComponent<HighSpeedMove>()) return;
         StartCoroutine(GetComponent<HighSpeedMove>().Move(gameObject, false));
     }

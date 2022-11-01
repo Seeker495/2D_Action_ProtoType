@@ -772,8 +772,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff2fba884118c78449c3af23c235b109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgmAudioSource: {fileID: 0}
-  seAudioSource: {fileID: 0}
+  bgmAudioSource: {fileID: 1876305127}
+  seAudioSource: {fileID: 1485015411}
   m_bgmList:
   - name: bdm
     clip: {fileID: 8300000, guid: 86fddf0b64645104e84ca85b64d2381f, type: 3}
@@ -1348,7 +1348,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8c200d9bd64e9ea48b59d807e451b5f8, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -1853,6 +1853,10 @@ PrefabInstance:
       propertyPath: m_CollisionDetection
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6649572322791377978, guid: cea359171febcd743aa54a5940e622e6, type: 3}
+      propertyPath: soundManager_2
+      value: 
+      objectReference: {fileID: 816212124}
     - target: {fileID: 6649572322791377979, guid: cea359171febcd743aa54a5940e622e6, type: 3}
       propertyPath: m_Size.x
       value: 0.2126374
