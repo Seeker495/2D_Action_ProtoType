@@ -33,6 +33,10 @@ public class Player : MonoBehaviour, IActor
     private const float DAMAGE_INTERVAL = 2.0f;
     private const float GAUGE_DECREASE_INTERVAL = 3.0f;
     // Start is called before the first frame update
+
+    [SerializeField]
+    SoundManager_2 soundManager_2;
+
     async void Awake()
     {
         m_status.actorStatus.hp = m_status.maxHP = Parameter.PLAYER_MAX_HP;
@@ -65,7 +69,6 @@ public class Player : MonoBehaviour, IActor
     // Update is called once per frame
     void Update()
     {
-
 
         if (!HaveWater())
             Debuff_HP(Parameter.WATER_GAUGE_DECREASE_HP_INTERVAL);
@@ -104,11 +107,15 @@ public class Player : MonoBehaviour, IActor
         {
             case InputActionPhase.Started:
                 m_velocity *= Parameter.PLAYER_DASH_MULTIPLY;
+                soundManager_2.PlaySe(7);
                 break;
             case InputActionPhase.Canceled:
                 m_velocity *= 1.0f / Parameter.PLAYER_DASH_MULTIPLY;
+      
                 break;
         }
+
+
         m_rigidbody2D.velocity = m_velocity;
 
     }
@@ -116,6 +123,16 @@ public class Player : MonoBehaviour, IActor
     {
         if (m_rigidbody2D.velocity != Vector2.zero && m_weapons[WeaponIndex].GetAttackType().Equals(eAttackType.BLADE)) return;
         m_weapons[WeaponIndex].Attack();
+
+        // WeaponIndex ‚Ì”‚É‰‚¶‚½‰¹‚ğ–Â‚ç‚·
+        if (WeaponIndex == 0)
+        {
+            soundManager_2.PlaySe(0);
+        }
+        if (WeaponIndex == 1)
+        {
+            soundManager_2.PlaySe(1);
+        }
     }
 
     public Sprite GetWeaponSprite()
@@ -126,11 +143,17 @@ public class Player : MonoBehaviour, IActor
     public void SelectWeaponToLeft(InputAction.CallbackContext context)
     {
         WeaponIndex = System.Math.Abs(--WeaponIndex) % m_weapons.Count;
+
+        // •Ší‘Ö‚¦‚Ì‰¹
+        soundManager_2.PlaySe(2);     
     }
 
     public void SelectWeaponToRight(InputAction.CallbackContext context)
     {
         WeaponIndex = System.Math.Abs(++WeaponIndex) % m_weapons.Count;
+
+        // •Ší‘Ö‚¦‚Ì‰¹
+        soundManager_2.PlaySe(2);
     }
 
     public void Resurrection(InputAction.CallbackContext context)
@@ -229,6 +252,7 @@ public class Player : MonoBehaviour, IActor
         if (m_noWaterTime > interval)
         {
             m_status.actorStatus.hp -= (int)System.Math.Round(m_status.maxHP * Parameter.WATER_GAUGE_DECREASE_RATIO_HP);
+
             m_noWaterTime = 0.0f;
         }
     }
@@ -297,6 +321,9 @@ public class Player : MonoBehaviour, IActor
 
     void Damage(in float attack = 0.0f)
     {
+        // ƒ_ƒ[ƒW‚ğó‚¯‚½‚Ì‰¹
+        soundManager_2.PlaySe(3);
+
         int damage = Mathf.RoundToInt(attack - m_status.actorStatus.defence);
         m_status.actorStatus.hp -= damage;
         StartCoroutine(OnDamage(2.0f, 0.3f));
@@ -341,6 +368,7 @@ public class Player : MonoBehaviour, IActor
 
     public void AddExp(in int exp)
     {
+        soundManager_2.PlaySe(6);
         m_status.exp += exp * 2;
     }
 
