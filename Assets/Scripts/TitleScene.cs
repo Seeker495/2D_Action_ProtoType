@@ -12,6 +12,10 @@ public class TitleScene : MonoBehaviour
 {
     [SerializeField]
     GameObject m_titleText;
+
+    [SerializeField]
+    SoundManager_2 soundManager_2;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,18 +38,27 @@ public class TitleScene : MonoBehaviour
 
     public void Press_Start()
     {
+
         Debug.Log("Press_Start");
         SceneManager.LoadSceneAsync("Play");
+        // Œˆ’è‰¹
+        soundManager_2.PlaySe(0);
     }
 
     public void Press_Option()
     {
+
         Debug.Log("Press_Option");
+        // Œˆ’è‰¹
+        soundManager_2.PlaySe(0);
     }
 
     public void Press_Quit()
     {
+
         Debug.Log("Press_Quit");
+        // Œˆ’è‰¹
+        soundManager_2.PlaySe(0);
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
