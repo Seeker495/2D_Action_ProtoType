@@ -4,21 +4,20 @@ using UnityEngine;
 
 public class SeScript_2 : MonoBehaviour
 {
-
     [SerializeField]
     SoundManager_2 soundManager_2;
 
     [SerializeField]
     int soundNum;
-
+    // Start is called before the first frame update
     void Start()
     {
+        
     }
-    private void Update()
+
+    // Update is called once per frame
+    void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            soundManager_2.PlaySe(soundNum);
-        }
+        soundManager_2.PlayBgm(soundNum);
     }
 }

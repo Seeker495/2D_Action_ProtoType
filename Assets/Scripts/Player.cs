@@ -34,8 +34,9 @@ public class Player : MonoBehaviour, IActor
     private const float GAUGE_DECREASE_INTERVAL = 3.0f;
     // Start is called before the first frame update
 
-    [SerializeField]
-    SoundManager_2 soundManager_2;
+    // サウンドマネージャー
+    public SoundManager_2 soundManager_2;
+    bool pinchiFlag = false;
 
     async void Awake()
     {
@@ -69,7 +70,6 @@ public class Player : MonoBehaviour, IActor
     // Update is called once per frame
     void Update()
     {
-
         if (!HaveWater())
             Debuff_HP(Parameter.WATER_GAUGE_DECREASE_HP_INTERVAL);
         m_isNoFood = !HaveFood();
@@ -78,6 +78,18 @@ public class Player : MonoBehaviour, IActor
             Dead();
         m_status.foodGauge = (int)Mathf.Clamp(m_status.foodGauge, 0, Parameter.FOOD_GAUGE_MAX);
         m_status.waterGauge = (int)Mathf.Clamp(m_status.waterGauge, 0, Parameter.WATER_GAUGE_MAX);
+
+        // 危険の音を鳴らす
+        if (!pinchiFlag && m_status.actorStatus.hp < 30)
+        {
+            pinchiFlag = true;
+            soundManager_2.PlaySe(8);
+        }
+        else if(pinchiFlag && m_status.actorStatus.hp > 31)
+        {
+            pinchiFlag = false;
+        }
+
 
     }
 
@@ -107,15 +119,14 @@ public class Player : MonoBehaviour, IActor
         {
             case InputActionPhase.Started:
                 m_velocity *= Parameter.PLAYER_DASH_MULTIPLY;
-                soundManager_2.PlaySe(7);
+
+                // 早い移動の音
+                soundManager_2.PlaySe(6);
                 break;
             case InputActionPhase.Canceled:
                 m_velocity *= 1.0f / Parameter.PLAYER_DASH_MULTIPLY;
-      
                 break;
         }
-
-
         m_rigidbody2D.velocity = m_velocity;
 
     }
@@ -124,12 +135,12 @@ public class Player : MonoBehaviour, IActor
         if (m_rigidbody2D.velocity != Vector2.zero && m_weapons[WeaponIndex].GetAttackType().Equals(eAttackType.BLADE)) return;
         m_weapons[WeaponIndex].Attack();
 
-        // WeaponIndex の数に応じた音を鳴らす
-        if (WeaponIndex == 0)
+        // WeaponIndex に応じた音を出す
+        if(WeaponIndex == 0)
         {
             soundManager_2.PlaySe(0);
         }
-        if (WeaponIndex == 1)
+        if(WeaponIndex == 1)
         {
             soundManager_2.PlaySe(1);
         }
@@ -144,15 +155,15 @@ public class Player : MonoBehaviour, IActor
     {
         WeaponIndex = System.Math.Abs(--WeaponIndex) % m_weapons.Count;
 
-        // 武器替えの音
-        soundManager_2.PlaySe(2);     
+        // 武器チェンジの音
+        soundManager_2.PlaySe(2);
     }
 
     public void SelectWeaponToRight(InputAction.CallbackContext context)
     {
         WeaponIndex = System.Math.Abs(++WeaponIndex) % m_weapons.Count;
 
-        // 武器替えの音
+        // 武器チェンジの音
         soundManager_2.PlaySe(2);
     }
 
@@ -234,8 +245,6 @@ public class Player : MonoBehaviour, IActor
 
     }
 
-
-
     public bool IsArrive()
     {
         return 0 < m_status.actorStatus.hp;
@@ -252,9 +261,9 @@ public class Player : MonoBehaviour, IActor
         if (m_noWaterTime > interval)
         {
             m_status.actorStatus.hp -= (int)System.Math.Round(m_status.maxHP * Parameter.WATER_GAUGE_DECREASE_RATIO_HP);
-
             m_noWaterTime = 0.0f;
         }
+        
     }
 
     private void DecreaseGauge()
@@ -321,7 +330,7 @@ public class Player : MonoBehaviour, IActor
 
     void Damage(in float attack = 0.0f)
     {
-        // ダメージを受けた時の音
+        // ダメージを受ける音
         soundManager_2.PlaySe(3);
 
         int damage = Mathf.RoundToInt(attack - m_status.actorStatus.defence);
@@ -335,6 +344,7 @@ public class Player : MonoBehaviour, IActor
         StartCoroutine(KnockBack());
         bool changed = false;
         int inter = 0;
+
         while (duration > 0.0f)
         {
             inter++;
@@ -368,7 +378,9 @@ public class Player : MonoBehaviour, IActor
 
     public void AddExp(in int exp)
     {
-        soundManager_2.PlaySe(6);
+        // 経験値取得
+        soundManager_2.PlaySe(4);
+
         m_status.exp += exp * 2;
     }
 
@@ -400,6 +412,7 @@ public class Player : MonoBehaviour, IActor
 
     public void HighSpeedMove(InputAction.CallbackContext context)
     {
+
         if (!GetComponent<HighSpeedMove>()) return;
         StartCoroutine(GetComponent<HighSpeedMove>().Move(gameObject, false));
     }
