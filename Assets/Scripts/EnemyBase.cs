@@ -54,6 +54,7 @@ public abstract class EnemyBase : MonoBehaviour, IActor
         {
             m_direction = m_rigidBody2D.velocity.normalized;
             m_magicManager.Attack();
+            soundManager_2.PlaySe(5);
             time = 0.0f;
         }
     }

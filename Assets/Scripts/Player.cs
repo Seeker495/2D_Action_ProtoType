@@ -36,6 +36,7 @@ public class Player : MonoBehaviour, IActor
 
     // サウンドマネージャー
     public SoundManager_2 soundManager_2;
+    bool pinchiFlag = false;
 
     async void Awake()
     {
@@ -69,8 +70,6 @@ public class Player : MonoBehaviour, IActor
     // Update is called once per frame
     void Update()
     {
-
-
         if (!HaveWater())
             Debuff_HP(Parameter.WATER_GAUGE_DECREASE_HP_INTERVAL);
         m_isNoFood = !HaveFood();
@@ -79,6 +78,18 @@ public class Player : MonoBehaviour, IActor
             Dead();
         m_status.foodGauge = (int)Mathf.Clamp(m_status.foodGauge, 0, Parameter.FOOD_GAUGE_MAX);
         m_status.waterGauge = (int)Mathf.Clamp(m_status.waterGauge, 0, Parameter.WATER_GAUGE_MAX);
+
+        // 危険の音を鳴らす
+        if (!pinchiFlag && m_status.actorStatus.hp < 30)
+        {
+            pinchiFlag = true;
+            soundManager_2.PlaySe(8);
+        }
+        else if(pinchiFlag && m_status.actorStatus.hp > 31)
+        {
+            pinchiFlag = false;
+        }
+
 
     }
 
@@ -108,6 +119,9 @@ public class Player : MonoBehaviour, IActor
         {
             case InputActionPhase.Started:
                 m_velocity *= Parameter.PLAYER_DASH_MULTIPLY;
+
+                // 早い移動の音
+                soundManager_2.PlaySe(6);
                 break;
             case InputActionPhase.Canceled:
                 m_velocity *= 1.0f / Parameter.PLAYER_DASH_MULTIPLY;
@@ -231,8 +245,6 @@ public class Player : MonoBehaviour, IActor
 
     }
 
-
-
     public bool IsArrive()
     {
         return 0 < m_status.actorStatus.hp;
@@ -319,7 +331,7 @@ public class Player : MonoBehaviour, IActor
     void Damage(in float attack = 0.0f)
     {
         // ダメージを受ける音
-        soundManager_2.PlaySe(6);
+        soundManager_2.PlaySe(3);
 
         int damage = Mathf.RoundToInt(attack - m_status.actorStatus.defence);
         m_status.actorStatus.hp -= damage;
@@ -332,6 +344,7 @@ public class Player : MonoBehaviour, IActor
         StartCoroutine(KnockBack());
         bool changed = false;
         int inter = 0;
+
         while (duration > 0.0f)
         {
             inter++;
@@ -399,8 +412,6 @@ public class Player : MonoBehaviour, IActor
 
     public void HighSpeedMove(InputAction.CallbackContext context)
     {
-        // 早い移動の音
-        soundManager_2.PlaySe(6);
 
         if (!GetComponent<HighSpeedMove>()) return;
         StartCoroutine(GetComponent<HighSpeedMove>().Move(gameObject, false));
