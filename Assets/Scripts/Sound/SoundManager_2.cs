@@ -15,12 +15,13 @@ public class SoundManager_2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        AudioInfo audio;
+        //audio.clip = m_bgmList;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+      
     }
 }

@@ -13,6 +13,7 @@ using UnityEngine.InputSystem;
  *******************************************************************/
 public class FollowCamera : MonoBehaviour
 {
+
     public enum eCameraDistanceRatio
     {
         NEAR,
@@ -20,6 +21,7 @@ public class FollowCamera : MonoBehaviour
         FAR,
         RATIO_NUM,
     }
+
 
     public eCameraDistanceRatio m_cameraDistanceRatio = eCameraDistanceRatio.NORAML;
 

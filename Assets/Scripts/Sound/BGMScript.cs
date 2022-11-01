@@ -9,14 +9,13 @@ public class BGMScript : MonoBehaviour
     SoundManager soundManager;
 
     [SerializeField]
-
     AudioClip clip;
 
     void Start()
     {
+        soundManager.PlayBgm(clip);   
     }
     private void Update()
-    {
-        soundManager.PlayBgm(clip);        
+    {     
     }
 }
