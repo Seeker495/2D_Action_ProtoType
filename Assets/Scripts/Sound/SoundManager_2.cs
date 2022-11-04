@@ -4,18 +4,25 @@ using UnityEngine;
 
 public class SoundManager_2 : MonoBehaviour
 {
+    // オーディオソース(BGM)
     [SerializeField]
     AudioSource bgmAudioSource;
 
+    // オーディオソース(SE)
     [SerializeField]
     AudioSource seAudioSource;
 
+    // オーディオの構造体
     [System.Serializable]
     public struct AudioInfo 
     {
+        // 音の名前
         public string name;
+
+        // 音
         public AudioClip clip;
     }
+
     public List<AudioInfo> m_bgmList = new List<AudioInfo>();
     public List<AudioInfo> m_seList = new List<AudioInfo>();
     // Start is called before the first frame update
@@ -29,6 +36,7 @@ public class SoundManager_2 : MonoBehaviour
       
     }
 
+    // bgmを流す
     public void PlayBgm(int num)
     {
         bgmAudioSource.clip = m_bgmList[num].clip;
@@ -38,6 +46,8 @@ public class SoundManager_2 : MonoBehaviour
         }
         bgmAudioSource.Play();
     }
+
+    // seを鳴らす
     public void PlaySe(int num)
     {
         seAudioSource.clip = m_seList[num].clip;

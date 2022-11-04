@@ -16,6 +16,7 @@ using UnityEngine.Tilemaps;
  *******************************************************************/
 public class Player : MonoBehaviour, IActor
 {
+    // 衝突判定
     Rigidbody2D m_rigidbody2D;
 
     [SerializeField]
@@ -36,10 +37,13 @@ public class Player : MonoBehaviour, IActor
 
     // サウンドマネージャー
     public SoundManager_2 soundManager_2;
+
+    // ピンチの時に流すseのフラグ
     bool pinchiFlag = false;
 
     async void Awake()
     {
+        // ステータスごとの初期化
         m_status.actorStatus.hp = m_status.maxHP = Parameter.PLAYER_MAX_HP;
         m_status.actorStatus.attack = m_status.maxAttack = Parameter.PLAYER_INIT_ATTACK;
         m_status.actorStatus.defence = m_status.maxdefence = Parameter.PLAYER_INIT_DEFENCE;
@@ -49,15 +53,7 @@ public class Player : MonoBehaviour, IActor
         m_status.waterGauge = Parameter.WATER_GAUGE_MAX / 2;
         m_rigidbody2D = GetComponent<Rigidbody2D>();
 
-
-        Sprites = new Dictionary<Vector2, Tile>(4)
-        {
-            {Vector2.up,await Addressables.LoadAssetAsync<Tile>("Characters_36").Task },
-            {Vector2.right,await Addressables.LoadAssetAsync<Tile>("Characters_24").Task },
-            {Vector2.left,await Addressables.LoadAssetAsync<Tile>("Characters_12").Task },
-            {Vector2.down,await Addressables.LoadAssetAsync<Tile>("Characters_0").Task },
-        };
-
+        // 武器リスト
         m_weapons = new List<AttackBase>(2)
         {
             GetComponentInChildren<Blade>(),
@@ -106,13 +102,14 @@ public class Player : MonoBehaviour, IActor
         m_direction = m_rigidbody2D.velocity.normalized;
     }
 
+    // 移動終わり
     public void MoveEnd(InputAction.CallbackContext context)
     {
         m_velocity = Vector2.zero;
         m_rigidbody2D.velocity = m_velocity;
     }
 
-
+    // ダッシュ
     public void Dash(InputAction.CallbackContext context)
     {
         switch (context.phase)
@@ -130,12 +127,14 @@ public class Player : MonoBehaviour, IActor
         m_rigidbody2D.velocity = m_velocity;
 
     }
+
+
     public void Attack(InputAction.CallbackContext context)
     {
         if (m_rigidbody2D.velocity != Vector2.zero && m_weapons[WeaponIndex].GetAttackType().Equals(eAttackType.BLADE)) return;
         m_weapons[WeaponIndex].Attack();
 
-        // WeaponIndex に応じた音を出す
+        // WeaponIndex に応じた武器の音を出す
         if(WeaponIndex == 0)
         {
             soundManager_2.PlaySe(0);

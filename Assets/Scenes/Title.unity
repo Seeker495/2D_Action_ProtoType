@@ -202,7 +202,7 @@ MonoBehaviour:
   seAudioSource: {fileID: 134560074}
   m_bgmList:
   - name: "\u30BF\u30A4\u30C8\u30EB\u30B7\u30FC\u30F3\u97F3"
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: a258c2866ebca624e8440f43f4fab05c, type: 3}
   m_seList:
   - name: "\u6C7A\u5B9A\u97F3"
     clip: {fileID: 8300000, guid: 8888fec072f41004c8e4a7125540dd78, type: 3}
