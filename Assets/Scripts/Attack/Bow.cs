@@ -18,11 +18,6 @@ public class Bow : AttackBase
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     public override void Attack()
     {
@@ -57,4 +52,13 @@ public class Bow : AttackBase
         }
     }
 
+    public override void Execute()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override Sprite GetSprite()
+    {
+        return GetComponent<SpriteRenderer>().sprite;
+    }
 }

@@ -1,0 +1,7 @@
+public enum eMovePattern
+{
+    NO_MOVE = 1,
+    RANDOM_MOVE,
+    RANDOM_MOVE_WITH_CHASING,
+    RANDOM_MOVE_WITH_EXPLOSION,
+}

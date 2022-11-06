@@ -126,5 +126,7 @@ public static class Parameter
     #region ABOUT_UI
     // HP‚ª­‚È‚¢‚Æ”»’f‚·‚éŠî€
     public const float UI_DANGER_HP_RATIO = 0.4f;
+    // HP‚ª­‚È‚¢‚Æ‚«‚Ì˜g‚Ì“_–ÅŠÔŠu
+    public const float UI_DANGER_HP_BLINK_INTERVAL = 1.0f;
     #endregion
 }

@@ -1,6 +1,5 @@
 using Cinemachine;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,31 +12,41 @@ using UnityEngine.InputSystem;
  *******************************************************************/
 public class FollowCamera : MonoBehaviour
 {
-
-    public enum eCameraDistanceRatio
+    // カメラの距離比率を示す列挙体
+    private enum eCameraDistanceRatio
     {
-        NEAR,
-        NORAML,
-        FAR,
-        RATIO_NUM,
+        NEAR,        // 近い
+        NORAML,      // 中間
+        FAR,         // 遠い
+        RATIO_NUM,   // 比率の総数
     }
 
+    // 現在のカメラの距離比率
+    private eCameraDistanceRatio m_cameraDistanceRatio = eCameraDistanceRatio.NORAML;
 
-    public eCameraDistanceRatio m_cameraDistanceRatio = eCameraDistanceRatio.NORAML;
-
-    Dictionary<eCameraDistanceRatio, float> m_cameraDistance = new Dictionary<eCameraDistanceRatio, float>((int)eCameraDistanceRatio.RATIO_NUM)
+    // カメラの距離を格納する配列
+    private Dictionary<eCameraDistanceRatio, float> m_cameraDistance = new Dictionary<eCameraDistanceRatio, float>((int)eCameraDistanceRatio.RATIO_NUM)
     {
-        {eCameraDistanceRatio.NEAR,7.0f },
-        {eCameraDistanceRatio.NORAML,15.0f },
-        {eCameraDistanceRatio.FAR,25.0f },
+        {eCameraDistanceRatio.NEAR,     Parameter.CAMERA_NEAR_DISTANCE },
+        {eCameraDistanceRatio.NORAML,   Parameter.CAMERA_MIDDLE_DISTANCE },
+        {eCameraDistanceRatio.FAR,      Parameter.CAMERA_FAR_DISTANCE },
     };
 
-
+    /*******************************************************************
+     *  カメラの距離を調整する(カメラの距離の切り替え)
+     *******************************************************************/
     public void AdjustCameraDistance(InputAction.CallbackContext context)
     {
+        // 現在のカメラの距離比率を列挙体から整数にして取得
         int cameraDistanceRatio = (int)m_cameraDistanceRatio;
+
+        // 次のカメラの距離比率を列挙体にして代入
         m_cameraDistanceRatio = (eCameraDistanceRatio)(Math.Abs(++cameraDistanceRatio) % (int)eCameraDistanceRatio.RATIO_NUM);
+
+        // 基底のコンポーネントを取得
         CinemachineComponentBase componentBase = GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent(CinemachineCore.Stage.Body);
+
+        // 条件の型に派生できるならカメラの距離を変更する
         if (componentBase is CinemachineFramingTransposer)
         {
             (componentBase as CinemachineFramingTransposer).m_CameraDistance = m_cameraDistance[m_cameraDistanceRatio];

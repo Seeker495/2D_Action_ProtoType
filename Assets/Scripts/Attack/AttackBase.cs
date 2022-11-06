@@ -8,12 +8,11 @@ using UnityEngine;
  *******************************************************************/
 public abstract class AttackBase : MonoBehaviour
 {
+    public abstract void Execute();
     public abstract void Attack();
 
-    public Sprite GetSprite()
-    {
-        return GetComponent<SpriteRenderer>().sprite;
-    }
+    public abstract Sprite GetSprite();
+
 
     public abstract eAttackType GetAttackType();
 
