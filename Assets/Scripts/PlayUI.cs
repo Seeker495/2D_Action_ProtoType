@@ -95,7 +95,7 @@ public class PlayUI : MonoBehaviour
                 Vector4.MoveTowards(
                     new Color(1f, 0f, 0f, 1f),
                     new Color(1f, 0f, 0f, 0f),
-                    math.fmod(Time.time, 1.0f));
+                    math.fmod(Time.time, Parameter.UI_DANGER_HP_BLINK_INTERVAL));
 
         }
 
@@ -106,8 +106,6 @@ public class PlayUI : MonoBehaviour
     {
         m_hp.GetComponentInChildren<Slider>().value = m_player.GetStatus().actorStatus.hp;
         m_attack.GetComponentInChildren<TextMeshProUGUI>().text = m_player.GetStatus().actorStatus.attack.ToString();
-        if (m_player.GetStatus().actorStatus.attack < 1f)
-            Debug.Log("Time" + Time.time);
         m_defence.GetComponentInChildren<TextMeshProUGUI>().text = m_player.GetStatus().actorStatus.defence.ToString();
         m_water.GetComponentInChildren<Slider>().value = m_player.GetWaterGauge();
         m_food.GetComponentInChildren<Slider>().value = m_player.GetFoodGauge();

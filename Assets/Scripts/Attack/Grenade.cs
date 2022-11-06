@@ -18,11 +18,6 @@ public class Grenade : AttackBase
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     public override void Attack()
     {
@@ -48,4 +43,13 @@ public class Grenade : AttackBase
         //grenade.GetComponent<Grenade>().Shoot(startPosition, startDegree, m_direction);
     }
 
+    public override void Execute()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override Sprite GetSprite()
+    {
+        return GetComponent<SpriteRenderer>().sprite;
+    }
 }

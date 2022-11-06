@@ -21,12 +21,6 @@ public class Blade : AttackBase
         GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     /*
      * 攻撃関数
      * 概要: 攻撃を行う
@@ -56,11 +50,11 @@ public class Blade : AttackBase
      */
     public IEnumerator Attacking(float degree)
     {
-        var direction = transform.parent.GetComponent<IActor>().GetDirection();
+        var direction = GetComponentInParent<IActor>().GetDirection();
         // マスクを無くして表示させる
         GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.None;
         // 開始位置の代入
-        m_rigidBody2D.position = transform.parent.GetComponent<Rigidbody2D>().position;
+        m_rigidBody2D.position = GetComponentInParent<Rigidbody2D>().position;
         // Z軸の角度(degreeと比べるため)
         float angleZ = 0.0f;
         // ベクトルの角度を取得するためのもの
@@ -69,11 +63,11 @@ public class Blade : AttackBase
         while(angleZ * BLADE_SPEED <= degree)
         {
             //  位置をずらして表示させる
-            transform.localPosition = direction * 0.3f;
+            //transform.localPosition = direction * 0.3f;
             // Z軸の角度を加算していき,そのたびに代入
-            transform.rotation = Quaternion.Euler(0, 0, -angleZ * BLADE_SPEED);
+            transform.parent.rotation = Quaternion.Euler(0, 0, -angleZ * BLADE_SPEED);
             // 速度を代入
-            m_rigidBody2D.velocity = transform.rotation * direction;
+            m_rigidBody2D.velocity = transform.parent.rotation * direction;
             // ベクトルの角度を算出する
             angle = (Mathf.Atan2(m_rigidBody2D.velocity.y, m_rigidBody2D.velocity.x) + Mathf.PI / 2) * Mathf.Rad2Deg;
             // 剣の角度の調整
@@ -85,5 +79,15 @@ public class Blade : AttackBase
         // 内部マスクにして隠す
         GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
 
+    }
+
+    public override void Execute()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override Sprite GetSprite()
+    {
+        return GetComponentInChildren<SpriteRenderer>().sprite;
     }
 }
