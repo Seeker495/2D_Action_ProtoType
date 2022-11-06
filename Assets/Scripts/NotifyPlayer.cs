@@ -28,8 +28,8 @@ public class NotifyPlayer : MonoBehaviour
             m_enemy.AttachNotify();
         else
             m_enemy.DetachNotify();
-        if (m_enemy.IsNotified())
-            m_enemy.Chasing(m_player.gameObject);
+        //if (m_enemy.IsNotified())
+        //    m_enemy.Chasing(m_player.gameObject);
     }
 
     private void FixedUpdate()

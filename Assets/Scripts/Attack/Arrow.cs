@@ -17,12 +17,6 @@ public class Arrow : MonoBehaviour
         m_rigidBody2D = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     /*
      * ŠÖ”–¼: Shoot
      * ŠT—v: –î‚Ì”­Ë
@@ -40,7 +34,7 @@ public class Arrow : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // “G‹y‚Ñ’Êí‚ÌáŠQ•¨‚ÉÚG‚µ‚½‚ç”j‰ó‚·‚é
-        if (collision.CompareTag("Enemy") || collision.CompareTag("NormalObstacle"))
+        if (collision.CompareTag("Enemy") || collision.CompareTag("NormalObstacle") || collision.CompareTag("Magic"))
             Destroy(gameObject);
     }
 

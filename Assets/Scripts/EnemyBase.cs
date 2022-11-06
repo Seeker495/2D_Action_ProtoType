@@ -12,16 +12,42 @@ using UnityEngine;
  *******************************************************************/
 public abstract class EnemyBase : MonoBehaviour, IActor
 {
-    private EnemyStatus m_status;
-    public EnemyParameter m_enemyParameter;
-    public Rigidbody2D m_rigidBody2D;
-    private bool m_isNotified = false;
+    // 敵のステータス
+    protected EnemyStatus m_status;
+    // データベースから読み込む敵のパラメータ
+    [SerializeField]
+    protected EnemyParameter m_enemyParameter;
+    // 物理演算2D
+    [SerializeField]
+    protected Rigidbody2D m_rigidBody2D;
+    // プレイヤーに気づいているか
+    protected bool m_isNotified = false;
+    // 魔法の管理者
     MagicManager m_magicManager;
-    private const float INTERVAL = 1.0f;
-    private float time = 0.0f;
-    private Vector2 m_direction;
+    protected float m_actionTime = 0.0f;
+    // 方向ベクトル
+    protected Vector2 m_direction;
+    // 通常時の行動パターン (nullの場合は移動無しとする)
+    protected IMovePattern m_normalMovePattern = null;
+    // プレイヤー発見時の行動パターン (nullの場合は移動無しとする)
+    protected IMovePattern m_findMovePattern = null;
+    // 攻撃手段
+    protected List<AttackBase> m_attackList = null;
+    protected float m_moveTime = 0.0f;
+
+
 
     public void Awake()
+    {
+        SetParameter();
+        m_magicManager = GetComponentInChildren<MagicManager>();
+        m_rigidBody2D = GetComponent<Rigidbody2D>();
+    }
+
+    /*******************************************************************
+     *  ScriptableObjectから取得したデータを設定する
+     *******************************************************************/
+    private void SetParameter()
     {
         m_status.id = m_enemyParameter.ID;
         m_status.name = m_enemyParameter.Name;
@@ -32,57 +58,37 @@ public abstract class EnemyBase : MonoBehaviour, IActor
         m_status.actorStatus.touchPower = m_enemyParameter.TouchPower;
         m_status.exp = m_enemyParameter.Exp;
         m_status.money = m_enemyParameter.Money;
-        m_magicManager = GetComponentInChildren<MagicManager>();
-        m_rigidBody2D = GetComponent<Rigidbody2D>();
-
+        m_status.movePattern = m_enemyParameter.MovePattern;
+        m_status.attackPattern = m_enemyParameter.AttackPattern;
     }
 
-    public void Start()
-    {
 
-    }
+    public abstract void Execute();
 
-    // Update is called once per frame
-    public void Update()
-    {
-        if (m_isNotified)
-            time += Time.deltaTime;
-        else
-            time = 0.0f;
-
-        if (m_isNotified && time >= INTERVAL && IsArrive())
-        {
-            m_direction = m_rigidBody2D.velocity.normalized;
-            m_magicManager.Attack();
-            time = 0.0f;
-        }
-    }
-
+    public abstract void Attack();
     public void FixedUpdate()
     {
-        if (!m_isNotified)
-            m_rigidBody2D.velocity = Vector2.zero;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Notify")) return;
 
-        //if (collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("Blade"))
-        //    Damage(1);
-        //if (!IsArrive())
-        //    Dead();
+        if (collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("Blade"))
+            Damage(1);
+        if (!IsArrive())
+            Dead();
 
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision == null) return;
         if (collision.gameObject.CompareTag("Arrow"))
             Damage(collision.transform.parent.parent.GetComponent<IActor>().GetBaseStatus().attack * 2);
         if (collision.gameObject.CompareTag("Blade"))
             Damage(collision.transform.parent.GetComponent<IActor>().GetBaseStatus().attack * 3);
         if (!IsArrive())
             Dead();
-
     }
 
 
@@ -122,14 +128,19 @@ public abstract class EnemyBase : MonoBehaviour, IActor
         GetComponent<SpriteRenderer>().color = Color.white;
     }
 
+
     IEnumerator OnDead(float duration, float interval)
     {
         m_rigidBody2D.velocity = Vector2.zero;
+
         var dropManager = GetComponentInChildren<DropManager>();
-        dropManager.enabled = true;
-        StartCoroutine(dropManager.Diffusion());
-        dropManager.transform.position = transform.position;
-        dropManager.transform.SetParent(null, true);
+        if (dropManager != null)
+        {
+            dropManager.enabled = true;
+            StartCoroutine(dropManager.Diffusion());
+            dropManager.transform.position = transform.position;
+            dropManager.transform.SetParent(null, true);
+        }
 
         while (duration > 0.0f)
         {
@@ -147,16 +158,25 @@ public abstract class EnemyBase : MonoBehaviour, IActor
         Destroy(gameObject);
     }
 
-
+    /*******************************************************************
+     *  位置の設定
+     *******************************************************************/
     public void SetPosition(ref float minX, ref float maxX, ref float minY, ref float maxY)
     {
         m_rigidBody2D.position = new Vector2(Mathf.Clamp(m_rigidBody2D.position.x, minX, maxX), Mathf.Clamp(m_rigidBody2D.position.y, minY, maxY));
     }
 
+    /*******************************************************************
+     *  検知状態をONにする
+     *******************************************************************/
     public void AttachNotify()
     {
         m_isNotified = true;
     }
+
+    /*******************************************************************
+     *  追跡中(引数に追いかける対象のオブジェクトを設定)
+     *******************************************************************/
     public void Chasing(in GameObject chaseTarget)
     {
         m_rigidBody2D.velocity = (chaseTarget.GetComponent<Rigidbody2D>().position - m_rigidBody2D.position).normalized * m_status.actorStatus.speed;
@@ -164,46 +184,111 @@ public abstract class EnemyBase : MonoBehaviour, IActor
             StopChasing();
     }
 
+    /*******************************************************************
+     *  追跡を停止する
+     *******************************************************************/
     public void StopChasing()
     {
-        m_rigidBody2D.velocity = Vector2.zero;
         DetachNotify();
     }
+
+    /*******************************************************************
+     *  検知状態をOFFにする
+     *******************************************************************/
 
     public void DetachNotify()
     {
         m_isNotified = false;
     }
 
+    /*******************************************************************
+     *  プレイヤーに気づいているか
+     *******************************************************************/
     public bool IsNotified()
     {
         return m_isNotified;
     }
 
+    /*******************************************************************
+     *  方向ベクトルの取得
+     *******************************************************************/
     Vector2 IActor.GetDirection()
     {
         return m_direction;
     }
 
+    /*******************************************************************
+     *  基礎ステータスの取得
+     *******************************************************************/
     ActorStatus IActor.GetBaseStatus()
     {
         return m_status.actorStatus;
     }
 
+    /*******************************************************************
+     *  経験値の取得
+     *******************************************************************/
     public int GetExp()
     {
         return m_status.exp;
     }
 
+    /*******************************************************************
+     *  お金の取得
+     *******************************************************************/
     public int GetMoney()
     {
         return m_status.money;
     }
 
+    /*******************************************************************
+     *  高速移動を行う
+     *******************************************************************/
     public void HighSpeedMove()
     {
+        // 高速移動のスクリプトが存在しなければ実行しない
         if (!GetComponent<HighSpeedMove>()) return;
         StartCoroutine(GetComponent<HighSpeedMove>().Move(gameObject, false));
     }
 
+    public float GetActionTime()
+    {
+        return m_actionTime;
+    }
+
+    public void AddActionTime()
+    {
+        m_actionTime += Time.deltaTime;
+    }
+
+    public void ResetActionTime()
+    {
+        m_actionTime = 0.0f;
+    }
+    public float GetMoveTime()
+    {
+        return m_moveTime;
+    }
+
+    public void AddMoveTime()
+    {
+        m_moveTime += Time.deltaTime;
+    }
+
+    public void ResetMoveTime()
+    {
+        m_moveTime = 0.0f;
+    }
 }
+
+//if (m_isNotified)
+//    time += Time.deltaTime;
+//else
+//    time = 0.0f;
+
+//if (m_isNotified && time >= INTERVAL && IsArrive())
+//{
+//    m_direction = m_rigidBody2D.velocity.normalized;
+//    m_magicManager.Attack();
+//    time = 0.0f;
+//}

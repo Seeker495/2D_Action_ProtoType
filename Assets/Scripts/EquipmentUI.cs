@@ -12,19 +12,21 @@ using UnityEngine.UI;
  *******************************************************************/
 public class EquipmentUI : MonoBehaviour
 {
+    [SerializeField]
     private Player m_player;
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
-        m_player = GameObject.Find("Player").GetComponent<Player>();
-        Debug.Log(m_player.GetWeaponSprite());
-        GetComponent<Image>().sprite = m_player?.GetWeaponSprite();
+        Debug.Log(m_player);
+        //m_player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        if (!m_player.GetWeaponSprite()) return;
+        GetComponent<Image>().sprite = m_player.GetWeaponSprite();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(GetComponent<Image>().sprite != m_player?.GetWeaponSprite() && m_player?.GetWeaponSprite() != null)
-            GetComponent<Image>().sprite = m_player?.GetWeaponSprite();
+        if(m_player.GetWeaponSprite() != null)
+            GetComponent<Image>().sprite = m_player.GetWeaponSprite();
     }
 }

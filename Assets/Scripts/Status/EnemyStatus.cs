@@ -12,4 +12,6 @@ public struct EnemyStatus
     public ActorStatus actorStatus;
     public int exp;
     public int money;
+    public int movePattern;
+    public int attackPattern;
 }

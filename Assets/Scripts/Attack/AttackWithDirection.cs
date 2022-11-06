@@ -6,7 +6,8 @@ using UnityEngine;
  *  <概要>
  *  攻撃を追尾するクラス。
  *******************************************************************/
-public class Homing : AttackBase
+
+public class AttackWithDirection : AttackBase
 {
     [SerializeField]
     Rigidbody2D Rigidbody2D;
@@ -43,13 +44,13 @@ public class Homing : AttackBase
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Blade") || collision.CompareTag("Arrow") || collision.CompareTag("Player"))
+        if (collision.CompareTag("Blade") || collision.CompareTag("Arrow") || collision.CompareTag("Player"))
             Destroy(gameObject);
     }
 
     public override void Execute()
     {
-        Rigidbody2D.velocity = (m_target.GetComponent<Rigidbody2D>().position - Rigidbody2D.position).normalized * ATTACK_SPEED;
+        //Rigidbody2D.velocity = (m_target.GetComponent<Rigidbody2D>().position - Rigidbody2D.position).normalized * ATTACK_SPEED;
     }
 
     public override Sprite GetSprite()
@@ -64,3 +65,4 @@ public class Homing : AttackBase
     }
 
 }
+
