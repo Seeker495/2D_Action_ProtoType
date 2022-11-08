@@ -19,13 +19,8 @@ public class TitleScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_titleText.transform.DORotate(new Vector3(0, 0, 180f), 1f, RotateMode.FastBeyond360)
-         .SetDelay(1f)
-         .SetRelative()
-         .SetEase(Ease.InOutQuad)
-         .SetLoops(-1, LoopType.Yoyo);
-
-        //m_titleText.transform.parent.GetComponent<CanvasGroup>().DOFade(0.0f, 1.0f).SetEase(Ease.Linear).SetLoops(-1, LoopType.Yoyo);
+        // タイトル用のBGMを鳴らす
+        soundManager_2.PlayBgm("タイトルシーン音");
     }
 
 
