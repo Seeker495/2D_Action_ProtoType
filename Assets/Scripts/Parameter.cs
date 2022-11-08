@@ -129,4 +129,9 @@ public static class Parameter
     // HP‚ª­‚È‚¢‚Æ‚«‚Ì˜g‚Ì“_–ÅŠÔŠu
     public const float UI_DANGER_HP_BLINK_INTERVAL = 1.0f;
     #endregion
+
+    #region ABOUT_SCENE
+    // Ÿ‚ÌƒV[ƒ“–¼
+    public static string NEXT_SCENE_NAME = string.Empty;
+    #endregion
 }

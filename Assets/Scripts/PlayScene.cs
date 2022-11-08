@@ -24,7 +24,7 @@ public class PlayScene : MonoBehaviour
     [SerializeField]
     private GameObject m_cameraObject;
 
-    private async void Awake()
+    private void Awake()
     {
         m_player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         m_map = GameObject.FindWithTag("Map").GetComponent<Map>();
@@ -34,9 +34,9 @@ public class PlayScene : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    async void Start()
+    void Start()
     {
-        await m_map.Load("SampleStage");
+        m_map.Load("SampleStage");
         m_wall.SetRange(ref m_map);
         m_player.SetSpawnPosition(ref m_map);
         m_enemyManager.SetSpawnPosition(ref m_map);

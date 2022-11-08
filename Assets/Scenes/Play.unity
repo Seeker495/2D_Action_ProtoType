@@ -833,6 +833,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_stageName: 
+  m_mapObjects:
+  - {fileID: 8795935224585430248, guid: 87859f80f4daf19449df70a5c04f47ad, type: 3}
+  - {fileID: 4303986615207014562, guid: 35f49877456d11b4ab8ecaa3de5defb3, type: 3}
 --- !u!4 &898943713
 Transform:
   m_ObjectHideFlags: 0

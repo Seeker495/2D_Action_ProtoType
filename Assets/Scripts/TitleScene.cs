@@ -40,7 +40,8 @@ public class TitleScene : MonoBehaviour
     {
 
         Debug.Log("Press_Start");
-        SceneManager.LoadSceneAsync("Play");
+        Parameter.NEXT_SCENE_NAME = "Play";
+        SceneManager.LoadSceneAsync("Loading");
         // Œˆ’è‰¹
         soundManager_2.PlaySe(0);
     }

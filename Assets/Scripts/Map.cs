@@ -34,27 +34,21 @@ public class Map : MonoBehaviour
 
     private MapInfo m_mapInfo;
 
+    public List<GameObject> m_mapObjects = new List<GameObject>();
 
-    public async Task Load(string stageName)
+    public void Load(string stageName)
     {
         m_isLoadFinished = false;
         m_mapChips.Clear();
         m_stageName = stageName;
         var mapData = LoadStage.Load(m_stageName);
 
-        var mapObjects = new List<GameObject>(2)
-        {
-            await Addressables.LoadAssetAsync<GameObject>($"Object_0").Task,
-            await Addressables.LoadAssetAsync<GameObject>($"Object_1").Task,
-        };
-
-
         m_mapInfo.width = mapData.width;
         m_mapInfo.height = mapData.height;
 
         for (int i = 0; i < mapData.stage.Count; i++)
         {
-            var chip = mapObjects[mapData.stage[i]];
+            var chip = m_mapObjects[mapData.stage[i]];
             chip.transform.localScale = gameObject.transform.localScale;
             chip.transform.position = new Vector3(0.0f + (i / m_mapInfo.width) * chip.transform.localScale.x, 0.0f - (i % m_mapInfo.width) * chip.transform.localScale.y, 0.0f);
             m_mapChips.Add(Instantiate(chip, transform));

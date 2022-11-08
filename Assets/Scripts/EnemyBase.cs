@@ -86,7 +86,7 @@ public abstract class EnemyBase : MonoBehaviour, IActor
         if (collision.gameObject.CompareTag("Arrow"))
             Damage(collision.transform.parent.parent.GetComponent<IActor>().GetBaseStatus().attack * 2);
         if (collision.gameObject.CompareTag("Blade"))
-            Damage(collision.transform.parent.GetComponent<IActor>().GetBaseStatus().attack * 3);
+            Damage(collision.transform.parent.parent.GetComponent<IActor>().GetBaseStatus().attack * 3);
         if (!IsArrive())
             Dead();
     }
