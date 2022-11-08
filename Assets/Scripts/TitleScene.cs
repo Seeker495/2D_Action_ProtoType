@@ -25,7 +25,7 @@ public class TitleScene : MonoBehaviour
          .SetEase(Ease.InOutQuad)
          .SetLoops(-1, LoopType.Yoyo);
 
-        m_titleText.transform.parent.GetComponent<CanvasGroup>().DOFade(0.0f, 1.0f).SetEase(Ease.Linear).SetLoops(-1, LoopType.Yoyo);
+        //m_titleText.transform.parent.GetComponent<CanvasGroup>().DOFade(0.0f, 1.0f).SetEase(Ease.Linear).SetLoops(-1, LoopType.Yoyo);
     }
 
 
