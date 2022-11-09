@@ -16,7 +16,6 @@ public class TitleScene : MonoBehaviour
     [SerializeField]
     SoundManager_2 soundManager_2;
 
-    int button = 1;
 
     // Start is called before the first frame update
     // 初期化
@@ -35,40 +34,6 @@ public class TitleScene : MonoBehaviour
     // 更新
     void Update()
     {
-        // 上入力
-        if(Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            button--;
-        }
-        // 下入力
-        if(Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            button++;
-        }
-            if (button < 1)
-                button = 6;
-
-            if (button > 6)
-                button = 1;
-        Debug.Log(button);
-
-        // スペースキー入力：決定
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (button == 1)          
-                Press_Start();
-            if (button == 2)
-                Press_Continue();
-            if (button == 3)
-                Press_EndLess();
-            if (button == 4)
-                Press_Corection();
-            if (button == 5)
-                Press_Option();
-            if (button == 6)
-                Press_Quit();            
-        }
-
     }
 
     // ゲームスタートのボタン
@@ -129,9 +94,4 @@ public class TitleScene : MonoBehaviour
 
     }
 
-    // ボタンの数字のゲット
-    public int GetButtonNum()
-    {
-        return button;
-    }
 }

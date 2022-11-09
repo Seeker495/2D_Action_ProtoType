@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class QuitScript : MonoBehaviour
 {
+    public menu_Script menu_Script;
 
-    public TitleScene titleScene;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,25 +20,23 @@ public class QuitScript : MonoBehaviour
         Color color = gameObject.GetComponent<Image>().color;
 
         Vector2 targetSize;
-
-        if (titleScene.GetButtonNum() == 6)
+        if (menu_Script.GetButtonNum() == (int)menu_Script.MENU_TYPE.QUIT)
         {
             // ボタンのサイズを300x200に変更する
-            targetSize = new Vector2(170, 40);
+            targetSize = menu_Script.SizeSelect;
 
             // 画像を透過させる処理
-            color.r = 0.0f;
-            color.g = 1.0f;
-            color.b = 0.0f;
+            color.r = menu_Script.ColorSelect.x;
+            color.g = menu_Script.ColorSelect.y;
+            color.b = menu_Script.ColorSelect.z;
             color.a = 1.0f;
-            gameObject.GetComponent<Image>().color = color;
         }
         else
         {
-            targetSize = new Vector2(160, 30);
-            color.r = 0.0f;
-            color.g = 0.0f;
-            color.b = 0.0f;
+            targetSize = menu_Script.SizeNotSelect;
+            color.r = menu_Script.ColorNotSelect.x;
+            color.g = menu_Script.ColorNotSelect.y;
+            color.b = menu_Script.ColorNotSelect.z;
             color.a = 0.0f;
         }
 
