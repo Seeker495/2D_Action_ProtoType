@@ -34,7 +34,14 @@ public class Map : MonoBehaviour
 
     private MapInfo m_mapInfo;
 
-    public List<GameObject> m_mapObjects = new List<GameObject>();
+    [Serializable]
+    public struct MapObjectInfo
+    {
+        public int mapIndex;
+        public GameObject mapObject;
+    }
+
+    public List<MapObjectInfo> m_mapObjects = new List<MapObjectInfo>();
 
     public void Load(string stageName)
     {
@@ -48,10 +55,36 @@ public class Map : MonoBehaviour
 
         for (int i = 0; i < mapData.stage.Count; i++)
         {
-            var chip = m_mapObjects[mapData.stage[i]];
-            chip.transform.localScale = gameObject.transform.localScale;
-            chip.transform.position = new Vector3(0.0f + (i / m_mapInfo.width) * chip.transform.localScale.x, 0.0f - (i % m_mapInfo.width) * chip.transform.localScale.y, 0.0f);
-            m_mapChips.Add(Instantiate(chip, transform));
+            var chip = m_mapObjects.Find(obj => obj.mapIndex == mapData.stage[i]).mapObject;
+
+            chip.transform.position = new Vector3(0.0f + (i % m_mapInfo.width), 0.0f - ((i / m_mapInfo.width) % m_mapInfo.height), 0.0f);
+            switch (mapData.stage[i])
+            {
+                case 1:
+                    Instantiate(m_mapObjects.Find(obj => obj.mapIndex == 11).mapObject, chip.transform.position, Quaternion.identity, transform);
+                    m_mapChips.Add(Instantiate(chip, null));
+                    break;
+                case 11:
+                    m_mapChips.Add(Instantiate(chip, transform));
+                    break;
+                case 12:
+                case 13:
+                    Instantiate(m_mapObjects.Find(obj => obj.mapIndex == 11).mapObject, chip.transform.position, Quaternion.identity, transform);
+                    m_mapChips.Add(Instantiate(chip, transform));
+                    break;
+                case 21:
+                case 22:
+                case 23:
+                case 24:
+                case 25:
+                case 26:
+                case 27:
+                case 28:
+                case 29:
+                    Instantiate(m_mapObjects.Find(obj => obj.mapIndex == 11).mapObject, chip.transform.position, Quaternion.identity, transform);
+                    m_mapChips.Add(Instantiate(chip, null));
+                    break;
+            }
 
         }
         m_isLoadFinished = true;

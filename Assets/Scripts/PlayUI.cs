@@ -33,15 +33,15 @@ public class PlayUI : MonoBehaviour
     async void Awake()
     {
         m_player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-
+        gameObject.name = "PlayUI";
         m_hp = GameObject.Find("PlayUI/HP");
         m_attack = GameObject.Find("PlayUI/Attack");
         m_defence = GameObject.Find("PlayUI/Defence");
         m_water = GameObject.Find("PlayUI/Water");
         m_food = GameObject.Find("PlayUI/Food");
         m_hpColorSprite = m_hp.GetComponentsInChildren<Image>()[3];
-        m_gameOverText = Instantiate(await Addressables.LoadAssetAsync<GameObject>("Text").Task, new Vector3(960, 540, 0), Quaternion.identity, GameObject.Find("Canvas").transform);
-        m_gameOverText.SetActive(false);
+        //m_gameOverText = Instantiate(await Addressables.LoadAssetAsync<GameObject>("Text").Task, new Vector3(960, 540, 0), Quaternion.identity, GameObject.Find("Canvas").transform);
+        //m_gameOverText.SetActive(false);
 
     }
 
@@ -64,13 +64,13 @@ public class PlayUI : MonoBehaviour
         DisplayStatus();
         ChangeStatusColor();
 
-        if (!m_player.GetComponent<Player>().IsArrive())
-        {
-            m_gameOverText.SetActive(true);
-            m_gameOverText.GetComponent<TextMeshProUGUI>().text = "GameOver";
-            m_gameOverText.GetComponent<TextMeshProUGUI>().fontSize = 100.0f;
+        //if (!m_player.GetComponent<Player>().IsArrive())
+        //{
+        //    m_gameOverText.SetActive(true);
+        //    m_gameOverText.GetComponent<TextMeshProUGUI>().text = "GameOver";
+        //    m_gameOverText.GetComponent<TextMeshProUGUI>().fontSize = 100.0f;
 
-        }
+        //}
 
 
 

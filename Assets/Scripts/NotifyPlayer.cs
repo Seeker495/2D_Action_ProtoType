@@ -17,13 +17,14 @@ public class NotifyPlayer : MonoBehaviour
     void Awake()
     {
         m_enemy = transform.parent.GetComponent<EnemyBase>();
-        m_player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        //m_player = GameObject.FindWithTag("Player").GetComponent<Player>();
         m_rigidBody2D = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!m_player) return;
         if (Vector2.Distance(m_enemy.GetComponent<Rigidbody2D>().position, m_player.GetComponent<Rigidbody2D>().position) <= 10.0f)
             m_enemy.AttachNotify();
         else
@@ -35,6 +36,11 @@ public class NotifyPlayer : MonoBehaviour
     private void FixedUpdate()
     {
         m_rigidBody2D.position = m_enemy.GetComponent<Rigidbody2D>().position;
+    }
+
+    public void SetPlayer(in Player player)
+    {
+        m_player = player;
     }
 
 }

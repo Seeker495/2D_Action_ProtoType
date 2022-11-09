@@ -22,6 +22,8 @@ TagManager:
   - FoodItem
   - WaterItem
   - SoundManager
+  - TreasureItem
+  - Canvas
   layers:
   - Default
   - TransparentFX

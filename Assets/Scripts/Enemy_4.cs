@@ -24,6 +24,7 @@ public class Enemy_4 : EnemyBase
     {
         //if (m_normalMovePattern.Equals(null)) return;
         //if (m_findMovePattern.Equals(null)) return;
+        if (!GameObject.FindWithTag("Player")) return;
         AddActionTime();
         if (base.GetActionTime() > 1.0f && Vector2.Distance(GameObject.FindWithTag("Player").transform.position, transform.position) <= 10.0f)
         {

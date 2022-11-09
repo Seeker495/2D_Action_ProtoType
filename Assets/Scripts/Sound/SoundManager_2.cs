@@ -66,7 +66,7 @@ public class SoundManager_2 : MonoBehaviour
         {
             return;
         }
-        seAudioSource.Play();
+        seAudioSource.PlayOneShot(seAudioSource.clip);
     }
 
     // bgm‚ð–Â‚ç‚·
