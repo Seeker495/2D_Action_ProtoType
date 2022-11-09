@@ -7,7 +7,7 @@ using UnityEngine;
  *  敵のパラメータを保存しておくクラス。
  *  (ScriptableObjectはUnity特有のものでデータベースとして保存する際に重宝する)
  *******************************************************************/
-[CreateAssetMenu(fileName ="EnemyData",menuName ="CreateEnemyData")]
+[CreateAssetMenu(fileName = "EnemyData", menuName = "CreateEnemyData")]
 public class EnemyParameter : ScriptableObject
 {
     [SerializeField]
@@ -33,7 +33,6 @@ public class EnemyParameter : ScriptableObject
     [SerializeField]
     private int m_attackPattern;
 
-#if UNITY_EDITOR
     public int ID { get { return m_id; } set { m_id = value; } }
     public string Name { get { return m_name; } set { m_name = value; } }
     public int Exp { get { return m_exp; } set { m_exp = value; } }
@@ -47,17 +46,4 @@ public class EnemyParameter : ScriptableObject
 
     public int AttackPattern { get { return m_attackPattern; } set { m_attackPattern = value; } }
 
-#else
-    public int ID => m_id;
-    public string Name => m_name;
-    public int Exp => m_exp;
-    public int Money => m_money;
-    public int HP => m_hp;
-    public float Attack => m_attack;
-    public float Defence => m_defence;
-    public float Speed => m_speed;
-    public float TouchPower => m_touchPower;
-    public int MovePattern => m_movePattern;
-    public int AttackPattern => m_attackPattern;
-#endif
 }

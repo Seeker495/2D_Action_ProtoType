@@ -2,7 +2,9 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+#if UNITY_EDITOR
 using UnityEditor.SceneManagement;
+#endif
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 

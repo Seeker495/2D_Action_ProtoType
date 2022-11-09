@@ -5,7 +5,9 @@ using System.Linq;
 using TMPro;
 using Unity.Mathematics;
 using Unity.VisualScripting;
+#if UNITY_EDITOR
 using UnityEditor.Build.Pipeline;
+#endif
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
