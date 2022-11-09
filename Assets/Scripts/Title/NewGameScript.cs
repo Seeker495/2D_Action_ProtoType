@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class NewGameScript : MonoBehaviour
 {
-    public TitleScene titleScene;
     public menu_Script menu_Script;
 
     // Start is called before the first frame update
@@ -15,12 +14,13 @@ public class NewGameScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         // 画像を透過させる処理
         Color color = gameObject.GetComponent<Image>().color;
         
         Vector2 targetSize;
         
-        if (titleScene.GetButtonNum() == 1)
+        if (menu_Script.GetButtonNum() == (int)menu_Script.MENU_TYPE.NEWGAME)
         {
             // ボタンのサイズを300x200に変更する
             targetSize = menu_Script.SizeSelect;
@@ -39,6 +39,7 @@ public class NewGameScript : MonoBehaviour
             color.b = menu_Script.ColorNotSelect.z;
             color.a = 0.0f;
         }
+        
 
         gameObject.GetComponent<Image>().color = color;
 

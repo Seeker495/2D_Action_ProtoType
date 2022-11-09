@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class OptionScript : MonoBehaviour
 {
-
-    public TitleScene titleScene;
     public menu_Script menu_Script;
 
     // Start is called before the first frame update
@@ -23,7 +21,7 @@ public class OptionScript : MonoBehaviour
 
         Vector2 targetSize;
 
-        if (titleScene.GetButtonNum() == 5)
+        if (menu_Script.GetButtonNum() == (int)menu_Script.MENU_TYPE.OPTION)
         {
             // ボタンのサイズを300x200に変更する
             targetSize = menu_Script.SizeSelect;
