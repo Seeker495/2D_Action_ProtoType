@@ -17,8 +17,7 @@ public class EquipmentUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(m_player);
-        //m_player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        m_player = GameObject.FindWithTag("Player").GetComponent<Player>();
         if (!m_player.GetWeaponSprite()) return;
         GetComponent<Image>().sprite = m_player.GetWeaponSprite();
     }

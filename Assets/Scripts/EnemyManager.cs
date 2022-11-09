@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -16,14 +17,16 @@ public class EnemyManager : MonoBehaviour
     private int MAX_ENEMY_NUM;
     private List<GameObject> Enemies = new List<GameObject>();
 
-    async void Awake()
+    void Awake()
     {
         MAX_ENEMY_NUM = 1/*Random.Range(10, 20)*/;
-        var enemy = await Addressables.LoadAssetAsync<GameObject>("Enemy_3").Task;
+        var enemies = GameObject.FindGameObjectsWithTag("Enemy").ToList();
 
-        for (int i = 0; i < MAX_ENEMY_NUM; ++i)
+        for (int i = 0; i < enemies.Count; ++i)
         {
-            Enemies.Add(Instantiate(enemy, transform));
+            enemies[i].transform.SetParent(gameObject.transform);
+            //enemies[i].GetComponent<NotifyPlayer>().SetPlayer(GameObject.FindWithTag("Player").GetComponent<Player>());
+            Enemies.Add(enemies[i].gameObject);
         }
 
     }

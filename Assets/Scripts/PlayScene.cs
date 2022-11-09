@@ -23,25 +23,32 @@ public class PlayScene : MonoBehaviour
     private Wall m_wall;
     [SerializeField]
     private GameObject m_cameraObject;
+    [SerializeField]
+    private GameObject m_enemyManagerObject;
+    [SerializeField]
+    private GameObject m_playUIObject;
+    private PlayUI m_playUI;
 
     private void Awake()
     {
+        m_map.Load("StageMODOKI");
         m_player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         m_map = GameObject.FindWithTag("Map").GetComponent<Map>();
-        m_enemyManager = GameObject.FindWithTag("EnemyManager").GetComponent<EnemyManager>();
+        m_enemyManager = Instantiate(m_enemyManagerObject, null).GetComponent<EnemyManager>();
         m_wall = GameObject.FindWithTag("Wall").GetComponent<Wall>();
         m_cameraObject = GameObject.Find("CM vcam1");
+        m_cameraObject.GetComponent<CinemachineVirtualCamera>().Follow = m_player.transform;
+        m_playUI = Instantiate(m_playUIObject, GameObject.FindGameObjectWithTag("Canvas").transform).GetComponent<PlayUI>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        m_map.Load("SampleStage");
         m_wall.SetRange(ref m_map);
-        m_player.SetSpawnPosition(ref m_map);
-        m_enemyManager.SetSpawnPosition(ref m_map);
+        // ƒ‰ƒ“ƒ_ƒ€”z’u
+        //m_player.SetSpawnPosition(ref m_map);
+        //m_enemyManager.SetSpawnPosition(ref m_map);
         m_cameraObject.GetComponent<CinemachineConfiner2D>().m_BoundingShape2D = m_wall.GetComponent<CompositeCollider2D>();
-
     }
 
     // Update is called once per frame

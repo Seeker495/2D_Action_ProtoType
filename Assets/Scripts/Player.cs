@@ -33,6 +33,7 @@ public class Player : MonoBehaviour, IActor
     private float[] m_stageTime = new float[2];
     private const float DAMAGE_INTERVAL = 2.0f;
     private const float GAUGE_DECREASE_INTERVAL = 3.0f;
+    private long m_score = 0;
     // Start is called before the first frame update
 
     // サウンドマネージャー
@@ -41,8 +42,10 @@ public class Player : MonoBehaviour, IActor
     // ピンチの時に流すseのフラグ
     bool pinchiFlag = false;
 
-    async void Awake()
+    void Awake()
     {
+        soundManager_2 = GameObject.FindWithTag("SoundManager").GetComponent<SoundManager_2>();
+
         // ステータスごとの初期化
         m_status.actorStatus.hp = m_status.maxHP = Parameter.PLAYER_MAX_HP;
         m_status.actorStatus.attack = m_status.maxAttack = Parameter.PLAYER_INIT_ATTACK;
@@ -79,7 +82,7 @@ public class Player : MonoBehaviour, IActor
         if (!pinchiFlag && m_status.actorStatus.hp < 30)
         {
             pinchiFlag = true;
-            soundManager_2.PlaySe(8);
+            soundManager_2.PlaySe("ピンチ");
         }
         else if(pinchiFlag && m_status.actorStatus.hp > 31)
         {
@@ -118,7 +121,7 @@ public class Player : MonoBehaviour, IActor
                 m_velocity *= Parameter.PLAYER_DASH_MULTIPLY;
 
                 // 早い移動の音
-                soundManager_2.PlaySe(6);
+                soundManager_2.PlaySe("早い移動");
                 break;
             case InputActionPhase.Canceled:
                 m_velocity *= 1.0f / Parameter.PLAYER_DASH_MULTIPLY;
@@ -137,11 +140,11 @@ public class Player : MonoBehaviour, IActor
         // WeaponIndex に応じた武器の音を出す
         if(WeaponIndex == 0)
         {
-            soundManager_2.PlaySe(0);
+            soundManager_2.PlaySe("剣");
         }
         if(WeaponIndex == 1)
         {
-            soundManager_2.PlaySe(1);
+            soundManager_2.PlaySe("弓");
         }
     }
 
@@ -155,7 +158,7 @@ public class Player : MonoBehaviour, IActor
         WeaponIndex = System.Math.Abs(--WeaponIndex) % m_weapons.Count;
 
         // 武器チェンジの音
-        soundManager_2.PlaySe(2);
+        soundManager_2.PlaySe("武器チェンジ");
     }
 
     public void SelectWeaponToRight(InputAction.CallbackContext context)
@@ -163,7 +166,7 @@ public class Player : MonoBehaviour, IActor
         WeaponIndex = System.Math.Abs(++WeaponIndex) % m_weapons.Count;
 
         // 武器チェンジの音
-        soundManager_2.PlaySe(2);
+        soundManager_2.PlaySe("武器チェンジ");
     }
 
     public void Resurrection(InputAction.CallbackContext context)
@@ -180,12 +183,22 @@ public class Player : MonoBehaviour, IActor
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("NormalObstacle"))
+        {
+
+        }
+
         if (m_isDamaged && !collision.gameObject.CompareTag("Wall") && !collision.gameObject.CompareTag("NormalObstacle") && !collision.gameObject.CompareTag("WaterObstacle")) return;
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Damage(collision.transform.GetComponent<IActor>().GetBaseStatus().attack * 2);
             m_rigidbody2D.AddForce(collision.transform.GetComponent<Rigidbody2D>().velocity.normalized * Time.deltaTime);
         }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+
     }
 
     IEnumerator KnockBack()
@@ -242,6 +255,11 @@ public class Player : MonoBehaviour, IActor
 
         }
 
+        if(collision.CompareTag("TreasureItem"))
+        {
+            long score = collision.GetComponent<ImmediateTreasureItem>().GetInfo().score;
+            AddScore(score);
+        }
     }
 
     public bool IsArrive()
@@ -330,7 +348,7 @@ public class Player : MonoBehaviour, IActor
     void Damage(in float attack = 0.0f)
     {
         // ダメージを受ける音
-        soundManager_2.PlaySe(3);
+        soundManager_2.PlaySe("ダメージ");
 
         int damage = Mathf.RoundToInt(attack - m_status.actorStatus.defence);
         m_status.actorStatus.hp -= damage;
@@ -378,7 +396,7 @@ public class Player : MonoBehaviour, IActor
     public void AddExp(in int exp)
     {
         // 経験値取得
-        soundManager_2.PlaySe(4);
+        soundManager_2.PlaySe("経験値");
 
         m_status.exp += exp * 2;
     }
@@ -414,5 +432,15 @@ public class Player : MonoBehaviour, IActor
 
         if (!GetComponent<HighSpeedMove>()) return;
         StartCoroutine(GetComponent<HighSpeedMove>().Move(gameObject, false));
+    }
+
+    public long GetScore()
+    {
+        return m_score;
+    }
+
+    public void AddScore(in long score)
+    {
+        m_score += score;
     }
 }
