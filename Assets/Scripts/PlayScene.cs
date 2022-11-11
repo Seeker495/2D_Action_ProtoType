@@ -18,6 +18,7 @@ public class PlayScene : MonoBehaviour
     /* プレイヤー関連 */
     [SerializeField]
     private Player m_player;
+
     /* マップ関連 */
     [SerializeField]
     private GameObject m_mapObject;
@@ -42,6 +43,10 @@ public class PlayScene : MonoBehaviour
     private GameObject m_playUIObject;
     private PlayUI m_playUI;
 
+
+    /* ユーザーのコントローラー関連 */
+    [SerializeField]
+    private GameObject m_playerController;
     private void Awake()
     {
         /* オブジェクトの複製及び代入を行う */
@@ -56,6 +61,8 @@ public class PlayScene : MonoBehaviour
         m_cameraObject = Instantiate(m_cameraObject, null);
         m_cameraObject.GetComponent<CinemachineVirtualCamera>().Follow = m_player.transform;
         m_playUI = Instantiate(m_playUIObject, GameObject.FindGameObjectWithTag("Canvas").transform).GetComponent<PlayUI>();
+
+        m_playerController = Instantiate(m_playerController, null);
     }
 
     // Start is called before the first frame update

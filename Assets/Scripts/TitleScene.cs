@@ -11,23 +11,19 @@ using UnityEngine.SceneManagement;
 public class TitleScene : MonoBehaviour
 {
     [SerializeField]
-    GameObject m_titleText;
-
+    private GameObject m_playerController;
     [SerializeField]
     SoundManager_2 soundManager_2;
 
+    private void Awake()
+    {
+        m_playerController = Instantiate(m_playerController, null);
+    }
 
     // Start is called before the first frame update
     // 初期化
     void Start()
     {
-        m_titleText.transform.DORotate(new Vector3(0, 0, 180f), 1f, RotateMode.FastBeyond360)
-         .SetDelay(1f)
-         .SetRelative()
-         .SetEase(Ease.InOutQuad)
-         .SetLoops(-1, LoopType.Yoyo);
-
-        m_titleText.transform.parent.GetComponent<CanvasGroup>().DOFade(0.0f, 1.0f).SetEase(Ease.Linear).SetLoops(-1, LoopType.Yoyo);
     }
 
     // Update is called once per frame
@@ -56,18 +52,18 @@ public class TitleScene : MonoBehaviour
         soundManager_2.PlaySe(0);
     }
     // エンドレスボタン
-     public void Press_EndLess()
+     public void Press_Endless()
     {
 
-        Debug.Log("Press_EndLess");
+        Debug.Log("Press_Endless");
         // 決定音
         soundManager_2.PlaySe(0);
     }
     // コレクションボタン
-     public void Press_Corection()
+     public void Press_Collection()
     {
 
-        Debug.Log("Press_Corection");
+        Debug.Log("Press_Collection");
         // 決定音
         soundManager_2.PlaySe(0);
     }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class menu_Script : MonoBehaviour
@@ -40,8 +41,8 @@ public class menu_Script : MonoBehaviour
         buttons.AddRange(GetComponentsInChildren<Button>());
         menuProcess.Add(MENU_TYPE.NEWGAME, titleScene.Press_Start);
         menuProcess.Add(MENU_TYPE.CONTINUE, titleScene.Press_Continue);
-        menuProcess.Add(MENU_TYPE.ENDLESS, titleScene.Press_EndLess);
-        menuProcess.Add(MENU_TYPE.CORECTION, titleScene.Press_Corection);
+        menuProcess.Add(MENU_TYPE.ENDLESS, titleScene.Press_Endless);
+        menuProcess.Add(MENU_TYPE.CORECTION, titleScene.Press_Collection);
         menuProcess.Add(MENU_TYPE.OPTION, titleScene.Press_Option);
         menuProcess.Add(MENU_TYPE.QUIT, titleScene.Press_Quit);
 
@@ -62,28 +63,22 @@ public class menu_Script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // 上入力
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            button = System.Math.Abs(--button + (int)MENU_TYPE.MAX) % (int)MENU_TYPE.MAX;
-        }
-        // 下入力
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            button = System.Math.Abs(++button) % (int)MENU_TYPE.MAX;
-        }
+    }
 
-        
-        Debug.Log(button);
+    public void SelectUp(InputAction.CallbackContext context)
+    {
+        button = System.Math.Abs(--button + (int)MENU_TYPE.MAX) % (int)MENU_TYPE.MAX;
+    }
 
-        // スペースキー入力：決定
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (buttons[button].IsInteractable())
-                menuProcess[(MENU_TYPE)button]();
-        }
-        
-        
+    public void SelectDown(InputAction.CallbackContext context)
+    {
+        button = System.Math.Abs(++button) % (int)MENU_TYPE.MAX;
+    }
+
+    public void EnterProcess(InputAction.CallbackContext context)
+    {
+        if (buttons[button].IsInteractable())
+            menuProcess[(MENU_TYPE)button]();
     }
 
     // ボタンの数字のゲット
