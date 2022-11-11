@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         m_player = GameObject.FindWithTag("Player");
-        m_camera = GameObject.Find("CM vcam1");
+        m_camera = GameObject.FindWithTag("VirtualCamera");
         m_playerController.Enable();
         m_playerController.Move.action.performed += m_player.GetComponent<Player>().Move;
         m_playerController.Move.action.canceled += m_player.GetComponent<Player>().MoveEnd;

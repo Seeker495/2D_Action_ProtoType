@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &831080883854632580
+--- !u!1 &2496764217543324176
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,69 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 831080883854632634}
-  - component: {fileID: 831080883854632635}
+  - component: {fileID: 2496764217543324206}
+  - component: {fileID: 2496764217543324207}
   m_Layer: 0
   m_Name: Map
-  m_TagString: Stage
+  m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &831080883854632634
+--- !u!4 &2496764217543324206
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 831080883854632580}
+  m_GameObject: {fileID: 2496764217543324176}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.4013455, y: 2.79, z: -0.01572559}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &831080883854632635
+--- !u!114 &2496764217543324207
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 831080883854632580}
+  m_GameObject: {fileID: 2496764217543324176}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71193e8a6559c004282e850fab458d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StageName: SampleStage
+  m_stageName: 
+  m_mapObjects:
+  - mapIndex: 0
+    mapObject: {fileID: 7683653709502583484, guid: 83db30322fab2fa4f947d398ac7128df, type: 3}
+  - mapIndex: 1
+    mapObject: {fileID: 704948456806656196, guid: 443aa802f1df07f48b885ce7b42510be, type: 3}
+  - mapIndex: 11
+    mapObject: {fileID: 8795935224585430248, guid: 87859f80f4daf19449df70a5c04f47ad, type: 3}
+  - mapIndex: 12
+    mapObject: {fileID: 7683653709502583484, guid: 83db30322fab2fa4f947d398ac7128df, type: 3}
+  - mapIndex: 13
+    mapObject: {fileID: 2033728444293934651, guid: 2f4521c6f29b7b543a35d7e940b85a59, type: 3}
+  - mapIndex: 21
+    mapObject: {fileID: 4211465177611841926, guid: 9edfb73f04cabc1448bd0795509e1fd8, type: 3}
+  - mapIndex: 22
+    mapObject: {fileID: 4211465177611841926, guid: e33f641cabbd69b4786b095a999bcc14, type: 3}
+  - mapIndex: 23
+    mapObject: {fileID: 4211465177611841926, guid: b354f909eb56bb0469dcd092e871099a, type: 3}
+  - mapIndex: 24
+    mapObject: {fileID: 4211465177611841926, guid: 969d8edd23027094dbcedc76af614779, type: 3}
+  - mapIndex: 25
+    mapObject: {fileID: 4211465177611841926, guid: 12bcbe2b75838104699f31cf81986e6c, type: 3}
+  - mapIndex: 26
+    mapObject: {fileID: 4211465177611841926, guid: 95a58bda5a605d14591d01a7869422db, type: 3}
+  - mapIndex: 27
+    mapObject: {fileID: 4211465177611841926, guid: 6d7681ad1a835e346a0bdaf4f06ba408, type: 3}
+  - mapIndex: 28
+    mapObject: {fileID: 4211465177611841926, guid: 250785f360b68a2479ceb054a2caf903, type: 3}
+  - mapIndex: 29
+    mapObject: {fileID: 4211465177611841926, guid: 4661b630ba800924292f3d12b8f1bf16, type: 3}

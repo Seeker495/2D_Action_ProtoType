@@ -147,8 +147,19 @@
                 },
                 {
                     "name": "",
-                    "id": "53956da7-64eb-4ca2-9ea1-1010d5fd2b31",
+                    "id": "8c6e8b3b-be4d-497e-986f-2ce1736ee238",
                     "path": "<DualShockGamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e27b5b80-01d1-419d-8740-ee1fcb1ee29b",
+                    "path": "<DualShockGamepad>/dpad",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
