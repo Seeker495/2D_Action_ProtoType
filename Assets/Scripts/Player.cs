@@ -34,6 +34,7 @@ public class Player : MonoBehaviour, IActor
     private const float DAMAGE_INTERVAL = 2.0f;
     private const float GAUGE_DECREASE_INTERVAL = 3.0f;
     private long m_score = 0;
+    private long m_increaseScore = 0;
     // Start is called before the first frame update
 
     // サウンドマネージャー
@@ -136,16 +137,13 @@ public class Player : MonoBehaviour, IActor
     {
         if (m_rigidbody2D.velocity != Vector2.zero && m_weapons[WeaponIndex].GetAttackType().Equals(eAttackType.BLADE)) return;
         m_weapons[WeaponIndex].Attack();
+        string[] sfxName = new string[]
+        {
+            "剣","弓",
+        };
 
         // WeaponIndex に応じた武器の音を出す
-        if(WeaponIndex == 0)
-        {
-            soundManager_2.PlaySe("剣");
-        }
-        if(WeaponIndex == 1)
-        {
-            soundManager_2.PlaySe("弓");
-        }
+        soundManager_2.PlaySe(sfxName[WeaponIndex]);
     }
 
     public Sprite GetWeaponSprite()
@@ -155,7 +153,7 @@ public class Player : MonoBehaviour, IActor
 
     public void SelectWeaponToLeft(InputAction.CallbackContext context)
     {
-        WeaponIndex = System.Math.Abs(--WeaponIndex) % m_weapons.Count;
+        WeaponIndex = System.Math.Abs(--WeaponIndex + m_weapons.Count) % m_weapons.Count;
 
         // 武器チェンジの音
         soundManager_2.PlaySe("武器チェンジ");
@@ -229,10 +227,6 @@ public class Player : MonoBehaviour, IActor
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (m_isDamaged && !collision.CompareTag("Wall") && !collision.CompareTag("NormalObstacle") && !collision.CompareTag("WaterObstacle")) return;
-        if (collision.CompareTag("Magic"))
-            Damage(collision.transform.parent.GetComponent<IActor>().GetBaseStatus().attack * 3);
-
         if (collision.CompareTag("FoodItem"))
         {
             m_status.foodGauge +=
@@ -255,11 +249,18 @@ public class Player : MonoBehaviour, IActor
 
         }
 
-        if(collision.CompareTag("TreasureItem"))
+        if (collision.CompareTag("TreasureItem"))
         {
+            var playUI = GameObject.FindWithTag("PlayUI");
             long score = collision.GetComponent<ImmediateTreasureItem>().GetInfo().score;
-            AddScore(score);
+            m_increaseScore = score;
+            playUI.SendMessage("SetScore");
         }
+
+        if (m_isDamaged && !collision.CompareTag("Wall") && !collision.CompareTag("NormalObstacle") && !collision.CompareTag("WaterObstacle")) return;
+        if (collision.CompareTag("Magic"))
+            Damage(collision.transform.parent.GetComponent<IActor>().GetBaseStatus().attack * 3);
+
     }
 
     public bool IsArrive()
@@ -442,5 +443,10 @@ public class Player : MonoBehaviour, IActor
     public void AddScore(in long score)
     {
         m_score += score;
+    }
+
+    public long GetAddScore()
+    {
+        return m_increaseScore;
     }
 }

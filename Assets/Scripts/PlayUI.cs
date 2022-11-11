@@ -27,12 +27,14 @@ public class PlayUI : MonoBehaviour
     private GameObject m_food;
     private Image m_hpColorSprite;
     [SerializeField]
+    private ScoreUI m_scoreUI;
+    [SerializeField]
     private GameObject m_gameOverText;
 
 
     private Player m_player;
     // Start is called before the first frame update
-    async void Awake()
+    void Awake()
     {
         m_player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         gameObject.name = "PlayUI";
@@ -42,9 +44,8 @@ public class PlayUI : MonoBehaviour
         m_water = GameObject.Find("PlayUI/Water");
         m_food = GameObject.Find("PlayUI/Food");
         m_hpColorSprite = m_hp.GetComponentsInChildren<Image>()[3];
-        //m_gameOverText = Instantiate(await Addressables.LoadAssetAsync<GameObject>("Text").Task, new Vector3(960, 540, 0), Quaternion.identity, GameObject.Find("Canvas").transform);
-        //m_gameOverText.SetActive(false);
-
+        m_gameOverText = Instantiate(m_gameOverText, new Vector3(960, 540, 0), Quaternion.identity, transform);
+        m_gameOverText.SetActive(false);
     }
 
     private void Start()
@@ -65,40 +66,36 @@ public class PlayUI : MonoBehaviour
     {
         DisplayStatus();
         ChangeStatusColor();
-
-        //if (!m_player.GetComponent<Player>().IsArrive())
-        //{
-        //    m_gameOverText.SetActive(true);
-        //    m_gameOverText.GetComponent<TextMeshProUGUI>().text = "GameOver";
-        //    m_gameOverText.GetComponent<TextMeshProUGUI>().fontSize = 100.0f;
-
-        //}
-
-
+        if (!m_player.IsArrive())
+        {
+            m_gameOverText.SetActive(true);
+            m_gameOverText.GetComponent<TextMeshProUGUI>().text = "GameOver";
+            m_gameOverText.GetComponent<TextMeshProUGUI>().enableAutoSizing = true;
+        }
+        m_scoreUI.Execute();
 
     }
 
     private void ChangeStatusColor()
     {
-        Color haveFoodColor = m_player.GetComponent<Player>().HaveFood() ? Color.white : Color.blue;
-        Color haveWaterColor = m_player.GetComponent<Player>().HaveWater() ? Color.green : Color.magenta;
+        Color haveFoodColor = m_player.HaveFood() ? Color.white : Color.blue;
+        Color haveWaterColor = m_player.HaveWater() ? Color.green : Color.magenta;
 
         m_hpColorSprite.color = haveWaterColor;
         m_attack.GetComponentInChildren<TextMeshProUGUI>().color = haveFoodColor;
         m_defence.GetComponentInChildren<TextMeshProUGUI>().color = haveFoodColor;
 
-        if (m_player.GetComponent<Player>().GetStatus().actorStatus.hp <= 0)
+        if (m_player.GetStatus().actorStatus.hp <= 0)
         {
             m_hp.GetComponentsInChildren<Image>()[1].color = Color.red;
         }
-        else if (m_player.GetComponent<Player>().GetStatus().actorStatus.hp <= m_player.GetComponent<Player>().GetStatus().maxHP * Parameter.UI_DANGER_HP_RATIO)
+        else if (m_player.GetStatus().actorStatus.hp <= m_player.GetStatus().maxHP * Parameter.UI_DANGER_HP_RATIO)
         {
             m_hp.GetComponentsInChildren<Image>()[1].color =
                 Vector4.MoveTowards(
                     new Color(1f, 0f, 0f, 1f),
                     new Color(1f, 0f, 0f, 0f),
                     math.fmod(Time.time, Parameter.UI_DANGER_HP_BLINK_INTERVAL));
-
         }
 
 
@@ -111,5 +108,10 @@ public class PlayUI : MonoBehaviour
         m_defence.GetComponentInChildren<TextMeshProUGUI>().text = m_player.GetStatus().actorStatus.defence.ToString();
         m_water.GetComponentInChildren<Slider>().value = m_player.GetWaterGauge();
         m_food.GetComponentInChildren<Slider>().value = m_player.GetFoodGauge();
+    }
+
+    private void SetScore()
+    {
+        m_scoreUI.SetScore(m_player.GetScore(), m_player.GetAddScore());
     }
 }

@@ -24,6 +24,8 @@ TagManager:
   - SoundManager
   - TreasureItem
   - Canvas
+  - VirtualCamera
+  - PlayUI
   layers:
   - Default
   - TransparentFX
@@ -84,4 +86,7 @@ TagManager:
     locked: 0
   - name: Magic
     uniqueID: 3502563127
+    locked: 0
+  - name: Treasure
+    uniqueID: 2117477125
     locked: 0
