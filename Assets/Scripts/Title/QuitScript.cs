@@ -17,7 +17,7 @@ public class QuitScript : MonoBehaviour
     void Update()
     {
         // ‰æ‘œ‚ğ“§‰ß‚³‚¹‚éˆ—
-        Color color = gameObject.GetComponent<Image>().color;
+        Color color = GetComponent<Image>().color;
 
         Vector2 targetSize;
         if (menu_Script.GetButtonNum() == (int)menu_Script.MENU_TYPE.QUIT)
@@ -40,7 +40,7 @@ public class QuitScript : MonoBehaviour
             color.a = 0.0f;
         }
 
-        gameObject.GetComponent<Image>().color = color;
+        GetComponent<Image>().color = color;
 
         GetComponent<RectTransform>().sizeDelta = targetSize;
     }

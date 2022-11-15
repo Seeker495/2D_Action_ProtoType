@@ -120,6 +120,7 @@ public class Player : MonoBehaviour, IActor
                 // ‘‚¢ˆÚ“®‚Ì‰¹
                 soundManager_2.PlaySe(6);
                 break;
+
             case InputActionPhase.Canceled:
                 m_velocity *= 1.0f / Parameter.PLAYER_DASH_MULTIPLY;
                 break;

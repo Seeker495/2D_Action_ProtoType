@@ -155,7 +155,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_titleText: {fileID: 0}
-  soundManager_2: {fileID: 134560073}
 --- !u!4 &134560072
 Transform:
   m_ObjectHideFlags: 0
@@ -191,6 +190,8 @@ MonoBehaviour:
   m_seList:
   - name: "\u6C7A\u5B9A\u97F3"
     clip: {fileID: 8300000, guid: 8888fec072f41004c8e4a7125540dd78, type: 3}
+  - name: "\u30BB\u30EC\u30AF\u30C8\u97F3"
+    clip: {fileID: 8300000, guid: 00fde791af94b324fb41b2a09be1a603, type: 3}
 --- !u!82 &134560074
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1937,6 +1938,7 @@ MonoBehaviour:
   SizeNotSelect: {x: 160, y: 30}
   ColorNotSelect: {x: 0, y: 0, z: 0}
   titleScene: {fileID: 134560071}
+  soundManager_2: {fileID: 134560073}
 --- !u!114 &1436956268
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -19,6 +19,9 @@ public class menu_Script : MonoBehaviour
 
     public TitleScene titleScene;
 
+    [SerializeField]
+    SoundManager_2 soundManager_2;
+
     Dictionary<MENU_TYPE, System.Action> menuProcess = new Dictionary<MENU_TYPE, System.Action>((int)MENU_TYPE.MAX);
     List<Button> buttons = new List<Button>();
     // ƒ{ƒ^ƒ“
@@ -51,26 +54,32 @@ public class menu_Script : MonoBehaviour
     void Start()
     {
         // ‰æ‘œ‚ğ“§‰ß‚³‚¹‚éˆ—
-        Color color = gameObject.GetComponent<Image>().color;
-        color.r = 1.0f;
-        color.g = 1.0f;
-        color.b = 1.0f;
+        Color color = GetComponent<Image>().color;
+
         color.a = 0.5f;
-        gameObject.GetComponent<Image>().color = color;
+
+        GetComponent<Image>().color = color;
     }
 
     // Update is called once per frame
     void Update()
     {
         // ã“ü—Í
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             button = System.Math.Abs(--button + (int)MENU_TYPE.MAX) % (int)MENU_TYPE.MAX;
+
+            // Œˆ’è‰¹
+            soundManager_2.PlaySe(1);
+
         }
         // ‰º“ü—Í
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             button = System.Math.Abs(++button) % (int)MENU_TYPE.MAX;
+
+            // Œˆ’è‰¹
+            soundManager_2.PlaySe(1);
         }
 
         
@@ -81,6 +90,9 @@ public class menu_Script : MonoBehaviour
         {
             if (buttons[button].IsInteractable())
                 menuProcess[(MENU_TYPE)button]();
+                 // Œˆ’è‰¹
+                 soundManager_2.PlaySe(0);
+
         }
         
         
