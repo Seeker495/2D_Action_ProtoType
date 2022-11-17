@@ -55,14 +55,13 @@ public class Map : MonoBehaviour
 
         for (int i = 0; i < mapData.stage.Count; i++)
         {
+            Debug.Assert(mapData.stage[i] >= 0, "³‚µ‚¢Œ`Ž®‚ÅŒÄ‚Î‚ê‚Ä‚¢‚Ü‚¹‚ñB");
             var chip = m_mapObjects.Find(obj => obj.mapIndex == mapData.stage[i]).mapObject;
 
             chip.transform.position = new Vector3(0.0f + (i % m_mapInfo.width), 0.0f - ((i / m_mapInfo.width) % m_mapInfo.height), 0.0f);
             switch (mapData.stage[i])
             {
-                case 1:
-                    Instantiate(m_mapObjects.Find(obj => obj.mapIndex == 11).mapObject, chip.transform.position, Quaternion.identity, transform);
-                    m_mapChips.Add(Instantiate(chip, null));
+                case 0:
                     break;
                 case 11:
                     m_mapChips.Add(Instantiate(chip, transform));
@@ -72,15 +71,7 @@ public class Map : MonoBehaviour
                     Instantiate(m_mapObjects.Find(obj => obj.mapIndex == 11).mapObject, chip.transform.position, Quaternion.identity, transform);
                     m_mapChips.Add(Instantiate(chip, transform));
                     break;
-                case 21:
-                case 22:
-                case 23:
-                case 24:
-                case 25:
-                case 26:
-                case 27:
-                case 28:
-                case 29:
+                default:
                     Instantiate(m_mapObjects.Find(obj => obj.mapIndex == 11).mapObject, chip.transform.position, Quaternion.identity, transform);
                     m_mapChips.Add(Instantiate(chip, null));
                     break;

@@ -8,6 +8,8 @@ using UnityEditor.SceneManagement;
 #endif
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 /*******************************************************************
  *  <概要>
@@ -47,22 +49,34 @@ public class PlayScene : MonoBehaviour
     /* ユーザーのコントローラー関連 */
     [SerializeField]
     private GameObject m_playerController;
+
+    [SerializeField]
+    private GameObject m_pauseDisplayObject;
+    private PauseDisplay m_pauseDisplay;
+
+    [SerializeField]
+    private List<string> m_stageNames;
+
     private void Awake()
     {
+        if(Time.timeScale <= 0.0f) Time.timeScale = 1.0f;
         /* オブジェクトの複製及び代入を行う */
         m_map = Instantiate(m_mapObject, null).GetComponent<Map>();
 
         // マップの読み込み(先に読み込まないとプレイヤーを取得できないため)
-        m_map.Load("StageMODOKI");
-
+        m_map.Load(m_stageNames[(int)Parameter.CURRENT_ALIVE_DAY]);
         m_player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        if(Parameter.CURRENT_ALIVE_DAY != 0)
+            m_player.SetParameter(PlayerData.GetStatus());
         m_enemyManager = Instantiate(m_enemyManagerObject, null).GetComponent<EnemyManager>();
         m_wall = Instantiate(m_wallObject, null).GetComponent<Wall>();
         m_cameraObject = Instantiate(m_cameraObject, null);
         m_cameraObject.GetComponent<CinemachineVirtualCamera>().Follow = m_player.transform;
         m_playUI = Instantiate(m_playUIObject, GameObject.FindGameObjectWithTag("Canvas").transform).GetComponent<PlayUI>();
-
+        m_pauseDisplay = Instantiate(m_pauseDisplayObject, GameObject.FindGameObjectWithTag("Canvas").transform).GetComponent<PauseDisplay>();
         m_playerController = Instantiate(m_playerController, null);
+        m_pauseDisplay.gameObject.SetActive(false);
+
     }
 
     // Start is called before the first frame update
@@ -88,5 +102,13 @@ public class PlayScene : MonoBehaviour
         if (!m_map.IsLoadFinished) return;
         m_player.SetMoveRange(ref m_map);
         m_enemyManager.SetMoveRange(ref m_map);
+    }
+
+
+    public void Pause(InputAction.CallbackContext context)
+    {
+        Time.timeScale = 0.0f;
+        m_pauseDisplay.gameObject.SetActive(true);
+        m_playerController.GetComponent<PlayerController>().SetPause(true);
     }
 }

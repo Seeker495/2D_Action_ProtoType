@@ -18,4 +18,5 @@ public struct PlayerStatus
     public int money;
     public int foodGauge;
     public int waterGauge;
+    public long score;
 }

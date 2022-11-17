@@ -70,7 +70,7 @@ public class MoveRandomPattern : IMovePattern
                 {
                     case eEnemyAction.MOVE:
                         float angleAgain = Random.Range(0.0f, 360.0f);
-                        m_transform.GetComponent<Rigidbody2D>().velocity = Quaternion.Euler(0, 0, angleAgain) * Vector3.up * m_transform.GetComponent<IActor>().GetBaseStatus().speed;
+                        m_transform.GetComponent<Rigidbody2D>().velocity = Quaternion.Euler(0, 0, angleAgain) * Vector3.up * m_transform.GetComponent<IActor>().GetBaseStatus().speed * Parameter.ENEMY_VELOCITY_MULTIPLY;
                         break;
                     case eEnemyAction.STOP:
                         m_transform.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
@@ -79,7 +79,7 @@ public class MoveRandomPattern : IMovePattern
                 break;
             case eEnemyAction.MOVE:
                 float angle = Random.Range(0.0f, 360.0f);
-                m_transform.GetComponent<Rigidbody2D>().velocity = Quaternion.Euler(0, 0, angle) * Vector3.up * m_transform.GetComponent<IActor>().GetBaseStatus().speed;
+                m_transform.GetComponent<Rigidbody2D>().velocity = Quaternion.Euler(0, 0, angle) * Vector3.up * m_transform.GetComponent<IActor>().GetBaseStatus().speed * Parameter.ENEMY_VELOCITY_MULTIPLY;
                 break;
             case eEnemyAction.STOP:
                 m_transform.GetComponent<Rigidbody2D>().velocity = Vector2.zero;

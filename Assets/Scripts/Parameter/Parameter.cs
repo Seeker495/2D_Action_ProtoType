@@ -13,11 +13,11 @@ public static class Parameter
     // カメラの距離(視野) //
 
     // 遠距離
-    public const float CAMERA_FAR_DISTANCE = 25.0f;
+    public const float CAMERA_FAR_DISTANCE = 12.0f;
     // 中距離
-    public const float CAMERA_MIDDLE_DISTANCE = 15.0f;
+    public const float CAMERA_MIDDLE_DISTANCE = 10.0f;
     // 近距離
-    public const float CAMERA_NEAR_DISTANCE = 5.0f;
+    public const float CAMERA_NEAR_DISTANCE = 8.0f;
     // カメラ移動速度
     public const float CAMERA_CHANGE_VELOCITY = 10.0f;
     #endregion
@@ -44,6 +44,9 @@ public static class Parameter
     public const float PLAYER_HIGH_SPEED_RECOVER_TIME = 6.0f;
     // 高速移動時の無敵の有無
     public const bool PLAYER_HIGH_SPEED_INVINCIBLE_FLAG = false;
+    // プレイヤーの速度調整の倍率
+    public const float PLAYER_VELOCITY_MULTIPLY = 0.7f;
+
     #endregion
 
 #region ABOUT_OTHERS
@@ -65,12 +68,12 @@ public static class Parameter
     // 減少値
     public const int WATER_GAUGE_DECREASE = 1;
     // 減少間隔
-    public const float WATER_GAUGE_DECREASE_INTERVAL = 3.0f;
+    public const float WATER_GAUGE_DECREASE_INTERVAL = 1.0f;
     // HP減少割合
     [Range(0.0f,1.0f)]
-    public const float WATER_GAUGE_DECREASE_RATIO_HP = 0.02f;
+    public const float WATER_GAUGE_DECREASE_RATIO_HP = 0.04f;
     // HP減少間隔
-    public const float WATER_GAUGE_DECREASE_HP_INTERVAL = 3.0f;
+    public const float WATER_GAUGE_DECREASE_HP_INTERVAL = 2.0f;
     #endregion
 
     // 腹ペコゲージ関連
@@ -81,7 +84,7 @@ public static class Parameter
     // 減少値
     public const int FOOD_GAUGE_DECREASE = 1;
     // 減少間隔
-    public const float FOOD_GAUGE_DECREASE_INTERVAL = 3.0f;
+    public const float FOOD_GAUGE_DECREASE_INTERVAL = 1.0f;
     // 攻撃力減少割合
     [Range(0.0f, 1.0f)]
     public const float FOOD_GAUGE_DECREASE_RATIO_ATTACK = 0.02f;
@@ -100,7 +103,7 @@ public static class Parameter
     // 弓の攻撃威力
     public const float ATTACK_BOW_POWER = 5.0f;
     // 弓の移動速度
-    public const float ATTACK_BOW_SPEED = 5.0f;
+    public const float ATTACK_BOW_SPEED = 10.0f;
     // ボムの攻撃威力
     public const float ATTACK_BOMB_POWER = 5.0f;
     // ボムの投げる距離
@@ -109,17 +112,21 @@ public static class Parameter
     public const float ATTACK_BOMB_RANGE = 10.0f;
     // ボムの爆発までの時間
     public const float ATTACK_BOMB_TIME_LIMIT = 5.0f;
-
+    // 攻撃速度調整の倍率
+    public const float ATTACK_SPEED_MULTIPLY = 0.5f;
     #endregion
     #endregion
 
     #region ABOUT_ENEMY
 
+    // 敵の速度調整の倍率
+    public const float ENEMY_VELOCITY_MULTIPLY = 0.7f;
+
     #region ABOUT_DROP_EFFECT
     // ドロップエフェクトの移動速度
-    public const float DROP_EFFECT_SPEED = 6.0f;
+    public const float DROP_EFFECT_SPEED = 11.0f;
     // ドロップエフェクトのサイズ倍率
-    public const float DROP_EFFECT_SIZE_MULTIPLY = 0.15f;
+    public const float DROP_EFFECT_SIZE_MULTIPLY = 0.07f;
     #endregion
     #endregion
 
@@ -133,5 +140,17 @@ public static class Parameter
     #region ABOUT_SCENE
     // 次のシーン名
     public static string NEXT_SCENE_NAME = string.Empty;
+    #endregion
+
+    #region ABOUT_GAME_SYSTEM
+    // 現在の生存日数
+    public static uint CURRENT_ALIVE_DAY = 0;
+    // 生存できる最大日数
+    public static uint LAST_ALIVE_DAY = 3;
+    #endregion
+
+    #region ABOUT_SCORE
+    // 現在のスコア
+    public static long CURRENT_SCORE = 0;
     #endregion
 }

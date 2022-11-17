@@ -1,3 +1,4 @@
+using Mono.Cecil;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -23,7 +24,6 @@ public class Player : MonoBehaviour, IActor
     private Vector2 m_startPosition;
     private Vector2 m_velocity;
     private Vector2 m_direction;
-    private Dictionary<Vector2, Tile> Sprites;
     private PlayerStatus m_status;
     private bool m_isDamaged = false;
     private List<AttackBase> m_weapons;
@@ -31,14 +31,15 @@ public class Player : MonoBehaviour, IActor
     private bool m_haveFood = true;
     private int WeaponIndex = 0;
     private float[] m_stageTime = new float[2];
-    private const float DAMAGE_INTERVAL = 2.0f;
-    private const float GAUGE_DECREASE_INTERVAL = 3.0f;
     private long m_score = 0;
     private long m_increaseScore = 0;
-    // Start is called before the first frame update
 
     // サウンドマネージャー
     public SoundManager_2 soundManager_2;
+
+    // 煙アニメーションのオブジェクト
+    [SerializeField]
+    private GameObject m_smokeObject;
 
     // ピンチの時に流すseのフラグ
     bool pinchiFlag = false;
@@ -47,15 +48,21 @@ public class Player : MonoBehaviour, IActor
     {
         soundManager_2 = GameObject.FindWithTag("SoundManager").GetComponent<SoundManager_2>();
 
-        // ステータスごとの初期化
-        m_status.actorStatus.hp = m_status.maxHP = Parameter.PLAYER_MAX_HP;
-        m_status.actorStatus.attack = m_status.maxAttack = Parameter.PLAYER_INIT_ATTACK;
-        m_status.actorStatus.defence = m_status.maxdefence = Parameter.PLAYER_INIT_DEFENCE;
+        m_rigidbody2D = GetComponent<Rigidbody2D>();
+
+        m_status.actorStatus.hp = Parameter.PLAYER_MAX_HP;
         m_status.actorStatus.speed = Parameter.PLAYER_NORMAL_VELOCITY;
-        m_status.exp = m_status.money = 0;
+        m_status.actorStatus.attack = Parameter.PLAYER_INIT_ATTACK;
+        m_status.actorStatus.defence = Parameter.PLAYER_INIT_DEFENCE;
+        m_status.exp = 0;
+        m_status.money = 0;
         m_status.foodGauge = Parameter.FOOD_GAUGE_MAX;
         m_status.waterGauge = Parameter.WATER_GAUGE_MAX;
-        m_rigidbody2D = GetComponent<Rigidbody2D>();
+        m_status.maxHP = Parameter.PLAYER_MAX_HP;
+        m_status.maxAttack = Parameter.PLAYER_INIT_ATTACK;
+        m_status.maxdefence = Parameter.PLAYER_INIT_DEFENCE;
+        // ステータスごとの初期化
+        m_score = Parameter.CURRENT_SCORE;
 
         // 武器リスト
         m_weapons = new List<AttackBase>(2)
@@ -65,7 +72,22 @@ public class Player : MonoBehaviour, IActor
         };
     }
 
-
+    public void SetParameter(PlayerStatus status)
+    {
+        m_status.actorStatus.hp = status.actorStatus.hp;
+        m_status.actorStatus.speed = status.actorStatus.speed;
+        m_status.actorStatus.attack = status.actorStatus.attack;
+        m_status.actorStatus.defence = status.actorStatus.defence;
+        m_status.exp = status.exp;
+        m_status.money = status.money;
+        m_status.foodGauge = status.foodGauge;
+        m_status.waterGauge = status.waterGauge;
+        m_status.maxHP = Parameter.PLAYER_MAX_HP;
+        m_status.maxAttack = Parameter.PLAYER_INIT_ATTACK;
+        m_status.maxdefence = Parameter.PLAYER_INIT_DEFENCE;
+        // ステータスごとの初期化
+        m_score = Parameter.CURRENT_SCORE;
+    }
 
     // Update is called once per frame
     void Update()
@@ -101,7 +123,7 @@ public class Player : MonoBehaviour, IActor
     public void Move(InputAction.CallbackContext context)
     {
         Vector2 move = context.ReadValue<Vector2>();
-        m_velocity = move * m_status.actorStatus.speed;
+        m_velocity = move * m_status.actorStatus.speed * Parameter.PLAYER_VELOCITY_MULTIPLY;
         m_rigidbody2D.velocity = m_velocity;
         m_direction = m_rigidbody2D.velocity.normalized;
     }
@@ -157,6 +179,15 @@ public class Player : MonoBehaviour, IActor
 
         // 武器チェンジの音
         soundManager_2.PlaySe("武器チェンジ");
+
+        if (!GetComponentInChildren<SmokeAnimation>())
+        {
+            Instantiate(m_smokeObject, transform);
+        }
+        else
+        {
+            GetComponentInChildren<SmokeAnimation>().ResetTime();
+        }
     }
 
     public void SelectWeaponToRight(InputAction.CallbackContext context)
@@ -165,6 +196,16 @@ public class Player : MonoBehaviour, IActor
 
         // 武器チェンジの音
         soundManager_2.PlaySe("武器チェンジ");
+
+        if (!GetComponentInChildren<SmokeAnimation>())
+        {
+            Instantiate(m_smokeObject, transform);
+        }
+        else
+        {
+            GetComponentInChildren<SmokeAnimation>().ResetTime();
+        }
+
     }
 
     public void Resurrection(InputAction.CallbackContext context)
@@ -174,7 +215,7 @@ public class Player : MonoBehaviour, IActor
         gameObject.tag = "Player";
         m_status.actorStatus.hp = 10;
         m_isDamaged = false;
-        GameObject.Find("PlayerController").GetComponent<PlayerController>().Player_Controller.Enable();
+        GameObject.FindWithTag("GameController").GetComponent<PlayerController>().Player_Controller.Enable();
 
     }
 
@@ -189,7 +230,7 @@ public class Player : MonoBehaviour, IActor
         if (m_isDamaged && !collision.gameObject.CompareTag("Wall") && !collision.gameObject.CompareTag("NormalObstacle") && !collision.gameObject.CompareTag("WaterObstacle")) return;
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Damage(collision.transform.GetComponent<IActor>().GetBaseStatus().attack * 2);
+            Damage(collision.transform.GetComponent<IActor>().GetBaseStatus().attack);
             m_rigidbody2D.AddForce(collision.transform.GetComponent<Rigidbody2D>().velocity.normalized * Time.deltaTime);
         }
     }
@@ -212,8 +253,6 @@ public class Player : MonoBehaviour, IActor
     {
         if (m_isDamaged && !collision.gameObject.CompareTag("Wall") && !collision.gameObject.CompareTag("NormalObstacle") && !collision.gameObject.CompareTag("WaterObstacle")) return;
 
-        if (collision.gameObject.CompareTag("Enemy"))
-            m_rigidbody2D.velocity = Vector2.zero;
 
 
 
@@ -259,7 +298,7 @@ public class Player : MonoBehaviour, IActor
 
         if (m_isDamaged && !collision.CompareTag("Wall") && !collision.CompareTag("NormalObstacle") && !collision.CompareTag("WaterObstacle")) return;
         if (collision.CompareTag("Magic"))
-            Damage(collision.transform.parent.GetComponent<IActor>().GetBaseStatus().attack * 3);
+            Damage(collision.transform.parent.GetComponent<IActor>().GetBaseStatus().attack);
 
     }
 
@@ -327,7 +366,7 @@ public class Player : MonoBehaviour, IActor
     private void Dead()
     {
         gameObject.tag = "Untagged";
-        GameObject.Find("PlayerController").GetComponent<PlayerController>().Player_Controller.Disable();
+        GameObject.FindWithTag("GameController").GetComponent<PlayerController>().Player_Controller.Disable();
         gameObject.SetActive(false);
 
         //StartCoroutine(OnDead(0.1f, 0.3f));

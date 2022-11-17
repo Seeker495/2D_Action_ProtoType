@@ -43,6 +43,10 @@ public class Blade : AttackBase
     {
     }
 
+    private void FixedUpdate()
+    {
+        m_rigidBody2D.position = GetComponentInParent<Rigidbody2D>().position;
+    }
 
     /*
      * 攻撃中関数
@@ -54,7 +58,7 @@ public class Blade : AttackBase
         // マスクを無くして表示させる
         GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.None;
         // 開始位置の代入
-        m_rigidBody2D.position = GetComponentInParent<Rigidbody2D>().position;
+        //m_rigidBody2D.position = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>().position;
         // Z軸の角度(degreeと比べるため)
         float angleZ = 0.0f;
         // ベクトルの角度を取得するためのもの
@@ -62,8 +66,8 @@ public class Blade : AttackBase
         // 角度が規定の値以下の間
         while(angleZ * BLADE_SPEED <= degree)
         {
-            //  位置をずらして表示させる
-            //transform.localPosition = direction * 0.3f;
+            // 位置をずらして表示させる
+            transform.localPosition = direction * 0.3f;
             // Z軸の角度を加算していき,そのたびに代入
             transform.parent.rotation = Quaternion.Euler(0, 0, -angleZ * BLADE_SPEED);
             // 速度を代入
@@ -71,7 +75,7 @@ public class Blade : AttackBase
             // ベクトルの角度を算出する
             angle = (Mathf.Atan2(m_rigidBody2D.velocity.y, m_rigidBody2D.velocity.x) + Mathf.PI / 2) * Mathf.Rad2Deg;
             // 剣の角度の調整
-            transform.localEulerAngles = new Vector3(0, 0, angle + Mathf.PI * Mathf.Rad2Deg);
+            transform.eulerAngles = new Vector3(0, 0, angle + Mathf.PI / 2 * Mathf.Rad2Deg);
             //角度を一定ずつ加算
             angleZ += 0.3f;
             yield return null;

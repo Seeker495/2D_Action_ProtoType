@@ -41,9 +41,9 @@ public class DropManager : MonoBehaviour
 
         Dictionary<eDropSize, float> objectScale = new Dictionary<eDropSize, float>(3)
         {
-            {eDropSize.SMALL,   0.1f},
-            {eDropSize.MEDIUM,  0.3f},
-            {eDropSize.LARGE,   0.5f},
+            {eDropSize.SMALL,   Parameter.DROP_EFFECT_SIZE_MULTIPLY * 1.0f},
+            {eDropSize.MEDIUM,  Parameter.DROP_EFFECT_SIZE_MULTIPLY * 2.0f},
+            {eDropSize.LARGE,   Parameter.DROP_EFFECT_SIZE_MULTIPLY * 3.0f},
         };
 
 
