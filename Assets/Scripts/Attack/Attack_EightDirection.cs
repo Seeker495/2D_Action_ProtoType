@@ -25,7 +25,7 @@ public class Attack_EightDirection : AttackBase
     {
         Rigidbody2D.position = transform.parent.GetComponent<Rigidbody2D>().position;
         var direction = Vector2.up;
-        Rigidbody2D.velocity = transform.rotation * direction * ATTACK_SPEED;
+        Rigidbody2D.velocity = transform.rotation * direction * ATTACK_SPEED * Parameter.ATTACK_SPEED_MULTIPLY;
         Debug.Log(Rigidbody2D.velocity);
     }
 

@@ -20,14 +20,11 @@ public class Enemy_8 : EnemyBase
 
     public override void Execute()
     {
+        var player = GameObject.FindWithTag("Player");
+
         AddMoveTime();
         AddActionTime();
 
-        if (base.GetActionTime() > 1.0f && Vector2.Distance(GameObject.FindWithTag("Player").transform.position, transform.position) <= 10.0f)
-        {
-            Attack();
-            ResetActionTime();
-        }
 
         if (m_isNotified)
         {
@@ -45,6 +42,15 @@ public class Enemy_8 : EnemyBase
                 }
             }
         }
+
+        if (!player) return;
+
+        if (base.GetActionTime() > 1.0f && Vector2.Distance(player.transform.position, transform.position) <= 10.0f)
+        {
+            Attack();
+            ResetActionTime();
+        }
+
     }
 
     //// Update is called once per frame

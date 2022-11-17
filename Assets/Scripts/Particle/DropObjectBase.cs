@@ -30,10 +30,10 @@ public abstract class DropObjectBase : MonoBehaviour
         if (transform.parent.parent == null)
             m_arriveTime += Time.deltaTime;
         if (m_arriveTime > 1.5f)
-            m_rigidBody2D.velocity = (m_player.GetComponent<Rigidbody2D>().position - m_rigidBody2D.position).normalized * 4.0f;
+            m_rigidBody2D.velocity = (m_player.GetComponent<Rigidbody2D>().position - m_rigidBody2D.position).normalized * Parameter.DROP_EFFECT_SPEED;
 
         if (Vector2.Distance(m_player.GetComponent<Rigidbody2D>().position, m_rigidBody2D.position) <= 2.0f)
-            m_rigidBody2D.velocity = (m_player.GetComponent<Rigidbody2D>().position - m_rigidBody2D.position).normalized * 2.8f;
+            m_rigidBody2D.velocity = (m_player.GetComponent<Rigidbody2D>().position - m_rigidBody2D.position).normalized * Parameter.DROP_EFFECT_SPEED * 0.7f;
 
     }
 

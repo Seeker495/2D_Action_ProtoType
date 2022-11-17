@@ -7,7 +7,7 @@ using UnityEngine.AddressableAssets;
  *  <ŠT—v>
  *  “G‚Ì”h¶ƒNƒ‰ƒXB
  *******************************************************************/
-public class Enemy_6 : EnemyBase
+public class Enemy_7 : EnemyBase
 {
     private eEnemyAction m_enemyAction = eEnemyAction.STOP;
 
@@ -20,13 +20,10 @@ public class Enemy_6 : EnemyBase
 
     public override void Execute()
     {
+        var player = GameObject.FindWithTag("Player");
         AddMoveTime();
         AddActionTime();
-        if (base.GetActionTime() > 1.0f && Vector2.Distance(GameObject.FindWithTag("Player").transform.position, transform.position) <= 10.0f)
-        {
-            Attack();
-            ResetActionTime();
-        }
+
 
         if (m_isNotified)
         {
@@ -44,7 +41,16 @@ public class Enemy_6 : EnemyBase
                 }
             }
         }
+        if (!player) return;
+
+        if (base.GetActionTime() > 1.0f && Vector2.Distance(player.transform.position, transform.position) <= 10.0f)
+        {
+            Attack();
+            ResetActionTime();
+        }
+
     }
+
 
     //// Update is called once per frame
     //void Update()
@@ -55,7 +61,7 @@ public class Enemy_6 : EnemyBase
     {
         var magic = await Addressables.LoadAssetAsync<GameObject>("Fire").Task;
         Debug.Log(magic);
-        GameObject magicObject = Instantiate(magic, transform);
+        GameObject magicObject = Instantiate(magic, transform.position, Quaternion.identity, transform);
         AttackBase homing = magicObject.GetComponent<Homing>();
         homing.SetTarget(GameObject.FindWithTag("Player"));
         homing.Attack();

@@ -26,7 +26,7 @@ public class Arrow : MonoBehaviour
     {
         m_rigidBody2D.position = startPosition;
         transform.rotation = Quaternion.Euler(0, 0, -degree);
-        m_rigidBody2D.velocity = transform.rotation * direction * ARROW_SPEED;
+        m_rigidBody2D.velocity = transform.rotation * direction * Parameter.ATTACK_BOW_SPEED;
         float angle = (Mathf.Atan2(m_rigidBody2D.velocity.y, m_rigidBody2D.velocity.x) + Mathf.PI / 2) * Mathf.Rad2Deg;
         transform.localEulerAngles = new Vector3(0, 0, angle + Mathf.PI * Mathf.Rad2Deg);
     }

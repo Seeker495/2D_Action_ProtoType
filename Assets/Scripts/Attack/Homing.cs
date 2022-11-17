@@ -26,7 +26,7 @@ public class Homing : AttackBase
         Rigidbody2D.position = transform.parent.GetComponent<Rigidbody2D>().position;
         var direction = (m_target.GetComponent<Rigidbody2D>().position - Rigidbody2D.position).normalized;
         transform.rotation = Quaternion.Euler(direction.x, direction.y, 0.0f);
-        Rigidbody2D.velocity = transform.rotation * direction * ATTACK_SPEED;
+        Rigidbody2D.velocity = transform.rotation * direction * ATTACK_SPEED * Parameter.ATTACK_SPEED_MULTIPLY;
 
     }
 
@@ -43,7 +43,7 @@ public class Homing : AttackBase
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Blade") || collision.CompareTag("Arrow") || collision.CompareTag("Player"))
+        if(collision.CompareTag("Blade") || collision.CompareTag("Arrow") || collision.CompareTag("Player") || collision.CompareTag("NormalObstacle"))
             Destroy(gameObject);
     }
 

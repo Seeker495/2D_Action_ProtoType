@@ -27,14 +27,12 @@ public class Enemy_5 : EnemyBase
         //    m_normalMovePattern.Execute();
         //    m_time = 0.0f;
         //}
+        var player = GameObject.FindWithTag("Player");
 
         AddMoveTime();
         AddActionTime();
-        if (base.GetActionTime() > 1.0f && Vector2.Distance(GameObject.FindWithTag("Player").transform.position, transform.position) <= 20.0f)
-        {
-            Attack();
-            ResetActionTime();
-        }
+
+
         if (m_isNotified)
         {
             if (m_findMovePattern != null)
@@ -44,6 +42,14 @@ public class Enemy_5 : EnemyBase
         {
             if (m_normalMovePattern != null)
                 m_normalMovePattern.Execute();
+        }
+
+        if (!player) return;
+
+        if (base.GetActionTime() > 1.0f && Vector2.Distance(player.transform.position, transform.position) <= 10.0f)
+        {
+            Attack();
+            ResetActionTime();
         }
 
     }

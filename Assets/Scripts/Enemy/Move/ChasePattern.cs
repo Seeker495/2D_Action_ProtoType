@@ -20,6 +20,6 @@ public class ChasePattern : IMovePattern
         Vector2 distance =
             m_targetTransform.GetComponent<Rigidbody2D>().position - m_transform.GetComponent<Rigidbody2D>().position;
         m_transform.GetComponent<Rigidbody2D>().velocity =
-            distance.normalized * m_transform.GetComponent<IActor>().GetBaseStatus().speed;
+            distance.normalized * m_transform.GetComponent<IActor>().GetBaseStatus().speed * Parameter.ENEMY_VELOCITY_MULTIPLY;
     }
 }
