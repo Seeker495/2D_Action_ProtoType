@@ -1,18 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
+/*******************************************************************
+ *  <概要>
+ *  タイトルのキャラクタークラス。
+ *******************************************************************/
 public class TitleCharacterScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Image sampleImage;
+    // 画像切り替え
+    public List<Sprite> sprite;
+
+    // 画像切り替え時間
+    int changeImageTime = 0;
+
+    // 画像の種類
+    int imageType = 0;
+
+    // 歩くスピード
+    public int walkSpeed;
+
+    private void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        changeImageTime++;
+
+        if (changeImageTime % walkSpeed == 0) 
+        {
+            imageType++;
+            changeImageTime = 0;
+            if (imageType > sprite.Count - 1) 
+            {
+                imageType = 0;
+            }
+        }
+        sampleImage.sprite = sprite[imageType];
     }
 }
