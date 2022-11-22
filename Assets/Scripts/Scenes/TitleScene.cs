@@ -18,6 +18,7 @@ public class TitleScene : MonoBehaviour
     private void Awake()
     {
         m_playerController = Instantiate(m_playerController, null);
+        InitializeParameter();
     }
 
     // Start is called before the first frame update
@@ -38,6 +39,7 @@ public class TitleScene : MonoBehaviour
 
         Debug.Log("Press_Start");
         Parameter.NEXT_SCENE_NAME = "Play";
+        m_playerController.GetComponent<PlayerController>().Disable();
         SceneManager.LoadSceneAsync("Loading");
 
 
@@ -88,6 +90,12 @@ public class TitleScene : MonoBehaviour
         Application.Quit();
 #endif
 
+    }
+
+    private void InitializeParameter()
+    {
+        Parameter.CURRENT_ALIVE_DAY = 0;
+        Parameter.CURRENT_SCORE = 0;
     }
 
 }

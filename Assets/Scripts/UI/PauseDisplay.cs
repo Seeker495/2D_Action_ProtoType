@@ -47,19 +47,24 @@ public class PauseDisplay : MonoBehaviour
     private void Resume()
     {
         Time.timeScale = 1.0f;
-        gameObject.SetActive(false);
+        GetComponent<CanvasRenderer>().SetAlpha(0.0f);
+        GetComponentsInChildren<CanvasRenderer>().ToList().ForEach(canvasRenderer => canvasRenderer.SetAlpha(0.0f));
         GameObject.FindWithTag("GameController").GetComponent<PlayerController>().SetPause(false);
     }
 
     private void RetryFromStart()
     {
         Parameter.NEXT_SCENE_NAME = "Play";
+        PlayerController playerController = GameObject.FindWithTag("GameController").GetComponent<PlayerController>();
+        playerController.Disable();
         SceneManager.LoadSceneAsync("Loading");
     }
 
     private void BackToTitle()
     {
         Parameter.NEXT_SCENE_NAME = "Title";
+        PlayerController playerController = GameObject.FindWithTag("GameController").GetComponent<PlayerController>();
+        playerController.Disable();
         SceneManager.LoadSceneAsync("Loading");
     }
 

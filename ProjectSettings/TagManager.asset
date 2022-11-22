@@ -29,6 +29,9 @@ TagManager:
   - Menu
   - Pause
   - PlayScene
+  - NextDay
+  - Score
+  - ResultScene
   layers:
   - Default
   - TransparentFX

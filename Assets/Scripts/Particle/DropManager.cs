@@ -17,12 +17,17 @@ public class DropManager : MonoBehaviour
     private List<GameObject> m_money = new List<GameObject>();
     private List<float> m_angle = new List<float>();
 
+    [SerializeField]
+    private GameObject m_expObject;
+    [SerializeField]
+    private GameObject m_moneyObject;
+
     private void Awake()
     {
         //gameObject.SetActive(false);
     }
 
-    async void Start()
+    void Start()
     {
 
         Dictionary<eDropSize, int> expAmounts = new Dictionary<eDropSize, int>(3)
@@ -46,16 +51,16 @@ public class DropManager : MonoBehaviour
             {eDropSize.LARGE,   Parameter.DROP_EFFECT_SIZE_MULTIPLY * 3.0f},
         };
 
+        m_expObject.SetActive(false);
+        m_moneyObject.SetActive(false);
 
         foreach (eDropSize size in Enum.GetValues(typeof(eDropSize)))
         {
             for (int i = 0; i < expAmounts[size]; ++i)
             {
-                var exp = await Addressables.LoadAssetAsync<GameObject>("Exp").Task;
-                m_exp.Add(Instantiate(exp, transform));
+                m_exp.Add(Instantiate(m_expObject, transform));
                 m_exp[i].transform.localScale = new Vector3(objectScale[size], objectScale[size], 0.0f);
                 m_exp[i].GetComponent<DropObjectBase>().SetSize(size);
-                m_exp[i].SetActive(false);
             }
         }
 
@@ -63,11 +68,9 @@ public class DropManager : MonoBehaviour
         {
             for (int i = 0; i < moneyAmounts[size]; ++i)
             {
-                var money = await Addressables.LoadAssetAsync<GameObject>("Money").Task;
-                m_money.Add(Instantiate(money, transform));
+                m_money.Add(Instantiate(m_moneyObject, transform));
                 m_money[i].transform.localScale = new Vector3(objectScale[size], objectScale[size], 0.0f);
                 m_money[i].GetComponent<DropObjectBase>().SetSize(size);
-                m_money[i].SetActive(false);
             }
         }
     }

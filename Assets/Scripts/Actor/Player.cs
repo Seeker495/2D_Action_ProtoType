@@ -61,8 +61,6 @@ public class Player : MonoBehaviour, IActor
         m_status.maxHP = Parameter.PLAYER_MAX_HP;
         m_status.maxAttack = Parameter.PLAYER_INIT_ATTACK;
         m_status.maxdefence = Parameter.PLAYER_INIT_DEFENCE;
-        // ステータスごとの初期化
-        m_score = Parameter.CURRENT_SCORE;
 
         // 武器リスト
         m_weapons = new List<AttackBase>(2)
@@ -74,19 +72,7 @@ public class Player : MonoBehaviour, IActor
 
     public void SetParameter(PlayerStatus status)
     {
-        m_status.actorStatus.hp = status.actorStatus.hp;
-        m_status.actorStatus.speed = status.actorStatus.speed;
-        m_status.actorStatus.attack = status.actorStatus.attack;
-        m_status.actorStatus.defence = status.actorStatus.defence;
-        m_status.exp = status.exp;
-        m_status.money = status.money;
-        m_status.foodGauge = status.foodGauge;
-        m_status.waterGauge = status.waterGauge;
-        m_status.maxHP = Parameter.PLAYER_MAX_HP;
-        m_status.maxAttack = Parameter.PLAYER_INIT_ATTACK;
-        m_status.maxdefence = Parameter.PLAYER_INIT_DEFENCE;
-        // ステータスごとの初期化
-        m_score = Parameter.CURRENT_SCORE;
+        m_status = status;
     }
 
     // Update is called once per frame
@@ -476,12 +462,12 @@ public class Player : MonoBehaviour, IActor
 
     public long GetScore()
     {
-        return m_score;
+        return m_status.score;
     }
 
     public void AddScore(in long score)
     {
-        m_score += score;
+        m_status.score += score;
     }
 
     public long GetAddScore()

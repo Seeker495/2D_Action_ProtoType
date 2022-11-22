@@ -146,7 +146,7 @@ public static class Parameter
     // Œ»İ‚Ì¶‘¶“ú”
     public static uint CURRENT_ALIVE_DAY = 0;
     // ¶‘¶‚Å‚«‚éÅ‘å“ú”
-    public static uint LAST_ALIVE_DAY = 3;
+    public static uint LAST_ALIVE_DAY = 1;
     #endregion
 
     #region ABOUT_SCORE
