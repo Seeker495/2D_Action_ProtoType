@@ -1,6 +1,7 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 #if UNITY_EDITOR
@@ -75,7 +76,8 @@ public class PlayScene : MonoBehaviour
         m_playUI = Instantiate(m_playUIObject, GameObject.FindGameObjectWithTag("Canvas").transform).GetComponent<PlayUI>();
         m_pauseDisplay = Instantiate(m_pauseDisplayObject, GameObject.FindGameObjectWithTag("Canvas").transform).GetComponent<PauseDisplay>();
         m_playerController = Instantiate(m_playerController, null);
-        m_pauseDisplay.gameObject.SetActive(false);
+        m_pauseDisplay.gameObject.GetComponent<CanvasRenderer>().SetAlpha(0.0f);
+        m_pauseDisplay.gameObject.GetComponentsInChildren<CanvasRenderer>().ToList().ForEach(canvasRenderer => canvasRenderer.SetAlpha(0.0f));
 
     }
 
@@ -108,7 +110,8 @@ public class PlayScene : MonoBehaviour
     public void Pause(InputAction.CallbackContext context)
     {
         Time.timeScale = 0.0f;
-        m_pauseDisplay.gameObject.SetActive(true);
+        m_pauseDisplay.gameObject.GetComponent<CanvasRenderer>().SetAlpha(1.0f);
+        m_pauseDisplay.gameObject.GetComponentsInChildren<CanvasRenderer>().ToList().ForEach(canvasRenderer => canvasRenderer.SetAlpha(1.0f));
         m_playerController.GetComponent<PlayerController>().SetPause(true);
     }
 }

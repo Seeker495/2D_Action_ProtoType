@@ -51,21 +51,59 @@ public class PlayerController : MonoBehaviour
                 asset.FindActionMap("Pause").FindAction("SelectUp").started += pauseDisplay.SelectUp;
                 asset.FindActionMap("Pause").FindAction("SelectDown").started += pauseDisplay.SelectDown;
                 asset.FindActionMap("Pause").FindAction("Enter").started += pauseDisplay.Enter;
+                asset.FindActionMap("Play").Disable();
+
                 asset.FindActionMap("Play").Enable();
             }
+            else if (asset.name.Contains("Result"))
+            {
+                ResultScene resultScene = GameObject.FindWithTag("ResultScene").GetComponent<ResultScene>();
+                asset.FindActionMap("UI").FindAction("BackToTitle").started += resultScene.BackToTitle;
+                asset.FindActionMap("UI").Enable();
+            }
+
         }
 
         public void Disable()
         {
             if (asset.name.Contains("Title"))
             {
+                menu_Script menu = GameObject.FindWithTag("Menu").GetComponent<menu_Script>();
+                asset.FindActionMap("UI").FindAction("SelectUp").started -= menu.SelectUp;
+                asset.FindActionMap("UI").FindAction("SelectDown").started -= menu.SelectDown;
+                asset.FindActionMap("UI").FindAction("EnterProcess").started -= menu.EnterProcess;
                 asset.FindActionMap("UI").Disable();
             }
             else if (asset.name.Contains("Play"))
             {
+                Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
+                PlayScene playScene = GameObject.FindWithTag("PlayScene").GetComponent<PlayScene>();
+                FollowCamera camera = GameObject.FindWithTag("VirtualCamera").GetComponent<FollowCamera>();
+                PauseDisplay pauseDisplay = GameObject.FindWithTag("Pause").GetComponent<PauseDisplay>();
+                asset.FindActionMap("Play").FindAction("Move").performed -= player.Move;
+                asset.FindActionMap("Play").FindAction("Move").canceled -= player.MoveEnd;
+                asset.FindActionMap("Play").FindAction("Attack").started -= player.Attack;
+                asset.FindActionMap("Play").FindAction("Dash").started -= player.Dash;
+                asset.FindActionMap("Play").FindAction("Dash").canceled -= player.Dash;
+                asset.FindActionMap("Play").FindAction("ChangeWeaponToLeft").started -= player.SelectWeaponToLeft;
+                asset.FindActionMap("Play").FindAction("ChangeWeaponToRight").started -= player.SelectWeaponToRight;
+                asset.FindActionMap("Play").FindAction("AdjustCameraDistance").started -= camera.AdjustCameraDistance;
+                asset.FindActionMap("Play").FindAction("Resurrection").started -= player.Resurrection;
+                asset.FindActionMap("Play").FindAction("HighSpeedMove").started -= player.HighSpeedMove;
+                asset.FindActionMap("Play").FindAction("ToPause").started -= playScene.Pause;
+                asset.FindActionMap("Pause").FindAction("SelectUp").started -= pauseDisplay.SelectUp;
+                asset.FindActionMap("Pause").FindAction("SelectDown").started -= pauseDisplay.SelectDown;
+                asset.FindActionMap("Pause").FindAction("Enter").started -= pauseDisplay.Enter;
                 asset.FindActionMap("Play").Disable();
                 asset.FindActionMap("Pause").Disable();
             }
+            else if (asset.name.Contains("Result"))
+            {
+                ResultScene resultScene = GameObject.FindWithTag("ResultScene").GetComponent<ResultScene>();
+                asset.FindActionMap("UI").FindAction("BackToTitle").started -= resultScene.BackToTitle;
+                asset.FindActionMap("UI").Disable();
+            }
+
         }
     }
 
@@ -87,7 +125,7 @@ public class PlayerController : MonoBehaviour
         m_playerController.Enable();
     }
 
-    private void OnDisable()
+    public void Disable()
     {
         m_playerController.Disable();
     }

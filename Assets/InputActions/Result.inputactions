@@ -1,0 +1,45 @@
+{
+    "name": "Result",
+    "maps": [
+        {
+            "name": "UI",
+            "id": "6aedafa3-cdf3-463b-9190-44399be99a49",
+            "actions": [
+                {
+                    "name": "BackToTitle",
+                    "type": "Button",
+                    "id": "d8f122fe-6867-47e5-a3ac-acedbb4ca6f5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "7741875b-424c-49a2-b222-bedfdf93aa42",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BackToTitle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4a3ca234-b96f-4eb7-9dae-64d7ef295f82",
+                    "path": "<Keyboard>/b",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BackToTitle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

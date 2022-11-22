@@ -53,6 +53,7 @@ public class ScoreUI : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         m_animator.SetBool(isStart, false);
         m_animator.SetBool(isFinish, true);
+        Parameter.CURRENT_SCORE = m_score;
     }
 
     public void SetScore(long score, long addScore = 0)
