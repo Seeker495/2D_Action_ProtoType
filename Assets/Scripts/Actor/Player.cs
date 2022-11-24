@@ -33,6 +33,7 @@ public class Player : MonoBehaviour, IActor
     private float[] m_stageTime = new float[2];
     private long m_score = 0;
     private long m_increaseScore = 0;
+    private int m_hitCombo = 0;
 
     // サウンドマネージャー
     public SoundManager_2 soundManager_2;
@@ -286,6 +287,7 @@ public class Player : MonoBehaviour, IActor
         if (collision.CompareTag("Magic"))
             Damage(collision.transform.parent.GetComponent<IActor>().GetBaseStatus().attack);
 
+
     }
 
     public bool IsArrive()
@@ -473,5 +475,21 @@ public class Player : MonoBehaviour, IActor
     public long GetAddScore()
     {
         return m_increaseScore;
+    }
+
+
+    public void AddCombo()
+    {
+        m_hitCombo++;
+    }
+
+    public void ResetCombo()
+    {
+        m_hitCombo = 0;
+    }
+
+    public int GetCombo()
+    {
+        return m_hitCombo;
     }
 }

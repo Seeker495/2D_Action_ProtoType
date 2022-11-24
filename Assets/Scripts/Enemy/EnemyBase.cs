@@ -84,9 +84,16 @@ public abstract class EnemyBase : MonoBehaviour, IActor
     {
         if (collision == null) return;
         if (collision.gameObject.CompareTag("Arrow"))
+        {
             Damage(collision.transform.parent.parent.GetComponent<IActor>().GetBaseStatus().attack * 2);
+            collision.transform.parent.parent.GetComponent<Player>().AddCombo();
+        }
         if (collision.gameObject.CompareTag("Blade"))
+        {
             Damage(collision.transform.parent.parent.GetComponent<IActor>().GetBaseStatus().attack * 3);
+            collision.transform.parent.parent.GetComponent<Player>().AddCombo();
+
+        }
         if (!IsArrive())
             Dead();
     }

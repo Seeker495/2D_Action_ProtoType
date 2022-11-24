@@ -32,6 +32,7 @@ TagManager:
   - NextDay
   - Score
   - ResultScene
+  - HitUI
   layers:
   - Default
   - TransparentFX

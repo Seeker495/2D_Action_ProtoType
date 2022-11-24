@@ -30,7 +30,9 @@ public class PlayUI : MonoBehaviour
     private ScoreUI m_scoreUI;
     [SerializeField]
     private GameObject m_gameOverText;
-
+    [SerializeField]
+    private GameObject m_hitUIObject;
+    private Hit m_hitUI;
 
     private Player m_player;
     // Start is called before the first frame update
@@ -43,9 +45,12 @@ public class PlayUI : MonoBehaviour
         m_defence = GameObject.Find("PlayUI/Defence");
         m_water = GameObject.Find("PlayUI/Water");
         m_food = GameObject.Find("PlayUI/Food");
+        m_hitUI = GameObject.FindWithTag("HitUI").GetComponent<Hit>();
         m_hpColorSprite = m_hp.GetComponentsInChildren<Image>()[3];
         m_gameOverText = Instantiate(m_gameOverText, new Vector3(960, 540, 0), Quaternion.identity, transform);
         m_gameOverText.SetActive(false);
+
+
     }
 
     private void Start()
@@ -73,7 +78,7 @@ public class PlayUI : MonoBehaviour
             m_gameOverText.GetComponent<TextMeshProUGUI>().enableAutoSizing = true;
         }
         m_scoreUI.Execute();
-
+        m_hitUI.SetHitCombo(m_player.GetCombo());
     }
 
     private void ChangeStatusColor()
