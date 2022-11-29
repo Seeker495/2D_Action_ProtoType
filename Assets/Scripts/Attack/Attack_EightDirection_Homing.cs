@@ -66,5 +66,12 @@ public class Attack_EightDirection_Homing : AttackBase
         if (collision.CompareTag("Wall"))
             Destroy(gameObject);
     }
+
+    private void OnBecameInvisible()
+    {
+        if (Camera.main)
+            Destroy(gameObject);
+    }
+
 }
 

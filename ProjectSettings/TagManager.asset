@@ -33,6 +33,8 @@ TagManager:
   - Score
   - ResultScene
   - HitUI
+  - FollowCamera
+  - Camera
   layers:
   - Default
   - TransparentFX

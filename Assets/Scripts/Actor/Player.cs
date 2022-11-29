@@ -492,4 +492,11 @@ public class Player : MonoBehaviour, IActor
     {
         return m_hitCombo;
     }
+
+    public bool IsOutOfRange(Rigidbody2D rigidbody)
+    {
+        bool isOutX = Mathf.Abs(rigidbody.position.x - m_rigidbody2D.position.x) > 15.0f;
+        bool isOutY = Mathf.Abs(rigidbody.position.x - m_rigidbody2D.position.x) > 10.0f;
+        return isOutX && isOutY;
+    }
 }

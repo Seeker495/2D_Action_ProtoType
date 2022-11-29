@@ -10,12 +10,15 @@ using UnityEngine.AddressableAssets;
  *******************************************************************/
 public class Bow : AttackBase
 {
+    [SerializeField]
+    Rigidbody2D m_rigidBody2D;
+
     // Start is called before the first frame update
 
     private static Vector2 m_direction;
     void Start()
     {
-
+        m_rigidBody2D = GetComponentInParent<Rigidbody2D>();
     }
 
 
@@ -36,8 +39,8 @@ public class Bow : AttackBase
     {
         var arrow = await Addressables.LoadAssetAsync<GameObject>("Arrow").Task;
 
-        var startPosition = transform.parent.GetComponent<Rigidbody2D>().position;
-        m_direction = transform.parent.GetComponent<IActor>().GetDirection();
+        var startPosition = GetComponentInParent<Rigidbody2D>().position;
+        m_direction = GetComponentInParent<IActor>().GetDirection();
 
         GameObject[] arrowObjects = new GameObject[arrowNum];
         for (int i = 0; i < arrowObjects.Length; ++i)
@@ -52,13 +55,18 @@ public class Bow : AttackBase
         }
     }
 
-    public override void Execute()
+    void FixedUpdate()
     {
-        throw new System.NotImplementedException();
+        m_rigidBody2D.position = GetComponentInParent<Rigidbody2D>().position;
     }
 
     public override Sprite GetSprite()
     {
         return GetComponent<SpriteRenderer>().sprite;
+    }
+
+    public override void Execute()
+    {
+        throw new System.NotImplementedException();
     }
 }

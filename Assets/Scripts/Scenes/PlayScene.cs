@@ -40,6 +40,8 @@ public class PlayScene : MonoBehaviour
     /* カメラ(プレイヤーの追従カメラ)の関連 */
     [SerializeField]
     private GameObject m_cameraObject;
+    [SerializeField]
+    private GameObject m_farCameraObject;
 
     /* プレイヤーのUI関連 */
     [SerializeField]
@@ -67,15 +69,18 @@ public class PlayScene : MonoBehaviour
         // マップの読み込み(先に読み込まないとプレイヤーを取得できないため)
         m_map.Load(m_stageNames[(int)Parameter.CURRENT_ALIVE_DAY]);
         m_player = GameObject.FindWithTag("Player").GetComponent<Player>();
-        if(Parameter.CURRENT_ALIVE_DAY != 0)
-            m_player.SetParameter(PlayerData.GetStatus());
-        m_enemyManager = Instantiate(m_enemyManagerObject, null).GetComponent<EnemyManager>();
-        m_wall = Instantiate(m_wallObject, null).GetComponent<Wall>();
         m_cameraObject = Instantiate(m_cameraObject, null);
-        m_cameraObject.GetComponent<CinemachineVirtualCamera>().Follow = m_player.transform;
+        m_farCameraObject = Instantiate(m_farCameraObject, null);
+        m_wall = Instantiate(m_wallObject, null).GetComponent<Wall>();
+        m_enemyManager = Instantiate(m_enemyManagerObject, null).GetComponent<EnemyManager>();
+
         m_playUI = Instantiate(m_playUIObject, GameObject.FindGameObjectWithTag("Canvas").transform).GetComponent<PlayUI>();
         m_pauseDisplay = Instantiate(m_pauseDisplayObject, GameObject.FindGameObjectWithTag("Canvas").transform).GetComponent<PauseDisplay>();
         m_playerController = Instantiate(m_playerController, null);
+        if (Parameter.CURRENT_ALIVE_DAY != 0)
+            m_player.SetParameter(PlayerData.GetStatus());
+        m_cameraObject.GetComponent<CinemachineVirtualCamera>().Follow = m_player.transform;
+        m_farCameraObject.GetComponent<CinemachineVirtualCamera>().Follow = m_player.transform;
         m_pauseDisplay.gameObject.GetComponent<CanvasRenderer>().SetAlpha(0.0f);
         m_pauseDisplay.gameObject.GetComponentsInChildren<CanvasRenderer>().ToList().ForEach(canvasRenderer => canvasRenderer.SetAlpha(0.0f));
 
@@ -92,11 +97,22 @@ public class PlayScene : MonoBehaviour
         //m_enemyManager.SetSpawnPosition(ref m_map);
 
         m_cameraObject.GetComponent<CinemachineConfiner2D>().m_BoundingShape2D = m_wall.GetComponent<CompositeCollider2D>();
+        m_farCameraObject.GetComponent<CinemachineConfiner2D>().m_BoundingShape2D = m_wall.GetComponent<CompositeCollider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // カーソル位置を取得
+        Vector3 mousePosition = Input.mousePosition;
+        // カーソル位置のz座標を10に
+        mousePosition.z = 10;
+        // カーソル位置をワールド座標に変換
+        Vector3 target = Camera.main.ScreenToWorldPoint(mousePosition);
+        // GameObjectのtransform.positionにカーソル位置(ワールド座標)を代入
+        transform.position = target;
+
+        Debug.Log(transform.position);
     }
 
     private void FixedUpdate()

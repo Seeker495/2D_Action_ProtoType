@@ -18,6 +18,9 @@ public static class Parameter
     public const float CAMERA_MIDDLE_DISTANCE = 10.0f;
     // 近距離
     public const float CAMERA_NEAR_DISTANCE = 8.0f;
+    // 範囲外のオブジェクトに対するカメラの距離
+    public const float CAMERA_OUT_OF_RANGE_DISTANCE = CAMERA_FAR_DISTANCE + 1.0f;
+
     // カメラ移動速度
     public const float CAMERA_CHANGE_VELOCITY = 10.0f;
     #endregion
@@ -32,18 +35,18 @@ public static class Parameter
     public const float PLAYER_NORMAL_VELOCITY = 10.0f;
     // ダッシュの移動速度倍率
     public const float PLAYER_DASH_MULTIPLY = 2.0f;
-    // 高速移動時の移動速度
-    public const float PLAYER_HIGH_SPEED_VELOCITY = 60.0f;
-    // 高速移動時の移動距離
-    public const float PLAYER_HIGH_SPEED_DISTANCE = 4.0f;
-    // 高速移動時の使用回数
-    public const int PLAYER_HIGH_SPEED_USE_LIMIT = 5;
-    // 高速移動の使用間隔
-    public const float PLAYER_HIGH_SPEED_USE_INTERVAL = 3.0f;
-    // 高速移動の回復までの時間
-    public const float PLAYER_HIGH_SPEED_RECOVER_TIME = 6.0f;
-    // 高速移動時の無敵の有無
-    public const bool PLAYER_HIGH_SPEED_INVINCIBLE_FLAG = false;
+    //// 高速移動時の移動速度
+    //public const float PLAYER_HIGH_SPEED_VELOCITY = 60.0f;
+    //// 高速移動時の移動距離
+    //public const float PLAYER_HIGH_SPEED_DISTANCE = 4.0f;
+    //// 高速移動時の使用回数
+    //public const int PLAYER_HIGH_SPEED_USE_LIMIT = 5;
+    //// 高速移動の使用間隔
+    //public const float PLAYER_HIGH_SPEED_USE_INTERVAL = 3.0f;
+    //// 高速移動の回復までの時間
+    //public const float PLAYER_HIGH_SPEED_RECOVER_TIME = 6.0f;
+    //// 高速移動時の無敵の有無
+    //public const bool PLAYER_HIGH_SPEED_INVINCIBLE_FLAG = false;
     // プレイヤーの速度調整の倍率
     public const float PLAYER_VELOCITY_MULTIPLY = 0.7f;
 
@@ -104,14 +107,14 @@ public static class Parameter
     public const float ATTACK_BOW_POWER = 5.0f;
     // 弓の移動速度
     public const float ATTACK_BOW_SPEED = 10.0f;
-    // ボムの攻撃威力
-    public const float ATTACK_BOMB_POWER = 5.0f;
-    // ボムの投げる距離
-    public const float ATTACK_BOMB_THROW_DISTANCE = 10.0f;
-    // ボムの爆発範囲(半径)
-    public const float ATTACK_BOMB_RANGE = 10.0f;
-    // ボムの爆発までの時間
-    public const float ATTACK_BOMB_TIME_LIMIT = 5.0f;
+    //// ボムの攻撃威力
+    //public const float ATTACK_BOMB_POWER = 5.0f;
+    //// ボムの投げる距離
+    //public const float ATTACK_BOMB_THROW_DISTANCE = 10.0f;
+    //// ボムの爆発範囲(半径)
+    //public const float ATTACK_BOMB_RANGE = 10.0f;
+    //// ボムの爆発までの時間
+    //public const float ATTACK_BOMB_TIME_LIMIT = 5.0f;
     // 攻撃速度調整の倍率
     public const float ATTACK_SPEED_MULTIPLY = 0.5f;
     #endregion

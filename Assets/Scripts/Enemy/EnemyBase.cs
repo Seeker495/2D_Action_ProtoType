@@ -60,6 +60,7 @@ public abstract class EnemyBase : MonoBehaviour, IActor
         m_status.money = m_enemyParameter.Money;
         m_status.movePattern = m_enemyParameter.MovePattern;
         m_status.attackPattern = m_enemyParameter.AttackPattern;
+        m_status.position = transform.position;
     }
 
 
@@ -285,6 +286,23 @@ public abstract class EnemyBase : MonoBehaviour, IActor
     public void ResetMoveTime()
     {
         m_moveTime = 0.0f;
+    }
+
+    private void OnBecameInvisible()
+    {
+        if (Camera.main)
+        {
+            transform.position = m_status.position;
+            m_rigidBody2D.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
+    }
+
+    private void OnBecameVisible()
+    {
+        if (Camera.main)
+        {
+            m_rigidBody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+        }
     }
 }
 

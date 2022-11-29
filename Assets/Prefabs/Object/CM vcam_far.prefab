@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 7760446807466482954}
   - component: {fileID: 7760446807466482955}
   - component: {fileID: 7760446807466482965}
-  - component: {fileID: 7760446807466482964}
+  - component: {fileID: 5324324246953216706}
   m_Layer: 0
-  m_Name: CM vcam
-  m_TagString: VirtualCamera
+  m_Name: CM vcam_far
+  m_TagString: Camera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,7 +51,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 100
+  m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
@@ -88,7 +88,7 @@ MonoBehaviour:
   m_BoundingShape2D: {fileID: 0}
   m_Damping: 0.56
   m_MaxWindowSize: -1
---- !u!114 &7760446807466482964
+--- !u!114 &5324324246953216706
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7760446807466482952}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1675f22ff15cfdf4385ba71ea337aa69, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a94e3f81fabf5a4daf1770e362bbda4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7760446808411293915

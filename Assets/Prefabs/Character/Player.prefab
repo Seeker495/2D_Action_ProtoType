@@ -354,7 +354,7 @@ PrefabInstance:
     - target: {fileID: 3278758931960625555, guid: 09955eeb695c79c4d800a2f0bff06758, type: 3}
       propertyPath: m_rigidBody2D
       value: 
-      objectReference: {fileID: 7055293857892974134}
+      objectReference: {fileID: 0}
     - target: {fileID: 8374157061201681608, guid: 09955eeb695c79c4d800a2f0bff06758, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -427,11 +427,6 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!50 &7055293857892974134 stripped
-Rigidbody2D:
-  m_CorrespondingSourceObject: {fileID: 7503290001639076150, guid: 09955eeb695c79c4d800a2f0bff06758, type: 3}
-  m_PrefabInstance: {fileID: 704948454976868096}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9078836389157147592 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8374157061201681608, guid: 09955eeb695c79c4d800a2f0bff06758, type: 3}

@@ -51,8 +51,6 @@ public class PlayerController : MonoBehaviour
                 asset.FindActionMap("Pause").FindAction("SelectUp").started += pauseDisplay.SelectUp;
                 asset.FindActionMap("Pause").FindAction("SelectDown").started += pauseDisplay.SelectDown;
                 asset.FindActionMap("Pause").FindAction("Enter").started += pauseDisplay.Enter;
-                asset.FindActionMap("Play").Disable();
-
                 asset.FindActionMap("Play").Enable();
             }
             else if (asset.name.Contains("Result"))

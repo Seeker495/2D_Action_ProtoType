@@ -45,4 +45,10 @@ public class Arrow : MonoBehaviour
             Destroy(gameObject);
     }
 
+    private void OnBecameInvisible()
+    {
+        if(Camera.main)
+            Destroy(gameObject);
+    }
+
 }
