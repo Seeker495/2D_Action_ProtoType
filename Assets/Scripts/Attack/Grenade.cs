@@ -1,27 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
-/*******************************************************************
- *  <äTóv>
- *  éËû÷íeÉNÉâÉXÅB
- *******************************************************************/
 public class Grenade : AttackBase
 {
-    // Start is called before the first frame update
-
-    private static Vector2 m_direction;
-    void Start()
-    {
-
-    }
-
+    private Rigidbody2D m_rigidBody2D;
+    private CircleCollider2D m_circleCollider2D;
 
     public override void Attack()
     {
-        Shoot(-30.0f, 30.0f, 3);
+        StartCoroutine(Attacking());
+    }
+
+    public override void Execute()
+    {
     }
 
     public override eAttackType GetAttackType()
@@ -29,27 +21,48 @@ public class Grenade : AttackBase
         return eAttackType.GRENADE;
     }
 
-    public override void SetTarget(in GameObject target)
-    {
-    }
-
-    public async void Shoot(float startDegree, float angleInterval, int arrowNum)
-    {
-        var startPosition = transform.parent.GetComponent<Rigidbody2D>().position;
-        m_direction = transform.parent.GetComponent<IActor>().GetDirection();
-
-        GameObject grenade = await Addressables.LoadAssetAsync<GameObject>("Grenade").Task; ;
-
-        //grenade.GetComponent<Grenade>().Shoot(startPosition, startDegree, m_direction);
-    }
-
-    public override void Execute()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public override Sprite GetSprite()
     {
         return GetComponent<SpriteRenderer>().sprite;
+    }
+
+    public override void SetTarget(in GameObject target = null)
+    {
+    }
+
+    private IEnumerator Attacking()
+    {
+        var direction = GameObject.FindWithTag("Player").GetComponent<IActor>().GetDirection();
+        var startPosition = m_rigidBody2D.position;
+
+        while(true)
+        {
+            var afterPosition = Vector2.MoveTowards(startPosition, startPosition + direction * Parameter.ATTACK_BOMB_THROW_DISTANCE, 1.0f);
+            m_rigidBody2D.position = afterPosition;
+            if (Vector2.Distance(m_rigidBody2D.position,startPosition + direction * Parameter.ATTACK_BOMB_THROW_DISTANCE) <= 0.0f)
+                break;
+            yield return null;
+        }
+    }
+
+    private void Awake()
+    {
+        m_rigidBody2D = GetComponent<Rigidbody2D>();
+        m_circleCollider2D = GetComponent<CircleCollider2D>();
+        m_circleCollider2D.radius = Parameter.ATTACK_BOMB_RANGE * 0.5f;
+        m_circleCollider2D.enabled = false;
+
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
     }
 }

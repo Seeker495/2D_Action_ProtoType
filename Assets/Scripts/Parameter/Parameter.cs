@@ -107,14 +107,16 @@ public static class Parameter
     public const float ATTACK_BOW_POWER = 5.0f;
     // 弓の移動速度
     public const float ATTACK_BOW_SPEED = 10.0f;
-    //// ボムの攻撃威力
-    //public const float ATTACK_BOMB_POWER = 5.0f;
-    //// ボムの投げる距離
-    //public const float ATTACK_BOMB_THROW_DISTANCE = 10.0f;
-    //// ボムの爆発範囲(半径)
-    //public const float ATTACK_BOMB_RANGE = 10.0f;
-    //// ボムの爆発までの時間
-    //public const float ATTACK_BOMB_TIME_LIMIT = 5.0f;
+    // ボムの攻撃威力
+    public const float ATTACK_BOMB_POWER = 5.0f;
+    // ボムの投げる距離
+    public const float ATTACK_BOMB_THROW_DISTANCE = 10.0f;
+    // ボムの爆発範囲(半径)
+    public const float ATTACK_BOMB_RANGE = 10.0f;
+    // ボムの爆発までの時間
+    public const float ATTACK_BOMB_TIME_LIMIT = 5.0f;
+    // ボムの投げるスピード
+    public const float BOMB_THROW_SPEED = 5.0f;
     // 攻撃速度調整の倍率
     public const float ATTACK_SPEED_MULTIPLY = 0.5f;
     #endregion
@@ -123,7 +125,7 @@ public static class Parameter
     #region ABOUT_ENEMY
 
     // 敵の速度調整の倍率
-    public const float ENEMY_VELOCITY_MULTIPLY = 0.7f;
+    public const float ENEMY_VELOCITY_MULTIPLY = 0.5f;
 
     #region ABOUT_DROP_EFFECT
     // ドロップエフェクトの移動速度
@@ -150,6 +152,8 @@ public static class Parameter
     public static uint CURRENT_ALIVE_DAY = 0;
     // 生存できる最大日数
     public static uint LAST_ALIVE_DAY = 1;
+    // ゲームオーバーから次のシーンに移行するまでの時間
+    public static float GAME_OVER_TO_OTHER_SCENE = 3.0f;
     #endregion
 
     #region ABOUT_SCORE

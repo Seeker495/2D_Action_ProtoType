@@ -56,13 +56,13 @@ public class PlayScene : MonoBehaviour
     [SerializeField]
     private GameObject m_pauseDisplayObject;
     private PauseDisplay m_pauseDisplay;
-
     [SerializeField]
     private List<string> m_stageNames;
 
     private void Awake()
     {
         if(Time.timeScale <= 0.0f) Time.timeScale = 1.0f;
+
         /* オブジェクトの複製及び代入を行う */
         m_map = Instantiate(m_mapObject, null).GetComponent<Map>();
 
@@ -81,9 +81,7 @@ public class PlayScene : MonoBehaviour
             m_player.SetParameter(PlayerData.GetStatus());
         m_cameraObject.GetComponent<CinemachineVirtualCamera>().Follow = m_player.transform;
         m_farCameraObject.GetComponent<CinemachineVirtualCamera>().Follow = m_player.transform;
-        m_pauseDisplay.gameObject.GetComponent<CanvasRenderer>().SetAlpha(0.0f);
-        m_pauseDisplay.gameObject.GetComponentsInChildren<CanvasRenderer>().ToList().ForEach(canvasRenderer => canvasRenderer.SetAlpha(0.0f));
-
+        m_pauseDisplay.gameObject.SetActive(false);
     }
 
     // Start is called before the first frame update
@@ -95,7 +93,6 @@ public class PlayScene : MonoBehaviour
         // ランダム配置
         //m_player.SetSpawnPosition(ref m_map);
         //m_enemyManager.SetSpawnPosition(ref m_map);
-
         m_cameraObject.GetComponent<CinemachineConfiner2D>().m_BoundingShape2D = m_wall.GetComponent<CompositeCollider2D>();
         m_farCameraObject.GetComponent<CinemachineConfiner2D>().m_BoundingShape2D = m_wall.GetComponent<CompositeCollider2D>();
     }
@@ -103,16 +100,7 @@ public class PlayScene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // カーソル位置を取得
-        Vector3 mousePosition = Input.mousePosition;
-        // カーソル位置のz座標を10に
-        mousePosition.z = 10;
-        // カーソル位置をワールド座標に変換
-        Vector3 target = Camera.main.ScreenToWorldPoint(mousePosition);
-        // GameObjectのtransform.positionにカーソル位置(ワールド座標)を代入
-        transform.position = target;
 
-        Debug.Log(transform.position);
     }
 
     private void FixedUpdate()
@@ -126,8 +114,7 @@ public class PlayScene : MonoBehaviour
     public void Pause(InputAction.CallbackContext context)
     {
         Time.timeScale = 0.0f;
-        m_pauseDisplay.gameObject.GetComponent<CanvasRenderer>().SetAlpha(1.0f);
-        m_pauseDisplay.gameObject.GetComponentsInChildren<CanvasRenderer>().ToList().ForEach(canvasRenderer => canvasRenderer.SetAlpha(1.0f));
+        m_pauseDisplay.gameObject.SetActive(true);
         m_playerController.GetComponent<PlayerController>().SetPause(true);
     }
 }

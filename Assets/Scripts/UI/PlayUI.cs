@@ -10,6 +10,7 @@ using UnityEditor.Build.Pipeline;
 #endif
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 /*******************************************************************
@@ -34,6 +35,7 @@ public class PlayUI : MonoBehaviour
     private GameObject m_hitUIObject;
     private Hit m_hitUI;
 
+    private float m_gameOverTime = 0.0f;
     private Player m_player;
     // Start is called before the first frame update
     void Awake()
@@ -76,6 +78,12 @@ public class PlayUI : MonoBehaviour
             m_gameOverText.SetActive(true);
             m_gameOverText.GetComponent<TextMeshProUGUI>().text = "GameOver";
             m_gameOverText.GetComponent<TextMeshProUGUI>().enableAutoSizing = true;
+            m_gameOverTime += Time.deltaTime;
+            if (m_gameOverTime >= Parameter.GAME_OVER_TO_OTHER_SCENE)
+            {
+                Parameter.NEXT_SCENE_NAME = "Play";
+                SceneManager.LoadSceneAsync("Loading");
+            }
         }
         m_scoreUI.Execute();
         m_hitUI.SetHitCombo(m_player.GetCombo());

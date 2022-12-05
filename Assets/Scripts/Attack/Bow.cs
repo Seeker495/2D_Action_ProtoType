@@ -45,7 +45,7 @@ public class Bow : AttackBase
         GameObject[] arrowObjects = new GameObject[arrowNum];
         for (int i = 0; i < arrowObjects.Length; ++i)
         {
-            arrowObjects[i] = Instantiate(arrow, transform);
+            arrowObjects[i] = Instantiate(arrow, Vector3.zero, Quaternion.identity, transform);
         }
 
 

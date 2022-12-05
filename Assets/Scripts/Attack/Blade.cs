@@ -19,6 +19,8 @@ public class Blade : AttackBase
         m_rigidBody2D = GetComponentInParent<Rigidbody2D>();
         // 内部マスクにして隠す
         GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+
+        GetComponent<EdgeCollider2D>().enabled = false;
     }
 
     /*
@@ -54,6 +56,8 @@ public class Blade : AttackBase
      */
     public IEnumerator Attacking(float degree)
     {
+        GetComponent<EdgeCollider2D>().enabled = true;
+
         var direction = GetComponentInParent<IActor>().GetDirection();
         // マスクを無くして表示させる
         GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.None;
@@ -83,6 +87,8 @@ public class Blade : AttackBase
         }
         // 内部マスクにして隠す
         GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+
+        GetComponent<EdgeCollider2D>().enabled = false;
 
     }
 

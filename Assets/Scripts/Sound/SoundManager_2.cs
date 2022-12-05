@@ -12,6 +12,9 @@ public class SoundManager_2 : MonoBehaviour
     [SerializeField]
     AudioSource seAudioSource;
 
+    [SerializeField]
+    AudioSource pinchSource;
+
     // オーディオの構造体
     [System.Serializable]
     public struct AudioInfo
@@ -66,7 +69,16 @@ public class SoundManager_2 : MonoBehaviour
         {
             return;
         }
+        if(name == "ピンチ")
+        {
+            pinchSource.clip = seAudioSource.clip;
+            seAudioSource.clip = null;
+            pinchSource.volume = 0.2f;
+            if(!pinchSource.isPlaying)
+                pinchSource.Play();
+        }
         seAudioSource.PlayOneShot(seAudioSource.clip);
+
     }
 
     // bgmを鳴らす

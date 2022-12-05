@@ -42,6 +42,8 @@ public abstract class EnemyBase : MonoBehaviour, IActor
         SetParameter();
         m_magicManager = GetComponentInChildren<MagicManager>();
         m_rigidBody2D = GetComponent<Rigidbody2D>();
+        if (m_status.actorStatus.speed <= 0.0f)
+            m_rigidBody2D.constraints = RigidbodyConstraints2D.FreezePosition;
     }
 
     /*******************************************************************
