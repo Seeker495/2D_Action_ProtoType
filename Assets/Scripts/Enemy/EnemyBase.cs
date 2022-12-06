@@ -42,6 +42,8 @@ public abstract class EnemyBase : MonoBehaviour, IActor
         SetParameter();
         m_magicManager = GetComponentInChildren<MagicManager>();
         m_rigidBody2D = GetComponent<Rigidbody2D>();
+        if (m_status.actorStatus.speed <= 0.0f)
+            m_rigidBody2D.constraints = RigidbodyConstraints2D.FreezePosition;
     }
 
     /*******************************************************************
@@ -60,6 +62,7 @@ public abstract class EnemyBase : MonoBehaviour, IActor
         m_status.money = m_enemyParameter.Money;
         m_status.movePattern = m_enemyParameter.MovePattern;
         m_status.attackPattern = m_enemyParameter.AttackPattern;
+        m_status.position = transform.position;
     }
 
 
@@ -84,9 +87,16 @@ public abstract class EnemyBase : MonoBehaviour, IActor
     {
         if (collision == null) return;
         if (collision.gameObject.CompareTag("Arrow"))
+        {
             Damage(collision.transform.parent.parent.GetComponent<IActor>().GetBaseStatus().attack * 2);
+            collision.transform.parent.parent.GetComponent<Player>().AddCombo();
+        }
         if (collision.gameObject.CompareTag("Blade"))
+        {
             Damage(collision.transform.parent.parent.GetComponent<IActor>().GetBaseStatus().attack * 3);
+            collision.transform.parent.parent.GetComponent<Player>().AddCombo();
+
+        }
         if (!IsArrive())
             Dead();
     }
@@ -278,6 +288,23 @@ public abstract class EnemyBase : MonoBehaviour, IActor
     public void ResetMoveTime()
     {
         m_moveTime = 0.0f;
+    }
+
+    private void OnBecameInvisible()
+    {
+        if (Camera.main)
+        {
+            transform.position = m_status.position;
+            m_rigidBody2D.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
+    }
+
+    private void OnBecameVisible()
+    {
+        if (Camera.main)
+        {
+            m_rigidBody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+        }
     }
 }
 

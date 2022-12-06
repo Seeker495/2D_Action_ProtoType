@@ -17,6 +17,8 @@ public class TitleScene : MonoBehaviour
 
     private void Awake()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         m_playerController = Instantiate(m_playerController, null);
         InitializeParameter();
     }

@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 
 /*******************************************************************
  *  <ŠT—v>
@@ -14,4 +15,5 @@ public struct EnemyStatus
     public int money;
     public int movePattern;
     public int attackPattern;
+    public UnityEngine.Vector3 position;
 }

@@ -44,7 +44,7 @@ public class FollowCamera : MonoBehaviour
         m_cameraDistanceRatio = (eCameraDistanceRatio)(Math.Abs(++cameraDistanceRatio) % (int)eCameraDistanceRatio.RATIO_NUM);
 
         // 基底のコンポーネントを取得
-        CinemachineComponentBase componentBase = GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent(CinemachineCore.Stage.Body);
+        CinemachineComponentBase componentBase = GameObject.FindWithTag("VirtualCamera").GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent(CinemachineCore.Stage.Body);
 
         // 条件の型に派生できるならカメラの距離を変更する
         if (componentBase is CinemachineFramingTransposer)

@@ -18,6 +18,9 @@ public static class Parameter
     public const float CAMERA_MIDDLE_DISTANCE = 10.0f;
     // 近距離
     public const float CAMERA_NEAR_DISTANCE = 8.0f;
+    // 範囲外のオブジェクトに対するカメラの距離
+    public const float CAMERA_OUT_OF_RANGE_DISTANCE = CAMERA_FAR_DISTANCE + 1.0f;
+
     // カメラ移動速度
     public const float CAMERA_CHANGE_VELOCITY = 10.0f;
     #endregion
@@ -32,18 +35,18 @@ public static class Parameter
     public const float PLAYER_NORMAL_VELOCITY = 10.0f;
     // ダッシュの移動速度倍率
     public const float PLAYER_DASH_MULTIPLY = 2.0f;
-    // 高速移動時の移動速度
-    public const float PLAYER_HIGH_SPEED_VELOCITY = 60.0f;
-    // 高速移動時の移動距離
-    public const float PLAYER_HIGH_SPEED_DISTANCE = 4.0f;
-    // 高速移動時の使用回数
-    public const int PLAYER_HIGH_SPEED_USE_LIMIT = 5;
-    // 高速移動の使用間隔
-    public const float PLAYER_HIGH_SPEED_USE_INTERVAL = 3.0f;
-    // 高速移動の回復までの時間
-    public const float PLAYER_HIGH_SPEED_RECOVER_TIME = 6.0f;
-    // 高速移動時の無敵の有無
-    public const bool PLAYER_HIGH_SPEED_INVINCIBLE_FLAG = false;
+    //// 高速移動時の移動速度
+    //public const float PLAYER_HIGH_SPEED_VELOCITY = 60.0f;
+    //// 高速移動時の移動距離
+    //public const float PLAYER_HIGH_SPEED_DISTANCE = 4.0f;
+    //// 高速移動時の使用回数
+    //public const int PLAYER_HIGH_SPEED_USE_LIMIT = 5;
+    //// 高速移動の使用間隔
+    //public const float PLAYER_HIGH_SPEED_USE_INTERVAL = 3.0f;
+    //// 高速移動の回復までの時間
+    //public const float PLAYER_HIGH_SPEED_RECOVER_TIME = 6.0f;
+    //// 高速移動時の無敵の有無
+    //public const bool PLAYER_HIGH_SPEED_INVINCIBLE_FLAG = false;
     // プレイヤーの速度調整の倍率
     public const float PLAYER_VELOCITY_MULTIPLY = 0.7f;
 
@@ -112,6 +115,8 @@ public static class Parameter
     public const float ATTACK_BOMB_RANGE = 10.0f;
     // ボムの爆発までの時間
     public const float ATTACK_BOMB_TIME_LIMIT = 5.0f;
+    // ボムの投げるスピード
+    public const float BOMB_THROW_SPEED = 5.0f;
     // 攻撃速度調整の倍率
     public const float ATTACK_SPEED_MULTIPLY = 0.5f;
     #endregion
@@ -120,7 +125,7 @@ public static class Parameter
     #region ABOUT_ENEMY
 
     // 敵の速度調整の倍率
-    public const float ENEMY_VELOCITY_MULTIPLY = 0.7f;
+    public const float ENEMY_VELOCITY_MULTIPLY = 0.5f;
 
     #region ABOUT_DROP_EFFECT
     // ドロップエフェクトの移動速度
@@ -147,6 +152,8 @@ public static class Parameter
     public static uint CURRENT_ALIVE_DAY = 0;
     // 生存できる最大日数
     public static uint LAST_ALIVE_DAY = 1;
+    // ゲームオーバーから次のシーンに移行するまでの時間
+    public static float GAME_OVER_TO_OTHER_SCENE = 3.0f;
     #endregion
 
     #region ABOUT_SCORE

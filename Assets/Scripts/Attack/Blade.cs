@@ -16,9 +16,11 @@ public class Blade : AttackBase
     // Start is called before the first frame update
     void Awake()
     {
-        m_rigidBody2D = GetComponent<Rigidbody2D>();
+        m_rigidBody2D = GetComponentInParent<Rigidbody2D>();
         // 内部マスクにして隠す
         GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+
+        GetComponent<EdgeCollider2D>().enabled = false;
     }
 
     /*
@@ -54,6 +56,8 @@ public class Blade : AttackBase
      */
     public IEnumerator Attacking(float degree)
     {
+        GetComponent<EdgeCollider2D>().enabled = true;
+
         var direction = GetComponentInParent<IActor>().GetDirection();
         // マスクを無くして表示させる
         GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.None;
@@ -68,20 +72,23 @@ public class Blade : AttackBase
         {
             // 位置をずらして表示させる
             transform.localPosition = direction * 0.3f;
-            // Z軸の角度を加算していき,そのたびに代入
-            transform.parent.rotation = Quaternion.Euler(0, 0, -angleZ * BLADE_SPEED);
             // 速度を代入
-            m_rigidBody2D.velocity = transform.parent.rotation * direction;
+            m_rigidBody2D.velocity = transform.rotation * direction;
             // ベクトルの角度を算出する
-            angle = (Mathf.Atan2(m_rigidBody2D.velocity.y, m_rigidBody2D.velocity.x) + Mathf.PI / 2) * Mathf.Rad2Deg;
-            // 剣の角度の調整
-            transform.eulerAngles = new Vector3(0, 0, angle + Mathf.PI / 2 * Mathf.Rad2Deg);
+            angle = (Mathf.Atan2(m_rigidBody2D.velocity.y, m_rigidBody2D.velocity.x)) * Mathf.Rad2Deg;
+            // Z軸の角度を加算していき,そのたびに代入
+            transform.parent.rotation = Quaternion.Euler(0, 0, transform.parent.eulerAngles.z + - angle * Parameter.ATTACK_BLADE_SPEED);
+            // Z軸の角度を加算していき,そのたびに代入
+            transform.rotation = Quaternion.Euler(0, 0, transform.eulerAngles.z + -angleZ * Parameter.ATTACK_BLADE_SPEED);
+
             //角度を一定ずつ加算
             angleZ += 0.3f;
             yield return null;
         }
         // 内部マスクにして隠す
         GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+
+        GetComponent<EdgeCollider2D>().enabled = false;
 
     }
 

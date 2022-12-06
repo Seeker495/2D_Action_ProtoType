@@ -17,4 +17,11 @@ public abstract class AttackBase : MonoBehaviour
     public abstract eAttackType GetAttackType();
 
     public abstract void SetTarget(in GameObject target = null);
+
+    private void OnBecameInvisible()
+    {
+        if (Camera.main)
+            Destroy(gameObject);
+    }
+
 }

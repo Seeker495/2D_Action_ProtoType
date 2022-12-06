@@ -23,7 +23,7 @@ public class Player : MonoBehaviour, IActor
     [SerializeField]
     private Vector2 m_startPosition;
     private Vector2 m_velocity;
-    private Vector2 m_direction;
+    private Vector2 m_direction = Vector2.right;
     private PlayerStatus m_status;
     private bool m_isDamaged = false;
     private List<AttackBase> m_weapons;
@@ -33,6 +33,7 @@ public class Player : MonoBehaviour, IActor
     private float[] m_stageTime = new float[2];
     private long m_score = 0;
     private long m_increaseScore = 0;
+    private int m_hitCombo = 0;
 
     // サウンドマネージャー
     public SoundManager_2 soundManager_2;
@@ -63,10 +64,11 @@ public class Player : MonoBehaviour, IActor
         m_status.maxdefence = Parameter.PLAYER_INIT_DEFENCE;
 
         // 武器リスト
-        m_weapons = new List<AttackBase>(2)
+        m_weapons = new List<AttackBase>(3)
         {
             GetComponentInChildren<Blade>(),
             GetComponentInChildren<Bow>(),
+            GetComponentInChildren<GrenadeManager>(),
         };
     }
 
@@ -88,12 +90,12 @@ public class Player : MonoBehaviour, IActor
         m_status.waterGauge = (int)Mathf.Clamp(m_status.waterGauge, 0, Parameter.WATER_GAUGE_MAX);
 
         // 危険の音を鳴らす
-        if (!pinchiFlag && m_status.actorStatus.hp < 30)
+        if (!pinchiFlag && (float)m_status.actorStatus.hp / (float)m_status.maxHP <= 0.3f)
         {
             pinchiFlag = true;
             soundManager_2.PlaySe("ピンチ");
         }
-        else if(pinchiFlag && m_status.actorStatus.hp > 31)
+        else
         {
             pinchiFlag = false;
         }
@@ -151,7 +153,7 @@ public class Player : MonoBehaviour, IActor
         };
 
         // WeaponIndex に応じた武器の音を出す
-        soundManager_2.PlaySe(sfxName[WeaponIndex]);
+        //soundManager_2.PlaySe(sfxName[WeaponIndex]);
     }
 
     public Sprite GetWeaponSprite()
@@ -201,8 +203,6 @@ public class Player : MonoBehaviour, IActor
         gameObject.tag = "Player";
         m_status.actorStatus.hp = 10;
         m_isDamaged = false;
-        GameObject.FindWithTag("GameController").GetComponent<PlayerController>().Player_Controller.Enable();
-
     }
 
 
@@ -286,6 +286,7 @@ public class Player : MonoBehaviour, IActor
         if (collision.CompareTag("Magic"))
             Damage(collision.transform.parent.GetComponent<IActor>().GetBaseStatus().attack);
 
+
     }
 
     public bool IsArrive()
@@ -352,10 +353,9 @@ public class Player : MonoBehaviour, IActor
     private void Dead()
     {
         gameObject.tag = "Untagged";
-        GameObject.FindWithTag("GameController").GetComponent<PlayerController>().Player_Controller.Disable();
         gameObject.SetActive(false);
-
-        //StartCoroutine(OnDead(0.1f, 0.3f));
+        PlayerController playerController = GameObject.FindWithTag("GameController").GetComponent<PlayerController>();
+        playerController.Disable();
     }
 
     public void SetMoveRange(ref Map map)
@@ -473,5 +473,28 @@ public class Player : MonoBehaviour, IActor
     public long GetAddScore()
     {
         return m_increaseScore;
+    }
+
+
+    public void AddCombo()
+    {
+        m_hitCombo++;
+    }
+
+    public void ResetCombo()
+    {
+        m_hitCombo = 0;
+    }
+
+    public int GetCombo()
+    {
+        return m_hitCombo;
+    }
+
+    public bool IsOutOfRange(Rigidbody2D rigidbody)
+    {
+        bool isOutX = Mathf.Abs(rigidbody.position.x - m_rigidbody2D.position.x) > 15.0f;
+        bool isOutY = Mathf.Abs(rigidbody.position.x - m_rigidbody2D.position.x) > 10.0f;
+        return isOutX && isOutY;
     }
 }

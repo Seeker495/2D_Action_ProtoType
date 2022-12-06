@@ -8,30 +8,32 @@ using UnityEngine.UI;
 
 public class PauseDisplay : MonoBehaviour
 {
-    public List<Button> m_buttons = new List<Button>();
+    public List<Button> m_buttons;
     public int m_index = 0;
     // Start is called before the first frame update
-    void OnEnable()
+    void Awake()
     {
         m_buttons = GetComponentsInChildren<Button>().ToList();
+        Select();
     }
 
     // Update is called once per frame
     void Update()
     {
-
     }
 
     public void SelectUp(InputAction.CallbackContext context)
     {
+        Deselect();
         m_index = System.Math.Abs(--m_index + m_buttons.Count) % m_buttons.Count;
-        m_buttons[m_index].Select();
+        Select();
     }
 
     public void SelectDown(InputAction.CallbackContext context)
     {
+        Deselect();
         m_index = System.Math.Abs(++m_index) % m_buttons.Count;
-        m_buttons[m_index].Select();
+        Select();
     }
 
     public void Enter(InputAction.CallbackContext context)
@@ -44,11 +46,24 @@ public class PauseDisplay : MonoBehaviour
         actions[m_index]();
     }
 
+    private void Deselect()
+    {
+        ColorBlock colorBlock = m_buttons[m_index].colors;
+        colorBlock.normalColor = Color.white;
+        m_buttons[m_index].colors = colorBlock;
+    }
+
+    private void Select()
+    {
+        ColorBlock colorBlock = m_buttons[m_index].colors;
+        colorBlock.normalColor = Color.yellow;
+        m_buttons[m_index].colors = colorBlock;
+    }
+
     private void Resume()
     {
         Time.timeScale = 1.0f;
-        GetComponent<CanvasRenderer>().SetAlpha(0.0f);
-        GetComponentsInChildren<CanvasRenderer>().ToList().ForEach(canvasRenderer => canvasRenderer.SetAlpha(0.0f));
+        gameObject.SetActive(false);
         GameObject.FindWithTag("GameController").GetComponent<PlayerController>().SetPause(false);
     }
 

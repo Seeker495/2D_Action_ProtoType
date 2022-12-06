@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4958817270083638743}
   - component: {fileID: 4958817270083638740}
+  - component: {fileID: 3506638253091401513}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: GameController
@@ -44,9 +45,97 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4348927276e3c384f84705b94e47d9ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_playerController:
-    asset: {fileID: 0}
-  m_inputActionAssets:
-  - {fileID: -944628639613478452, guid: 34ad0ac374c9e5544b2c306490f9a1f8, type: 3}
-  - {fileID: -944628639613478452, guid: 130c7e511cfa0e44fad9e49839c173b2, type: 3}
-  - {fileID: -944628639613478452, guid: 7734ae771dce0bd458093e3e8b3fd07e, type: 3}
+--- !u!114 &3506638253091401513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4958817270083638741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 54ef321345fe8c745bfa32892be50d9f, type: 3}
+  m_NotificationBehavior: 3
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: adfa5bcd-8368-4458-a4de-d0e2a639dab2
+    m_ActionName: Title/EnterProcess[/Keyboard/space,/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a3b43935-ac8e-4309-b96e-628f3eacee9c
+    m_ActionName: Title/SelectDown[/Keyboard/downArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1202fb5b-093f-41a6-9e55-5d2f252f44d3
+    m_ActionName: Title/SelectUp[/Keyboard/upArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ac197ff4-b884-4c0a-9749-e6462bc1feda
+    m_ActionName: Play/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 274d78fc-d69b-4c21-8349-503c1b9fa0ac
+    m_ActionName: Play/Attack[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3a997fb2-95d6-4715-a832-0a8aa427e133
+    m_ActionName: Play/Dash[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e80a4fb2-5efd-448c-b402-1a4e9ce8f276
+    m_ActionName: Play/ChangeWeaponToLeft[/Keyboard/leftArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b507a8ad-7df2-4997-b9d5-61f468445de5
+    m_ActionName: Play/ChangeWeaponToRight[/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 59d8f5bd-28e5-4bec-acbf-94ff1a7713c3
+    m_ActionName: Play/AdjustCameraDistance[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a1aed4fe-0771-4775-aa14-c209c820ba35
+    m_ActionName: Play/Resurrection[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 78ce297b-685c-4b03-8247-83c8e2461fb0
+    m_ActionName: Play/HighSpeedMove[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f460dd48-f6ad-4207-a9cb-812f83ec68ac
+    m_ActionName: Play/ToPause[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6f5043c5-8e09-45cc-8941-2ac22d4242aa
+    m_ActionName: Pause/SelectUp[/Keyboard/upArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 27a4f116-b685-4f87-be23-badac2c889f4
+    m_ActionName: Pause/SelectDown[/Keyboard/downArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: eadadfb7-b867-4502-8584-7cdf69d3c240
+    m_ActionName: Pause/Enter[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b2f8dbd0-6d5a-48ff-b763-134abbfb91ce
+    m_ActionName: Result/BackToTitle[/Keyboard/space,/Keyboard/b]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Title
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}

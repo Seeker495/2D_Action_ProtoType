@@ -40,6 +40,8 @@ public class PlayScene : MonoBehaviour
     /* カメラ(プレイヤーの追従カメラ)の関連 */
     [SerializeField]
     private GameObject m_cameraObject;
+    [SerializeField]
+    private GameObject m_farCameraObject;
 
     /* プレイヤーのUI関連 */
     [SerializeField]
@@ -54,31 +56,32 @@ public class PlayScene : MonoBehaviour
     [SerializeField]
     private GameObject m_pauseDisplayObject;
     private PauseDisplay m_pauseDisplay;
-
     [SerializeField]
     private List<string> m_stageNames;
 
     private void Awake()
     {
         if(Time.timeScale <= 0.0f) Time.timeScale = 1.0f;
+
         /* オブジェクトの複製及び代入を行う */
         m_map = Instantiate(m_mapObject, null).GetComponent<Map>();
 
         // マップの読み込み(先に読み込まないとプレイヤーを取得できないため)
         m_map.Load(m_stageNames[(int)Parameter.CURRENT_ALIVE_DAY]);
         m_player = GameObject.FindWithTag("Player").GetComponent<Player>();
-        if(Parameter.CURRENT_ALIVE_DAY != 0)
-            m_player.SetParameter(PlayerData.GetStatus());
-        m_enemyManager = Instantiate(m_enemyManagerObject, null).GetComponent<EnemyManager>();
-        m_wall = Instantiate(m_wallObject, null).GetComponent<Wall>();
         m_cameraObject = Instantiate(m_cameraObject, null);
-        m_cameraObject.GetComponent<CinemachineVirtualCamera>().Follow = m_player.transform;
+        m_farCameraObject = Instantiate(m_farCameraObject, null);
+        m_wall = Instantiate(m_wallObject, null).GetComponent<Wall>();
+        m_enemyManager = Instantiate(m_enemyManagerObject, null).GetComponent<EnemyManager>();
+
         m_playUI = Instantiate(m_playUIObject, GameObject.FindGameObjectWithTag("Canvas").transform).GetComponent<PlayUI>();
         m_pauseDisplay = Instantiate(m_pauseDisplayObject, GameObject.FindGameObjectWithTag("Canvas").transform).GetComponent<PauseDisplay>();
         m_playerController = Instantiate(m_playerController, null);
-        m_pauseDisplay.gameObject.GetComponent<CanvasRenderer>().SetAlpha(0.0f);
-        m_pauseDisplay.gameObject.GetComponentsInChildren<CanvasRenderer>().ToList().ForEach(canvasRenderer => canvasRenderer.SetAlpha(0.0f));
-
+        if (Parameter.CURRENT_ALIVE_DAY != 0)
+            m_player.SetParameter(PlayerData.GetStatus());
+        m_cameraObject.GetComponent<CinemachineVirtualCamera>().Follow = m_player.transform;
+        m_farCameraObject.GetComponent<CinemachineVirtualCamera>().Follow = m_player.transform;
+        m_pauseDisplay.gameObject.SetActive(false);
     }
 
     // Start is called before the first frame update
@@ -90,13 +93,14 @@ public class PlayScene : MonoBehaviour
         // ランダム配置
         //m_player.SetSpawnPosition(ref m_map);
         //m_enemyManager.SetSpawnPosition(ref m_map);
-
         m_cameraObject.GetComponent<CinemachineConfiner2D>().m_BoundingShape2D = m_wall.GetComponent<CompositeCollider2D>();
+        m_farCameraObject.GetComponent<CinemachineConfiner2D>().m_BoundingShape2D = m_wall.GetComponent<CompositeCollider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
+
     }
 
     private void FixedUpdate()
@@ -110,8 +114,7 @@ public class PlayScene : MonoBehaviour
     public void Pause(InputAction.CallbackContext context)
     {
         Time.timeScale = 0.0f;
-        m_pauseDisplay.gameObject.GetComponent<CanvasRenderer>().SetAlpha(1.0f);
-        m_pauseDisplay.gameObject.GetComponentsInChildren<CanvasRenderer>().ToList().ForEach(canvasRenderer => canvasRenderer.SetAlpha(1.0f));
+        m_pauseDisplay.gameObject.SetActive(true);
         m_playerController.GetComponent<PlayerController>().SetPause(true);
     }
 }

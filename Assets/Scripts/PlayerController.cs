@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.VersionControl;
@@ -17,118 +18,110 @@ using UnityEngine.SceneManagement;
  *******************************************************************/
 public class PlayerController : MonoBehaviour
 {
-    [Serializable]
-    public struct Controller
-    {
-        public InputActionAsset asset;
-        public void Enable()
-        {
-            if (asset.name.Contains("Title"))
-            {
-                menu_Script menu = GameObject.FindWithTag("Menu").GetComponent<menu_Script>();
-                asset.FindActionMap("UI").FindAction("SelectUp").started += menu.SelectUp;
-                asset.FindActionMap("UI").FindAction("SelectDown").started += menu.SelectDown;
-                asset.FindActionMap("UI").FindAction("EnterProcess").started += menu.EnterProcess;
-                asset.FindActionMap("UI").Enable();
-            }
-            else if (asset.name.Contains("Play"))
-            {
-                Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
-                PlayScene playScene = GameObject.FindWithTag("PlayScene").GetComponent<PlayScene>();
-                FollowCamera camera = GameObject.FindWithTag("VirtualCamera").GetComponent<FollowCamera>();
-                PauseDisplay pauseDisplay = GameObject.FindWithTag("Pause").GetComponent<PauseDisplay>();
-                asset.FindActionMap("Play").FindAction("Move").performed += player.Move;
-                asset.FindActionMap("Play").FindAction("Move").canceled += player.MoveEnd;
-                asset.FindActionMap("Play").FindAction("Attack").started += player.Attack;
-                asset.FindActionMap("Play").FindAction("Dash").started += player.Dash;
-                asset.FindActionMap("Play").FindAction("Dash").canceled += player.Dash;
-                asset.FindActionMap("Play").FindAction("ChangeWeaponToLeft").started += player.SelectWeaponToLeft;
-                asset.FindActionMap("Play").FindAction("ChangeWeaponToRight").started += player.SelectWeaponToRight;
-                asset.FindActionMap("Play").FindAction("AdjustCameraDistance").started += camera.AdjustCameraDistance;
-                asset.FindActionMap("Play").FindAction("Resurrection").started += player.Resurrection;
-                asset.FindActionMap("Play").FindAction("HighSpeedMove").started += player.HighSpeedMove;
-                asset.FindActionMap("Play").FindAction("ToPause").started += playScene.Pause;
-                asset.FindActionMap("Pause").FindAction("SelectUp").started += pauseDisplay.SelectUp;
-                asset.FindActionMap("Pause").FindAction("SelectDown").started += pauseDisplay.SelectDown;
-                asset.FindActionMap("Pause").FindAction("Enter").started += pauseDisplay.Enter;
-                asset.FindActionMap("Play").Disable();
+    private ControlActions m_controlActions;
+    public ControlActions ControlActions => m_controlActions;
 
-                asset.FindActionMap("Play").Enable();
-            }
-            else if (asset.name.Contains("Result"))
-            {
-                ResultScene resultScene = GameObject.FindWithTag("ResultScene").GetComponent<ResultScene>();
-                asset.FindActionMap("UI").FindAction("BackToTitle").started += resultScene.BackToTitle;
-                asset.FindActionMap("UI").Enable();
-            }
-
-        }
-
-        public void Disable()
-        {
-            if (asset.name.Contains("Title"))
-            {
-                menu_Script menu = GameObject.FindWithTag("Menu").GetComponent<menu_Script>();
-                asset.FindActionMap("UI").FindAction("SelectUp").started -= menu.SelectUp;
-                asset.FindActionMap("UI").FindAction("SelectDown").started -= menu.SelectDown;
-                asset.FindActionMap("UI").FindAction("EnterProcess").started -= menu.EnterProcess;
-                asset.FindActionMap("UI").Disable();
-            }
-            else if (asset.name.Contains("Play"))
-            {
-                Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
-                PlayScene playScene = GameObject.FindWithTag("PlayScene").GetComponent<PlayScene>();
-                FollowCamera camera = GameObject.FindWithTag("VirtualCamera").GetComponent<FollowCamera>();
-                PauseDisplay pauseDisplay = GameObject.FindWithTag("Pause").GetComponent<PauseDisplay>();
-                asset.FindActionMap("Play").FindAction("Move").performed -= player.Move;
-                asset.FindActionMap("Play").FindAction("Move").canceled -= player.MoveEnd;
-                asset.FindActionMap("Play").FindAction("Attack").started -= player.Attack;
-                asset.FindActionMap("Play").FindAction("Dash").started -= player.Dash;
-                asset.FindActionMap("Play").FindAction("Dash").canceled -= player.Dash;
-                asset.FindActionMap("Play").FindAction("ChangeWeaponToLeft").started -= player.SelectWeaponToLeft;
-                asset.FindActionMap("Play").FindAction("ChangeWeaponToRight").started -= player.SelectWeaponToRight;
-                asset.FindActionMap("Play").FindAction("AdjustCameraDistance").started -= camera.AdjustCameraDistance;
-                asset.FindActionMap("Play").FindAction("Resurrection").started -= player.Resurrection;
-                asset.FindActionMap("Play").FindAction("HighSpeedMove").started -= player.HighSpeedMove;
-                asset.FindActionMap("Play").FindAction("ToPause").started -= playScene.Pause;
-                asset.FindActionMap("Pause").FindAction("SelectUp").started -= pauseDisplay.SelectUp;
-                asset.FindActionMap("Pause").FindAction("SelectDown").started -= pauseDisplay.SelectDown;
-                asset.FindActionMap("Pause").FindAction("Enter").started -= pauseDisplay.Enter;
-                asset.FindActionMap("Play").Disable();
-                asset.FindActionMap("Pause").Disable();
-            }
-            else if (asset.name.Contains("Result"))
-            {
-                ResultScene resultScene = GameObject.FindWithTag("ResultScene").GetComponent<ResultScene>();
-                asset.FindActionMap("UI").FindAction("BackToTitle").started -= resultScene.BackToTitle;
-                asset.FindActionMap("UI").Disable();
-            }
-
-        }
-    }
-
-    [SerializeField]
-    private Controller m_playerController;
-    public Controller Player_Controller => m_playerController;
-    [SerializeField]
-    private List<InputActionAsset> m_inputActionAssets;
 
     private bool m_isPause = false;
 
     private void Awake()
     {
+        m_controlActions = new ControlActions();
     }
     private void OnEnable()
     {
-        if (m_playerController.asset != null) m_playerController.asset = null;
-        m_playerController.asset = m_inputActionAssets.Find(asset => asset.name == SceneManager.GetActiveScene().name);
-        m_playerController.Enable();
+        Enable();
+        m_controlActions.Enable();
+    }
+
+    public void Enable()
+    {
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        if (currentSceneName.Contains("Title"))
+        {
+
+            menu_Script menu = GameObject.FindWithTag("Menu").GetComponent<menu_Script>();
+            m_controlActions.Title.SelectUp.started += menu.SelectUp;
+            m_controlActions.Title.SelectDown.started += menu.SelectDown;
+            m_controlActions.Title.EnterProcess.started += menu.EnterProcess;
+            m_controlActions.Title.Enable();
+        }
+        else if (currentSceneName.Contains("Play"))
+        {
+            Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
+            PlayScene playScene = GameObject.FindWithTag("PlayScene").GetComponent<PlayScene>();
+            FollowCamera camera = GameObject.FindWithTag("VirtualCamera").GetComponent<FollowCamera>();
+            PauseDisplay pauseDisplay = GameObject.FindWithTag("Pause").GetComponent<PauseDisplay>();
+            m_controlActions.Play.Move.performed += player.Move;
+            m_controlActions.Play.Move.canceled += player.MoveEnd;
+            m_controlActions.Play.Attack.started += player.Attack;
+            m_controlActions.Play.Dash.started += player.Dash;
+            m_controlActions.Play.Dash.canceled += player.Dash;
+            m_controlActions.Play.ChangeWeaponToLeft.started += player.SelectWeaponToLeft;
+            m_controlActions.Play.ChangeWeaponToRight.started += player.SelectWeaponToRight;
+            m_controlActions.Play.AdjustCameraDistance.started += camera.AdjustCameraDistance;
+            m_controlActions.Play.Resurrection.started += player.Resurrection;
+            m_controlActions.Play.HighSpeedMove.started += player.HighSpeedMove;
+            m_controlActions.Play.ToPause.started += playScene.Pause;
+            m_controlActions.Pause.SelectUp.started += pauseDisplay.SelectUp;
+            m_controlActions.Pause.SelectDown.started += pauseDisplay.SelectDown;
+            m_controlActions.Pause.Enter.started += pauseDisplay.Enter;
+            m_controlActions.Play.Enable();
+        }
+        else if (currentSceneName.Contains("Result"))
+        {
+            ResultScene resultScene = GameObject.FindWithTag("ResultScene").GetComponent<ResultScene>();
+            m_controlActions.Result.BackToTitle.started += resultScene.BackToTitle;
+            m_controlActions.Result.Enable();
+        }
+
+
     }
 
     public void Disable()
     {
-        m_playerController.Disable();
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        if (currentSceneName.Contains("Title"))
+        {
+
+            menu_Script menu = GameObject.FindWithTag("Menu").GetComponent<menu_Script>();
+            m_controlActions.Title.SelectUp.started -= menu.SelectUp;
+            m_controlActions.Title.SelectDown.started -= menu.SelectDown;
+            m_controlActions.Title.EnterProcess.started -= menu.EnterProcess;
+            m_controlActions.Title.Disable();
+        }
+        else if (currentSceneName.Contains("Play"))
+        {
+            Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
+            PlayScene playScene = GameObject.FindWithTag("PlayScene").GetComponent<PlayScene>();
+            FollowCamera camera = GameObject.FindWithTag("VirtualCamera").GetComponent<FollowCamera>();
+            PauseDisplay pauseDisplay = GameObject.FindWithTag("Pause").GetComponent<PauseDisplay>();
+            m_controlActions.Play.Move.performed -= player.Move;
+            m_controlActions.Play.Move.canceled -= player.MoveEnd;
+            m_controlActions.Play.Attack.started -= player.Attack;
+            m_controlActions.Play.Dash.started -= player.Dash;
+            m_controlActions.Play.Dash.canceled -= player.Dash;
+            m_controlActions.Play.ChangeWeaponToLeft.started -= player.SelectWeaponToLeft;
+            m_controlActions.Play.ChangeWeaponToRight.started -= player.SelectWeaponToRight;
+            m_controlActions.Play.AdjustCameraDistance.started -= camera.AdjustCameraDistance;
+            m_controlActions.Play.Resurrection.started -= player.Resurrection;
+            m_controlActions.Play.HighSpeedMove.started -= player.HighSpeedMove;
+            m_controlActions.Play.ToPause.started -= playScene.Pause;
+            m_controlActions.Pause.SelectUp.started -= pauseDisplay.SelectUp;
+            m_controlActions.Pause.SelectDown.started -= pauseDisplay.SelectDown;
+            m_controlActions.Pause.Enter.started -= pauseDisplay.Enter;
+            m_controlActions.Play.Disable();
+            m_controlActions.Pause.Disable();
+        }
+        else if (currentSceneName.Contains("Result"))
+        {
+            ResultScene resultScene = GameObject.FindWithTag("ResultScene").GetComponent<ResultScene>();
+            m_controlActions.Result.BackToTitle.started -= resultScene.BackToTitle;
+            m_controlActions.Result.Disable();
+        }
+
     }
+
 
     public bool IsPause()
     {
@@ -142,19 +135,18 @@ public class PlayerController : MonoBehaviour
 
     public void Update()
     {
-        if (m_playerController.asset.name.Contains("Play"))
+        if (SceneManager.GetActiveScene().name.Contains("Play"))
         {
             if (m_isPause)
             {
-                m_playerController.asset.FindActionMap("Play").Disable();
-                m_playerController.asset.FindActionMap("Pause").Enable();
+                m_controlActions.Play.Disable();
+                m_controlActions.Pause.Enable();
             }
             else
             {
-                m_playerController.asset.FindActionMap("Pause").Disable();
-                m_playerController.asset.FindActionMap("Play").Enable();
+                m_controlActions.Pause.Disable();
+                m_controlActions.Play.Enable();
             }
         }
-
     }
 }

@@ -15,6 +15,7 @@ public class Arrow : MonoBehaviour
     void Awake()
     {
         m_rigidBody2D = GetComponent<Rigidbody2D>();
+        GetComponent<SpriteRenderer>().sortingLayerName = "Default";
     }
 
     /*
@@ -24,6 +25,7 @@ public class Arrow : MonoBehaviour
      */
     public void Shoot(Vector2 startPosition, float degree, Vector2 direction)
     {
+        GetComponent<SpriteRenderer>().sortingLayerName = "Weapon";
         m_rigidBody2D.position = startPosition;
         transform.rotation = Quaternion.Euler(0, 0, -degree);
         m_rigidBody2D.velocity = transform.rotation * direction * Parameter.ATTACK_BOW_SPEED;
@@ -42,6 +44,12 @@ public class Arrow : MonoBehaviour
     {
         // 壁(マップの範囲外)に出たら破壊する
         if (collision.CompareTag("Wall"))
+            Destroy(gameObject);
+    }
+
+    private void OnBecameInvisible()
+    {
+        if(Camera.main)
             Destroy(gameObject);
     }
 
