@@ -27,6 +27,7 @@ public class TitleScene : MonoBehaviour
     // ‰Šú‰»
     void Start()
     {
+        Application.targetFrameRate = 60;
     }
 
     // Update is called once per frame

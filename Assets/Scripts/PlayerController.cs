@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
 using Unity.VisualScripting;
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.VersionControl;
+#endif
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -21,6 +23,7 @@ public class PlayerController : MonoBehaviour
     private ControlActions m_controlActions;
     public ControlActions ControlActions => m_controlActions;
 
+    private Dictionary<string, GameObject> m_objects = new Dictionary<string, GameObject>();
 
     private bool m_isPause = false;
 
@@ -39,8 +42,8 @@ public class PlayerController : MonoBehaviour
         string currentSceneName = SceneManager.GetActiveScene().name;
         if (currentSceneName.Contains("Title"))
         {
-
-            menu_Script menu = GameObject.FindWithTag("Menu").GetComponent<menu_Script>();
+            m_objects.Add("Menu", GameObject.FindWithTag("Menu"));
+            menu_Script menu = m_objects["Menu"].GetComponent<menu_Script>();
             m_controlActions.Title.SelectUp.started += menu.SelectUp;
             m_controlActions.Title.SelectDown.started += menu.SelectDown;
             m_controlActions.Title.EnterProcess.started += menu.EnterProcess;
@@ -48,10 +51,15 @@ public class PlayerController : MonoBehaviour
         }
         else if (currentSceneName.Contains("Play"))
         {
-            Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
-            PlayScene playScene = GameObject.FindWithTag("PlayScene").GetComponent<PlayScene>();
-            FollowCamera camera = GameObject.FindWithTag("VirtualCamera").GetComponent<FollowCamera>();
-            PauseDisplay pauseDisplay = GameObject.FindWithTag("Pause").GetComponent<PauseDisplay>();
+            m_objects.Add("Player", GameObject.FindWithTag("Player"));
+            m_objects.Add("PlayScene", GameObject.FindWithTag("PlayScene"));
+            m_objects.Add("VirtualCamera", GameObject.FindWithTag("VirtualCamera"));
+            m_objects.Add("Pause", GameObject.FindWithTag("Pause"));
+
+            Player player = m_objects["Player"].GetComponent<Player>();
+            PlayScene playScene = m_objects["PlayScene"].GetComponent<PlayScene>();
+            FollowCamera camera = m_objects["VirtualCamera"].GetComponent<FollowCamera>();
+            PauseDisplay pauseDisplay = m_objects["Pause"].GetComponent<PauseDisplay>();
             m_controlActions.Play.Move.performed += player.Move;
             m_controlActions.Play.Move.canceled += player.MoveEnd;
             m_controlActions.Play.Attack.started += player.Attack;
@@ -63,14 +71,15 @@ public class PlayerController : MonoBehaviour
             m_controlActions.Play.Resurrection.started += player.Resurrection;
             m_controlActions.Play.HighSpeedMove.started += player.HighSpeedMove;
             m_controlActions.Play.ToPause.started += playScene.Pause;
-            m_controlActions.Pause.SelectUp.started += pauseDisplay.SelectUp;
-            m_controlActions.Pause.SelectDown.started += pauseDisplay.SelectDown;
+            m_controlActions.Pause.SelectLeft.started += pauseDisplay.SelectLeft;
+            m_controlActions.Pause.SelectRight.started += pauseDisplay.SelectRight;
             m_controlActions.Pause.Enter.started += pauseDisplay.Enter;
             m_controlActions.Play.Enable();
         }
         else if (currentSceneName.Contains("Result"))
         {
-            ResultScene resultScene = GameObject.FindWithTag("ResultScene").GetComponent<ResultScene>();
+            m_objects.Add("ResultScene", GameObject.FindWithTag("ResultScene"));
+            ResultScene resultScene = m_objects["ResultScene"].GetComponent<ResultScene>();
             m_controlActions.Result.BackToTitle.started += resultScene.BackToTitle;
             m_controlActions.Result.Enable();
         }
@@ -84,7 +93,7 @@ public class PlayerController : MonoBehaviour
         if (currentSceneName.Contains("Title"))
         {
 
-            menu_Script menu = GameObject.FindWithTag("Menu").GetComponent<menu_Script>();
+            menu_Script menu = m_objects["Menu"].GetComponent<menu_Script>();
             m_controlActions.Title.SelectUp.started -= menu.SelectUp;
             m_controlActions.Title.SelectDown.started -= menu.SelectDown;
             m_controlActions.Title.EnterProcess.started -= menu.EnterProcess;
@@ -92,10 +101,10 @@ public class PlayerController : MonoBehaviour
         }
         else if (currentSceneName.Contains("Play"))
         {
-            Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
-            PlayScene playScene = GameObject.FindWithTag("PlayScene").GetComponent<PlayScene>();
-            FollowCamera camera = GameObject.FindWithTag("VirtualCamera").GetComponent<FollowCamera>();
-            PauseDisplay pauseDisplay = GameObject.FindWithTag("Pause").GetComponent<PauseDisplay>();
+            Player player = m_objects["Player"].GetComponent<Player>();
+            PlayScene playScene = m_objects["PlayScene"].GetComponent<PlayScene>();
+            FollowCamera camera = m_objects["VirtualCamera"].GetComponent<FollowCamera>();
+            PauseDisplay pauseDisplay = m_objects["Pause"].GetComponent<PauseDisplay>();
             m_controlActions.Play.Move.performed -= player.Move;
             m_controlActions.Play.Move.canceled -= player.MoveEnd;
             m_controlActions.Play.Attack.started -= player.Attack;
@@ -107,19 +116,19 @@ public class PlayerController : MonoBehaviour
             m_controlActions.Play.Resurrection.started -= player.Resurrection;
             m_controlActions.Play.HighSpeedMove.started -= player.HighSpeedMove;
             m_controlActions.Play.ToPause.started -= playScene.Pause;
-            m_controlActions.Pause.SelectUp.started -= pauseDisplay.SelectUp;
-            m_controlActions.Pause.SelectDown.started -= pauseDisplay.SelectDown;
+            m_controlActions.Pause.SelectLeft.started -= pauseDisplay.SelectLeft;
+            m_controlActions.Pause.SelectRight.started -= pauseDisplay.SelectRight;
             m_controlActions.Pause.Enter.started -= pauseDisplay.Enter;
             m_controlActions.Play.Disable();
             m_controlActions.Pause.Disable();
         }
         else if (currentSceneName.Contains("Result"))
         {
-            ResultScene resultScene = GameObject.FindWithTag("ResultScene").GetComponent<ResultScene>();
+            ResultScene resultScene = m_objects["ResultScene"].GetComponent<ResultScene>();
             m_controlActions.Result.BackToTitle.started -= resultScene.BackToTitle;
             m_controlActions.Result.Disable();
         }
-
+        m_objects.Clear();
     }
 
 

@@ -46,12 +46,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_stageName: 
   m_mapObjects:
+  - mapIndex: 
+    mapObject: {fileID: 8795935224585430248, guid: 87859f80f4daf19449df70a5c04f47ad, type: 3}
   - mapIndex: 0
-    mapObject: {fileID: 7683653709502583484, guid: 83db30322fab2fa4f947d398ac7128df, type: 3}
+    mapObject: {fileID: 8795935224585430248, guid: 87859f80f4daf19449df70a5c04f47ad, type: 3}
   - mapIndex: 1
     mapObject: {fileID: 704948456806656196, guid: 443aa802f1df07f48b885ce7b42510be, type: 3}
-  - mapIndex: 11
-    mapObject: {fileID: 8795935224585430248, guid: 87859f80f4daf19449df70a5c04f47ad, type: 3}
   - mapIndex: 12
     mapObject: {fileID: 7683653709502583484, guid: 83db30322fab2fa4f947d398ac7128df, type: 3}
   - mapIndex: 13

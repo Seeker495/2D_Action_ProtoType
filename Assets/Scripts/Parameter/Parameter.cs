@@ -103,6 +103,8 @@ public static class Parameter
     public const float ATTACK_BLADE_POWER = 5.0f;
     // Œ•‚ÌUŒ‚‘¬“x
     public const float ATTACK_BLADE_SPEED = 5.0f;
+    // ‹|‚ÌUŒ‚ŠÔŠu(ƒtƒŒ[ƒ€”)
+    public const int ATTACK_BOW_INTERVAL = 30;
     // ‹|‚ÌUŒ‚ˆĞ—Í
     public const float ATTACK_BOW_POWER = 5.0f;
     // ‹|‚ÌˆÚ“®‘¬“x

@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class PauseDisplay : MonoBehaviour
 {
     public List<Button> m_buttons;
-    public int m_index = 0;
+    public int m_index;
     // Start is called before the first frame update
     void Awake()
     {
@@ -22,14 +22,14 @@ public class PauseDisplay : MonoBehaviour
     {
     }
 
-    public void SelectUp(InputAction.CallbackContext context)
+    public void SelectLeft(InputAction.CallbackContext context)
     {
         Deselect();
         m_index = System.Math.Abs(--m_index + m_buttons.Count) % m_buttons.Count;
         Select();
     }
 
-    public void SelectDown(InputAction.CallbackContext context)
+    public void SelectRight(InputAction.CallbackContext context)
     {
         Deselect();
         m_index = System.Math.Abs(++m_index) % m_buttons.Count;
@@ -40,7 +40,7 @@ public class PauseDisplay : MonoBehaviour
     {
         List<System.Action> actions = new List<System.Action>
         {
-            Resume,RetryFromStart,BackToTitle
+            RetryFromStart,Resume,BackToTitle
         };
 
         actions[m_index]();

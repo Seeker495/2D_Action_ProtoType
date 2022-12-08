@@ -12,7 +12,8 @@ public class Bow : AttackBase
 {
     [SerializeField]
     Rigidbody2D m_rigidBody2D;
-
+    private int m_time = 0;
+    private bool m_canShoot = false;
     // Start is called before the first frame update
 
     private static Vector2 m_direction;
@@ -24,7 +25,9 @@ public class Bow : AttackBase
 
     public override void Attack()
     {
-        Shoot(-30.0f, 30.0f, 3);
+        if(m_canShoot)
+            Shoot(-30.0f, 30.0f, 3);
+        m_canShoot = false;
     }
 
     public override eAttackType GetAttackType()
@@ -57,6 +60,11 @@ public class Bow : AttackBase
 
     void FixedUpdate()
     {
+        if(!m_canShoot)
+            m_time = ++m_time % Parameter.ATTACK_BOW_INTERVAL;
+        if (m_time == 0)
+            m_canShoot = true;
+        Debug.Log(m_time);
         m_rigidBody2D.position = GetComponentInParent<Rigidbody2D>().position;
     }
 

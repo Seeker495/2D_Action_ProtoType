@@ -64,24 +64,23 @@ public class PlayScene : MonoBehaviour
         if(Time.timeScale <= 0.0f) Time.timeScale = 1.0f;
 
         /* オブジェクトの複製及び代入を行う */
-        m_map = Instantiate(m_mapObject, null).GetComponent<Map>();
-
+        Instantiate(m_mapObject, null).TryGetComponent(out m_map);
         // マップの読み込み(先に読み込まないとプレイヤーを取得できないため)
         m_map.Load(m_stageNames[(int)Parameter.CURRENT_ALIVE_DAY]);
-        m_player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        GameObject.FindWithTag("Player").TryGetComponent(out m_player);
         m_cameraObject = Instantiate(m_cameraObject, null);
         m_farCameraObject = Instantiate(m_farCameraObject, null);
-        m_wall = Instantiate(m_wallObject, null).GetComponent<Wall>();
-        m_enemyManager = Instantiate(m_enemyManagerObject, null).GetComponent<EnemyManager>();
-
-        m_playUI = Instantiate(m_playUIObject, GameObject.FindGameObjectWithTag("Canvas").transform).GetComponent<PlayUI>();
-        m_pauseDisplay = Instantiate(m_pauseDisplayObject, GameObject.FindGameObjectWithTag("Canvas").transform).GetComponent<PauseDisplay>();
+        Instantiate(m_wallObject, null).TryGetComponent(out m_wall);
+        Instantiate(m_enemyManagerObject, null).TryGetComponent(out m_enemyManager);
+        Instantiate(m_playUIObject, GameObject.FindGameObjectWithTag("Canvas").transform).TryGetComponent(out m_playUI);
+        Instantiate(m_pauseDisplayObject, GameObject.FindGameObjectWithTag("Canvas").transform).TryGetComponent(out m_pauseDisplay);
         m_playerController = Instantiate(m_playerController, null);
         if (Parameter.CURRENT_ALIVE_DAY != 0)
             m_player.SetParameter(PlayerData.GetStatus());
         m_cameraObject.GetComponent<CinemachineVirtualCamera>().Follow = m_player.transform;
         m_farCameraObject.GetComponent<CinemachineVirtualCamera>().Follow = m_player.transform;
         m_pauseDisplay.gameObject.SetActive(false);
+
     }
 
     // Start is called before the first frame update
@@ -100,7 +99,8 @@ public class PlayScene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        float fps = 1f / Time.deltaTime;
+        Debug.Log("fps: " + fps);
     }
 
     private void FixedUpdate()

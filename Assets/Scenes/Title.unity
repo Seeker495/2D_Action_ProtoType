@@ -185,6 +185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgmAudioSource: {fileID: 1876305125}
   seAudioSource: {fileID: 134560074}
+  pinchSource: {fileID: 0}
   m_bgmList:
   - name: "\u30BF\u30A4\u30C8\u30EB\u30B7\u30FC\u30F3\u97F3"
     clip: {fileID: 8300000, guid: a258c2866ebca624e8440f43f4fab05c, type: 3}

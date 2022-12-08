@@ -537,7 +537,7 @@
             "id": "3cdd13ae-d421-4477-a790-940fbf53b82c",
             "actions": [
                 {
-                    "name": "SelectUp",
+                    "name": "SelectLeft",
                     "type": "Button",
                     "id": "6f5043c5-8e09-45cc-8941-2ac22d4242aa",
                     "expectedControlType": "Button",
@@ -546,7 +546,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SelectDown",
+                    "name": "SelectRight",
                     "type": "Button",
                     "id": "27a4f116-b685-4f87-be23-badac2c889f4",
                     "expectedControlType": "Button",
@@ -568,33 +568,88 @@
                 {
                     "name": "",
                     "id": "e061ca19-4a99-483d-9c9b-4e15c6983781",
-                    "path": "<Keyboard>/upArrow",
+                    "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "SelectUp",
+                    "action": "SelectLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4a6c1d7c-fde3-4762-86e3-bc022362b5b3",
+                    "path": "<Gamepad>/leftStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "19bd69e9-47be-4c99-8b3a-4fa16b728662",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectLeft",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "0a2ae7ba-8b07-42a9-b375-ca5b0196de59",
-                    "path": "<Keyboard>/downArrow",
+                    "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "SelectDown",
+                    "action": "SelectRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "d927a0b6-e359-49b8-abcc-274358474cc3",
-                    "path": "<Keyboard>/enter",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Enter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "69ab2dec-a803-4a4d-b56c-6e286bba6d3a",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Enter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8fcf8ec5-7128-440f-9ca4-9ac1082eac1f",
+                    "path": "<Gamepad>/leftStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "48767579-d389-449d-a70f-108d5cc2376d",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

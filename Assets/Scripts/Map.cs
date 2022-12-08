@@ -37,7 +37,7 @@ public class Map : MonoBehaviour
     [Serializable]
     public struct MapObjectInfo
     {
-        public int mapIndex;
+        public string mapIndex;
         public GameObject mapObject;
     }
 
@@ -55,24 +55,23 @@ public class Map : MonoBehaviour
 
         for (int i = 0; i < mapData.stage.Count; i++)
         {
-            Debug.Assert(mapData.stage[i] >= 0, "正しい形式で呼ばれていません。");
+            //Debug.Assert(int.Parse(mapData.stage[i]) >= 0, "正しい形式で呼ばれていません。");
             var chip = m_mapObjects.Find(obj => obj.mapIndex == mapData.stage[i]).mapObject;
-
+            Debug.Assert(chip, $"{i}番目で{m_mapObjects.Find(obj => obj.mapIndex == mapData.stage[i]).mapIndex}を参照しました");
             chip.transform.position = new Vector3(0.0f + (i % m_mapInfo.width), 0.0f - ((i / m_mapInfo.width) % m_mapInfo.height), 0.0f);
             switch (mapData.stage[i])
             {
-                case 0:
-                    break;
-                case 11:
+                case "":
+                case "0":
                     m_mapChips.Add(Instantiate(chip, transform));
                     break;
-                case 12:
-                case 13:
-                    Instantiate(m_mapObjects.Find(obj => obj.mapIndex == 11).mapObject, chip.transform.position, Quaternion.identity, transform);
+                case "12":
+                case "13":
+                    Instantiate(m_mapObjects.Find(obj => obj.mapIndex == "").mapObject, chip.transform.position, Quaternion.identity, transform);
                     m_mapChips.Add(Instantiate(chip, transform));
                     break;
                 default:
-                    Instantiate(m_mapObjects.Find(obj => obj.mapIndex == 11).mapObject, chip.transform.position, Quaternion.identity, transform);
+                    Instantiate(m_mapObjects.Find(obj => obj.mapIndex == "").mapObject, chip.transform.position, Quaternion.identity, transform);
                     m_mapChips.Add(Instantiate(chip, null));
                     break;
             }

@@ -559,7 +559,7 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
             ""id"": ""3cdd13ae-d421-4477-a790-940fbf53b82c"",
             ""actions"": [
                 {
-                    ""name"": ""SelectUp"",
+                    ""name"": ""SelectLeft"",
                     ""type"": ""Button"",
                     ""id"": ""6f5043c5-8e09-45cc-8941-2ac22d4242aa"",
                     ""expectedControlType"": ""Button"",
@@ -568,7 +568,7 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""SelectDown"",
+                    ""name"": ""SelectRight"",
                     ""type"": ""Button"",
                     ""id"": ""27a4f116-b685-4f87-be23-badac2c889f4"",
                     ""expectedControlType"": ""Button"",
@@ -590,33 +590,88 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""e061ca19-4a99-483d-9c9b-4e15c6983781"",
-                    ""path"": ""<Keyboard>/upArrow"",
+                    ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""SelectUp"",
+                    ""action"": ""SelectLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4a6c1d7c-fde3-4762-86e3-bc022362b5b3"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""19bd69e9-47be-4c99-8b3a-4fa16b728662"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""0a2ae7ba-8b07-42a9-b375-ca5b0196de59"",
-                    ""path"": ""<Keyboard>/downArrow"",
+                    ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""SelectDown"",
+                    ""action"": ""SelectRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""d927a0b6-e359-49b8-abcc-274358474cc3"",
-                    ""path"": ""<Keyboard>/enter"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Enter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""69ab2dec-a803-4a4d-b56c-6e286bba6d3a"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Enter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8fcf8ec5-7128-440f-9ca4-9ac1082eac1f"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""48767579-d389-449d-a70f-108d5cc2376d"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -682,8 +737,8 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
         m_Play_ToPause = m_Play.FindAction("ToPause", throwIfNotFound: true);
         // Pause
         m_Pause = asset.FindActionMap("Pause", throwIfNotFound: true);
-        m_Pause_SelectUp = m_Pause.FindAction("SelectUp", throwIfNotFound: true);
-        m_Pause_SelectDown = m_Pause.FindAction("SelectDown", throwIfNotFound: true);
+        m_Pause_SelectLeft = m_Pause.FindAction("SelectLeft", throwIfNotFound: true);
+        m_Pause_SelectRight = m_Pause.FindAction("SelectRight", throwIfNotFound: true);
         m_Pause_Enter = m_Pause.FindAction("Enter", throwIfNotFound: true);
         // Result
         m_Result = asset.FindActionMap("Result", throwIfNotFound: true);
@@ -893,15 +948,15 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
     // Pause
     private readonly InputActionMap m_Pause;
     private IPauseActions m_PauseActionsCallbackInterface;
-    private readonly InputAction m_Pause_SelectUp;
-    private readonly InputAction m_Pause_SelectDown;
+    private readonly InputAction m_Pause_SelectLeft;
+    private readonly InputAction m_Pause_SelectRight;
     private readonly InputAction m_Pause_Enter;
     public struct PauseActions
     {
         private @ControlActions m_Wrapper;
         public PauseActions(@ControlActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @SelectUp => m_Wrapper.m_Pause_SelectUp;
-        public InputAction @SelectDown => m_Wrapper.m_Pause_SelectDown;
+        public InputAction @SelectLeft => m_Wrapper.m_Pause_SelectLeft;
+        public InputAction @SelectRight => m_Wrapper.m_Pause_SelectRight;
         public InputAction @Enter => m_Wrapper.m_Pause_Enter;
         public InputActionMap Get() { return m_Wrapper.m_Pause; }
         public void Enable() { Get().Enable(); }
@@ -912,12 +967,12 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_PauseActionsCallbackInterface != null)
             {
-                @SelectUp.started -= m_Wrapper.m_PauseActionsCallbackInterface.OnSelectUp;
-                @SelectUp.performed -= m_Wrapper.m_PauseActionsCallbackInterface.OnSelectUp;
-                @SelectUp.canceled -= m_Wrapper.m_PauseActionsCallbackInterface.OnSelectUp;
-                @SelectDown.started -= m_Wrapper.m_PauseActionsCallbackInterface.OnSelectDown;
-                @SelectDown.performed -= m_Wrapper.m_PauseActionsCallbackInterface.OnSelectDown;
-                @SelectDown.canceled -= m_Wrapper.m_PauseActionsCallbackInterface.OnSelectDown;
+                @SelectLeft.started -= m_Wrapper.m_PauseActionsCallbackInterface.OnSelectLeft;
+                @SelectLeft.performed -= m_Wrapper.m_PauseActionsCallbackInterface.OnSelectLeft;
+                @SelectLeft.canceled -= m_Wrapper.m_PauseActionsCallbackInterface.OnSelectLeft;
+                @SelectRight.started -= m_Wrapper.m_PauseActionsCallbackInterface.OnSelectRight;
+                @SelectRight.performed -= m_Wrapper.m_PauseActionsCallbackInterface.OnSelectRight;
+                @SelectRight.canceled -= m_Wrapper.m_PauseActionsCallbackInterface.OnSelectRight;
                 @Enter.started -= m_Wrapper.m_PauseActionsCallbackInterface.OnEnter;
                 @Enter.performed -= m_Wrapper.m_PauseActionsCallbackInterface.OnEnter;
                 @Enter.canceled -= m_Wrapper.m_PauseActionsCallbackInterface.OnEnter;
@@ -925,12 +980,12 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
             m_Wrapper.m_PauseActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @SelectUp.started += instance.OnSelectUp;
-                @SelectUp.performed += instance.OnSelectUp;
-                @SelectUp.canceled += instance.OnSelectUp;
-                @SelectDown.started += instance.OnSelectDown;
-                @SelectDown.performed += instance.OnSelectDown;
-                @SelectDown.canceled += instance.OnSelectDown;
+                @SelectLeft.started += instance.OnSelectLeft;
+                @SelectLeft.performed += instance.OnSelectLeft;
+                @SelectLeft.canceled += instance.OnSelectLeft;
+                @SelectRight.started += instance.OnSelectRight;
+                @SelectRight.performed += instance.OnSelectRight;
+                @SelectRight.canceled += instance.OnSelectRight;
                 @Enter.started += instance.OnEnter;
                 @Enter.performed += instance.OnEnter;
                 @Enter.canceled += instance.OnEnter;
@@ -991,8 +1046,8 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
     }
     public interface IPauseActions
     {
-        void OnSelectUp(InputAction.CallbackContext context);
-        void OnSelectDown(InputAction.CallbackContext context);
+        void OnSelectLeft(InputAction.CallbackContext context);
+        void OnSelectRight(InputAction.CallbackContext context);
         void OnEnter(InputAction.CallbackContext context);
     }
     public interface IResultActions

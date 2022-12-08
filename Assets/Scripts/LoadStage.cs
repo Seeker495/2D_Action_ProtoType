@@ -16,7 +16,7 @@ public static class LoadStage
 {
     public struct MapData
     {
-        public List<int> stage;
+        public List<string> stage;
         public int width;
         public int height;
     }
@@ -29,13 +29,13 @@ public static class LoadStage
         string StagePath = "";
 #if UNITY_EDITOR
         StagePath = $"Assets/Stage/";
+#elif UNITY_STANDALONE
+        StagePath = $"Stage/";
 #endif
-        if (Application.platform == RuntimePlatform.WindowsPlayer)
-            StagePath = $"Stage/";
         using (StreamReader reader = new StreamReader($"{StagePath}{fileName}.csv", Encoding.UTF8))
         {
             string line = string.Empty;
-            map.stage = new List<int>();
+            map.stage = new List<string>();
             string[] stageString;
             while (!reader.EndOfStream)
             {
@@ -45,7 +45,7 @@ public static class LoadStage
                 {
                     map.width = stageString.Length;
                 }
-                map.stage.AddRange(Array.ConvertAll(stageString, int.Parse));
+                map.stage.AddRange(stageString);
             }
             map.height = map.stage.Count / map.width;
 

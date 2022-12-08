@@ -1,6 +1,8 @@
+using Effekseer;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 /*******************************************************************
  *  <概要>
@@ -10,7 +12,10 @@ public class Blade : AttackBase
 {
     [SerializeField]
     Rigidbody2D m_rigidBody2D;
+    [SerializeField]
+    EffekseerEffectAsset m_effect;
 
+    IEnumerator m_enumrator;
     // 剣の振るスピード
     const float BLADE_SPEED = 6.0f;
     // Start is called before the first frame update
@@ -31,8 +36,11 @@ public class Blade : AttackBase
 
     public override void Attack()
     {
+        if (m_enumrator != null) StopCoroutine(m_enumrator);
+        m_enumrator = Attacking(120.0f);
         // 攻撃関数を開始する
-        StartCoroutine(Attacking(120.0f));
+        StartCoroutine(m_enumrator);
+
     }
 
 
@@ -57,37 +65,17 @@ public class Blade : AttackBase
     public IEnumerator Attacking(float degree)
     {
         GetComponent<EdgeCollider2D>().enabled = true;
-
+        Quaternion q = transform.rotation;
         var direction = GetComponentInParent<IActor>().GetDirection();
-        // マスクを無くして表示させる
-        GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.None;
-        // 開始位置の代入
-        //m_rigidBody2D.position = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>().position;
-        // Z軸の角度(degreeと比べるため)
-        float angleZ = 0.0f;
-        // ベクトルの角度を取得するためのもの
-        float angle;
-        // 角度が規定の値以下の間
-        while(angleZ * BLADE_SPEED <= degree)
-        {
-            // 位置をずらして表示させる
-            transform.localPosition = direction * 0.3f;
-            // 速度を代入
-            m_rigidBody2D.velocity = transform.rotation * direction;
-            // ベクトルの角度を算出する
-            angle = (Mathf.Atan2(m_rigidBody2D.velocity.y, m_rigidBody2D.velocity.x)) * Mathf.Rad2Deg;
-            // Z軸の角度を加算していき,そのたびに代入
-            transform.parent.rotation = Quaternion.Euler(0, 0, transform.parent.eulerAngles.z + - angle * Parameter.ATTACK_BLADE_SPEED);
-            // Z軸の角度を加算していき,そのたびに代入
-            transform.rotation = Quaternion.Euler(0, 0, transform.eulerAngles.z + -angleZ * Parameter.ATTACK_BLADE_SPEED);
+        var handle = EffekseerSystem.PlayEffect(m_effect, transform.position);
 
-            //角度を一定ずつ加算
-            angleZ += 0.3f;
+        transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
+        handle.SetRotation(transform.rotation);
+        while(handle.exists)
+        {
             yield return null;
         }
-        // 内部マスクにして隠す
-        GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
-
+        transform.rotation = q;
         GetComponent<EdgeCollider2D>().enabled = false;
 
     }
