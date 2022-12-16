@@ -8,6 +8,10 @@ using UnityEngine;
  *******************************************************************/
 public static class Parameter
 {
+#region TITLE
+    // メニューのフォーカスを行う際にオブジェクトに辿り着く時間(秒)
+    public const float FOCUS_TIME = 0.2f;
+#endregion // TITLE
     // ゲームデータ関連
 #region GAME_DATA_CONSTANTS
     // カメラの距離(視野) //
@@ -104,7 +108,7 @@ public static class Parameter
     // 剣の攻撃速度
     public const float ATTACK_BLADE_SPEED = 5.0f;
     // 弓の攻撃間隔(フレーム数)
-    public const int ATTACK_BOW_INTERVAL = 30;
+    public const int ATTACK_BOW_INTERVAL = 10;
     // 弓の攻撃威力
     public const float ATTACK_BOW_POWER = 5.0f;
     // 弓の移動速度

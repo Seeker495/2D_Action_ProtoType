@@ -46,15 +46,51 @@ public class PauseDisplay : MonoBehaviour
         actions[m_index]();
     }
 
+    private void PopUpAnimation()
+    {
+        Animator animator = m_buttons[m_index].GetComponent<Animator>();
+        int popup = Animator.StringToHash("IsPopUp");
+        int back = Animator.StringToHash("IsBack");
+
+        if (!animator.GetBool(popup) || !animator.GetBool(back)) return;
+
+        StartCoroutine(PlayAnimation(animator, "IsPopUp"));
+    }
+
+
+    private void BackAnimation()
+    {
+        Animator animator = m_buttons[m_index].GetComponent<Animator>();
+        int popup = Animator.StringToHash("IsPopUp");
+        int back = Animator.StringToHash("IsBack");
+
+        if (!animator.GetBool(popup) || !animator.GetBool(back)) return;
+
+        StartCoroutine(PlayAnimation(animator, "IsBack"));
+    }
+
     private void Deselect()
     {
+        BackAnimation();
         ColorBlock colorBlock = m_buttons[m_index].colors;
         colorBlock.normalColor = Color.white;
         m_buttons[m_index].colors = colorBlock;
     }
 
+    private IEnumerator PlayAnimation(Animator animator, string hash)
+    {
+        animator.SetBool(hash, false);
+
+        while (animator.GetCurrentAnimatorStateInfo(0).IsName(hash))
+        {
+            yield return null;
+        }
+        animator.SetBool(hash, true);
+    }
+
     private void Select()
     {
+        PopUpAnimation();
         ColorBlock colorBlock = m_buttons[m_index].colors;
         colorBlock.normalColor = Color.yellow;
         m_buttons[m_index].colors = colorBlock;

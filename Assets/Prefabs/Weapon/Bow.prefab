@@ -125,3 +125,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_rigidBody2D: {fileID: 0}
+  m_arrowObject: {fileID: 7864300536527026142, guid: 544b7aad355636045b414a26835d4d21, type: 3}

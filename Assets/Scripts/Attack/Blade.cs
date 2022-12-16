@@ -68,6 +68,7 @@ public class Blade : AttackBase
         Quaternion q = transform.rotation;
         var direction = GetComponentInParent<IActor>().GetDirection();
         var handle = EffekseerSystem.PlayEffect(m_effect, transform.position);
+        handle.speed = 3.5f;
 
         transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
         handle.SetRotation(transform.rotation);

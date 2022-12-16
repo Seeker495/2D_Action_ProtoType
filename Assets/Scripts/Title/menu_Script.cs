@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,8 @@ public class menu_Script : MonoBehaviour
     public Vector3 ColorNotSelect;
 
     public TitleScene titleScene;
+    [SerializeField]
+    private GameObject FocusSelect;
 
     Dictionary<MENU_TYPE, System.Action> menuProcess = new Dictionary<MENU_TYPE, System.Action>((int)MENU_TYPE.MAX);
     List<Button> buttons = new List<Button>();
@@ -30,19 +33,19 @@ public class menu_Script : MonoBehaviour
         NEWGAME,
         CONTINUE,
         ENDLESS,
-        CORECTION,
+        COLLECTION,
         OPTION,
         QUIT,
         MAX
     }
 
-    private void Awake()
+    private void OnEnable()
     {
         buttons.AddRange(GetComponentsInChildren<Button>());
         menuProcess.Add(MENU_TYPE.NEWGAME, titleScene.Press_Start);
         menuProcess.Add(MENU_TYPE.CONTINUE, titleScene.Press_Continue);
         menuProcess.Add(MENU_TYPE.ENDLESS, titleScene.Press_Endless);
-        menuProcess.Add(MENU_TYPE.CORECTION, titleScene.Press_Collection);
+        menuProcess.Add(MENU_TYPE.COLLECTION, titleScene.Press_Collection);
         menuProcess.Add(MENU_TYPE.OPTION, titleScene.Press_Option);
         menuProcess.Add(MENU_TYPE.QUIT, titleScene.Press_Quit);
 
@@ -51,13 +54,6 @@ public class menu_Script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // âÊëúÇìßâﬂÇ≥ÇπÇÈèàóù
-        Color color = gameObject.GetComponent<Image>().color;
-        color.r = 1.0f;
-        color.g = 1.0f;
-        color.b = 1.0f;
-        color.a = 0.5f;
-        gameObject.GetComponent<Image>().color = color;
     }
 
     // Update is called once per frame
@@ -68,11 +64,13 @@ public class menu_Script : MonoBehaviour
     public void SelectUp(InputAction.CallbackContext context)
     {
         button = System.Math.Abs(--button + (int)MENU_TYPE.MAX) % (int)MENU_TYPE.MAX;
+        FocusMenu(FocusSelect.GetComponent<Image>());
     }
 
     public void SelectDown(InputAction.CallbackContext context)
     {
         button = System.Math.Abs(++button) % (int)MENU_TYPE.MAX;
+        FocusMenu(FocusSelect.GetComponent<Image>());
     }
 
     public void EnterProcess(InputAction.CallbackContext context)
@@ -85,5 +83,16 @@ public class menu_Script : MonoBehaviour
     public int GetButtonNum()
     {
         return button;
+    }
+
+    private void FocusMenu(Image image)
+    {
+        float alpha;
+        if (buttons[button].IsInteractable())
+            alpha = 1.0f;
+        else
+            alpha = 0.5f;
+        image.DOFade(alpha, Parameter.FOCUS_TIME).SetUpdate(true);
+        FocusSelect.transform.DOLocalMoveY(buttons[button].transform.localPosition.y, Parameter.FOCUS_TIME).SetUpdate(true);
     }
 }

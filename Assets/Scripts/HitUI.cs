@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Hit : MonoBehaviour
+public class HitUI : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI m_hitValueText;

@@ -63,8 +63,9 @@ public class PlayerController : MonoBehaviour
             m_controlActions.Play.Move.performed += player.Move;
             m_controlActions.Play.Move.canceled += player.MoveEnd;
             m_controlActions.Play.Attack.started += player.Attack;
-            m_controlActions.Play.Dash.started += player.Dash;
-            m_controlActions.Play.Dash.canceled += player.Dash;
+            m_controlActions.Play.Dash.started += player.DashStart;
+            m_controlActions.Play.Dash.performed += player.Dashing;
+            m_controlActions.Play.Dash.canceled += player.DashEnd;
             m_controlActions.Play.ChangeWeaponToLeft.started += player.SelectWeaponToLeft;
             m_controlActions.Play.ChangeWeaponToRight.started += player.SelectWeaponToRight;
             m_controlActions.Play.AdjustCameraDistance.started += camera.AdjustCameraDistance;
@@ -98,6 +99,7 @@ public class PlayerController : MonoBehaviour
             m_controlActions.Title.SelectDown.started -= menu.SelectDown;
             m_controlActions.Title.EnterProcess.started -= menu.EnterProcess;
             m_controlActions.Title.Disable();
+            m_objects.Clear();
         }
         else if (currentSceneName.Contains("Play"))
         {
@@ -108,8 +110,9 @@ public class PlayerController : MonoBehaviour
             m_controlActions.Play.Move.performed -= player.Move;
             m_controlActions.Play.Move.canceled -= player.MoveEnd;
             m_controlActions.Play.Attack.started -= player.Attack;
-            m_controlActions.Play.Dash.started -= player.Dash;
-            m_controlActions.Play.Dash.canceled -= player.Dash;
+            m_controlActions.Play.Dash.started -= player.DashStart;
+            m_controlActions.Play.Dash.performed -= player.Dashing;
+            m_controlActions.Play.Dash.canceled -= player.DashEnd;
             m_controlActions.Play.ChangeWeaponToLeft.started -= player.SelectWeaponToLeft;
             m_controlActions.Play.ChangeWeaponToRight.started -= player.SelectWeaponToRight;
             m_controlActions.Play.AdjustCameraDistance.started -= camera.AdjustCameraDistance;
@@ -121,14 +124,16 @@ public class PlayerController : MonoBehaviour
             m_controlActions.Pause.Enter.started -= pauseDisplay.Enter;
             m_controlActions.Play.Disable();
             m_controlActions.Pause.Disable();
+            m_objects.Clear();
         }
         else if (currentSceneName.Contains("Result"))
         {
             ResultScene resultScene = m_objects["ResultScene"].GetComponent<ResultScene>();
             m_controlActions.Result.BackToTitle.started -= resultScene.BackToTitle;
             m_controlActions.Result.Disable();
+            m_objects.Clear();
+
         }
-        m_objects.Clear();
     }
 
 

@@ -34,7 +34,7 @@ public class Player : MonoBehaviour, IActor
     private long m_score = 0;
     private long m_increaseScore = 0;
     private int m_hitCombo = 0;
-
+    private bool m_isDashing = false;
     // サウンドマネージャー
     public SoundManager_2 soundManager_2;
 
@@ -106,6 +106,8 @@ public class Player : MonoBehaviour, IActor
     private void FixedUpdate()
     {
         DecreaseGauge();
+        GetComponent<BoxCollider2D>().isTrigger = m_isDamaged;
+        Debug.Log($"Velocity = {m_rigidbody2D.velocity}");
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -124,28 +126,29 @@ public class Player : MonoBehaviour, IActor
     }
 
     // ダッシュ
-    public void Dash(InputAction.CallbackContext context)
+    public void DashStart(InputAction.CallbackContext context)
     {
-        switch (context.phase)
-        {
-            case InputActionPhase.Started:
-                m_velocity *= Parameter.PLAYER_DASH_MULTIPLY;
-
-                // 早い移動の音
-                soundManager_2.PlaySe("早い移動");
-                break;
-            case InputActionPhase.Canceled:
-                m_velocity *= 1.0f / Parameter.PLAYER_DASH_MULTIPLY;
-                break;
-        }
-        m_rigidbody2D.velocity = m_velocity;
+        //m_isDashing = true;
+        // 早い移動の音
+        soundManager_2.PlaySe("早い移動");
+        m_rigidbody2D.velocity = m_velocity * m_rigidbody2D.velocity.normalized *Parameter.PLAYER_DASH_MULTIPLY;
 
     }
 
+    public void Dashing(InputAction.CallbackContext context)
+    {
+        m_rigidbody2D.velocity = m_velocity * m_rigidbody2D.velocity.normalized * Parameter.PLAYER_DASH_MULTIPLY;
+    }
+
+    public void DashEnd(InputAction.CallbackContext context)
+    {
+        m_rigidbody2D.velocity = m_velocity;
+        //m_isDashing = false;
+    }
 
     public void Attack(InputAction.CallbackContext context)
     {
-        if (m_rigidbody2D.velocity != Vector2.zero && m_weapons[WeaponIndex].GetAttackType().Equals(eAttackType.BLADE)) return;
+
         m_weapons[WeaponIndex].Attack();
         string[] sfxName = new string[]
         {

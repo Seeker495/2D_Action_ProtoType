@@ -14,6 +14,8 @@ public class Bow : AttackBase
     Rigidbody2D m_rigidBody2D;
     private int m_time = 0;
     private bool m_canShoot = false;
+    [SerializeField]
+    GameObject m_arrowObject;
     // Start is called before the first frame update
 
     private static Vector2 m_direction;
@@ -40,7 +42,6 @@ public class Bow : AttackBase
     }
     public async void Shoot(float startDegree, float angleInterval, int arrowNum)
     {
-        var arrow = await Addressables.LoadAssetAsync<GameObject>("Arrow").Task;
 
         var startPosition = GetComponentInParent<Rigidbody2D>().position;
         m_direction = GetComponentInParent<IActor>().GetDirection();
@@ -48,7 +49,7 @@ public class Bow : AttackBase
         GameObject[] arrowObjects = new GameObject[arrowNum];
         for (int i = 0; i < arrowObjects.Length; ++i)
         {
-            arrowObjects[i] = Instantiate(arrow, Vector3.zero, Quaternion.identity, transform);
+            arrowObjects[i] = Instantiate(m_arrowObject, Vector3.zero, Quaternion.identity, transform);
         }
 
 
