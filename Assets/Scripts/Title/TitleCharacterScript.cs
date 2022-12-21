@@ -29,17 +29,17 @@ public class TitleCharacterScript : MonoBehaviour
 
     private void Update()
     {
-        changeImageTime++;
+    //    changeImageTime++;
 
-        if (changeImageTime % walkSpeed == 0) 
-        {
-            imageType++;
-            changeImageTime = 0;
-            if (imageType > sprite.Count - 1) 
-            {
-                imageType = 0;
-            }
-        }
-        sampleImage.sprite = sprite[imageType];
+    //    if (changeImageTime % walkSpeed == 0) 
+    //    {
+    //        imageType++;
+    //        changeImageTime = 0;
+    //        if (imageType > sprite.Count - 1) 
+    //        {
+    //            imageType = 0;
+    //        }
+    //    }
+    //    sampleImage.sprite = sprite[imageType];
     }
 }

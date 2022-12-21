@@ -38,12 +38,10 @@ public class TitleScene : MonoBehaviour
     // ゲームスタートのボタン
     public void Press_Start()
     {
-
         Debug.Log("Press_Start");
         Parameter.NEXT_SCENE_NAME = "Play";
         m_playerController.GetComponent<PlayerController>().Disable();
         SceneManager.LoadSceneAsync("Loading");
-
 
         // 決定音
         soundManager_2.PlaySe(0);
