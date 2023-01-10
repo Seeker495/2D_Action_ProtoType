@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99536098ed22852429189f06c6ae5708, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_loadingText: {fileID: 696054797}
 --- !u!4 &290576265
 Transform:
   m_ObjectHideFlags: 0
@@ -203,8 +204,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 710.35, y: -491.66}
-  m_SizeDelta: {x: 499.2957, y: 96.6791}
+  m_AnchoredPosition: {x: 681.57263, y: -491.66}
+  m_SizeDelta: {x: 556.8505, y: 96.6791}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &696054797
 MonoBehaviour:
@@ -226,7 +227,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Now Loading...
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -245,7 +246,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
+  m_spriteAsset: {fileID: 11400000, guid: 429c2f696012e6549a6db9ae3050d2f7, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901

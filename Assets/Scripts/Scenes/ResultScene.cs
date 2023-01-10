@@ -11,22 +11,27 @@ public class ResultScene : MonoBehaviour
     private ResultUI m_resultUI;
 
     /* ユーザーのコントローラー関連 */
-    [SerializeField]
-    private GameObject m_playerController;
+    private void OnEnable()
+    {
+        PlayerController.Controller.Result.Enable();
+        PlayerController.Controller.Result.BackToTitle.started += BackToTitle;
+    }
 
+    private void OnDisable()
+    {
+        PlayerController.Controller.Result.BackToTitle.started -= BackToTitle;
+        PlayerController.Controller.Result.Disable();
+    }
 
     // Start is called before the first frame update
     void Awake()
     {
         m_resultUI = Instantiate(m_resultUIObject, GameObject.FindWithTag("Canvas").transform).GetComponent<ResultUI>();
-        m_playerController = Instantiate(m_playerController, null);
     }
 
     public void BackToTitle(InputAction.CallbackContext context)
     {
         Parameter.NEXT_SCENE_NAME = "Title";
-        PlayerController playerController = GameObject.FindWithTag("GameController").GetComponent<PlayerController>();
-        playerController.Disable();
         SceneManager.LoadSceneAsync("Loading");
     }
 }

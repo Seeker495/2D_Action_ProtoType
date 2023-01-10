@@ -10,6 +10,26 @@ public class PauseDisplay : MonoBehaviour
 {
     public List<Button> m_buttons;
     public int m_index;
+
+    private void OnEnable()
+    {
+        PlayerController.Controller.Play.Disable();
+        PlayerController.Controller.Pause.SelectLeft.started += SelectLeft;
+        PlayerController.Controller.Pause.SelectRight.started += SelectRight;
+        PlayerController.Controller.Pause.Enter.started += Enter;
+        PlayerController.Controller.Pause.Enable();
+    }
+
+    private void OnDisable()
+    {
+        PlayerController.Controller.Pause.SelectLeft.started -= SelectLeft;
+        PlayerController.Controller.Pause.SelectRight.started -= SelectRight;
+        PlayerController.Controller.Pause.Enter.started -= Enter;
+        PlayerController.Controller.Pause.Disable();
+        PlayerController.Controller.Play.Enable();
+    }
+
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -100,22 +120,17 @@ public class PauseDisplay : MonoBehaviour
     {
         Time.timeScale = 1.0f;
         gameObject.SetActive(false);
-        GameObject.FindWithTag("GameController").GetComponent<PlayerController>().SetPause(false);
     }
 
     private void RetryFromStart()
     {
         Parameter.NEXT_SCENE_NAME = "Play";
-        PlayerController playerController = GameObject.FindWithTag("GameController").GetComponent<PlayerController>();
-        playerController.Disable();
         SceneManager.LoadSceneAsync("Loading");
     }
 
     private void BackToTitle()
     {
         Parameter.NEXT_SCENE_NAME = "Title";
-        PlayerController playerController = GameObject.FindWithTag("GameController").GetComponent<PlayerController>();
-        playerController.Disable();
         SceneManager.LoadSceneAsync("Loading");
     }
 

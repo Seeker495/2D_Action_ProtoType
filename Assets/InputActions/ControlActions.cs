@@ -252,6 +252,15 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FullHeal"",
+                    ""type"": ""Button"",
+                    ""id"": ""6c51d834-3d8b-4745-b7e8-e7f87669bf9e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -551,6 +560,17 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
                     ""action"": ""ToPause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c824279d-22d6-4f74-a9d5-7a74df6a9b05"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FullHeal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -689,6 +709,42 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectLeftOnLevelUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""cd2bb06f-309c-48d4-bd49-76590e35752b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectRightOnLevelUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""5db71bf2-d43f-42fb-8f20-dab94565e34b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectUpOnEndLevelUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""dc9a0689-8ad5-4978-974b-34daa980854d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectDownOnEndLevelUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""41430055-c10c-478b-96e1-00bbdd9439c9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -713,6 +769,50 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
                     ""action"": ""BackToTitle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c5dc5fdf-c60c-4daa-9ffc-7b0f7d87ba2d"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectLeftOnLevelUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""42a26536-a087-4699-9927-2a99da26713f"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectRightOnLevelUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ba9956dc-ee29-4185-81ca-9b5187416e3a"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectUpOnEndLevelUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""487af185-d6dc-49b7-b58a-7e870ea89a08"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectDownOnEndLevelUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -735,6 +835,7 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
         m_Play_Resurrection = m_Play.FindAction("Resurrection", throwIfNotFound: true);
         m_Play_HighSpeedMove = m_Play.FindAction("HighSpeedMove", throwIfNotFound: true);
         m_Play_ToPause = m_Play.FindAction("ToPause", throwIfNotFound: true);
+        m_Play_FullHeal = m_Play.FindAction("FullHeal", throwIfNotFound: true);
         // Pause
         m_Pause = asset.FindActionMap("Pause", throwIfNotFound: true);
         m_Pause_SelectLeft = m_Pause.FindAction("SelectLeft", throwIfNotFound: true);
@@ -743,6 +844,10 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
         // Result
         m_Result = asset.FindActionMap("Result", throwIfNotFound: true);
         m_Result_BackToTitle = m_Result.FindAction("BackToTitle", throwIfNotFound: true);
+        m_Result_SelectLeftOnLevelUp = m_Result.FindAction("SelectLeftOnLevelUp", throwIfNotFound: true);
+        m_Result_SelectRightOnLevelUp = m_Result.FindAction("SelectRightOnLevelUp", throwIfNotFound: true);
+        m_Result_SelectUpOnEndLevelUp = m_Result.FindAction("SelectUpOnEndLevelUp", throwIfNotFound: true);
+        m_Result_SelectDownOnEndLevelUp = m_Result.FindAction("SelectDownOnEndLevelUp", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -860,6 +965,7 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Play_Resurrection;
     private readonly InputAction m_Play_HighSpeedMove;
     private readonly InputAction m_Play_ToPause;
+    private readonly InputAction m_Play_FullHeal;
     public struct PlayActions
     {
         private @ControlActions m_Wrapper;
@@ -873,6 +979,7 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
         public InputAction @Resurrection => m_Wrapper.m_Play_Resurrection;
         public InputAction @HighSpeedMove => m_Wrapper.m_Play_HighSpeedMove;
         public InputAction @ToPause => m_Wrapper.m_Play_ToPause;
+        public InputAction @FullHeal => m_Wrapper.m_Play_FullHeal;
         public InputActionMap Get() { return m_Wrapper.m_Play; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -909,6 +1016,9 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
                 @ToPause.started -= m_Wrapper.m_PlayActionsCallbackInterface.OnToPause;
                 @ToPause.performed -= m_Wrapper.m_PlayActionsCallbackInterface.OnToPause;
                 @ToPause.canceled -= m_Wrapper.m_PlayActionsCallbackInterface.OnToPause;
+                @FullHeal.started -= m_Wrapper.m_PlayActionsCallbackInterface.OnFullHeal;
+                @FullHeal.performed -= m_Wrapper.m_PlayActionsCallbackInterface.OnFullHeal;
+                @FullHeal.canceled -= m_Wrapper.m_PlayActionsCallbackInterface.OnFullHeal;
             }
             m_Wrapper.m_PlayActionsCallbackInterface = instance;
             if (instance != null)
@@ -940,6 +1050,9 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
                 @ToPause.started += instance.OnToPause;
                 @ToPause.performed += instance.OnToPause;
                 @ToPause.canceled += instance.OnToPause;
+                @FullHeal.started += instance.OnFullHeal;
+                @FullHeal.performed += instance.OnFullHeal;
+                @FullHeal.canceled += instance.OnFullHeal;
             }
         }
     }
@@ -998,11 +1111,19 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Result;
     private IResultActions m_ResultActionsCallbackInterface;
     private readonly InputAction m_Result_BackToTitle;
+    private readonly InputAction m_Result_SelectLeftOnLevelUp;
+    private readonly InputAction m_Result_SelectRightOnLevelUp;
+    private readonly InputAction m_Result_SelectUpOnEndLevelUp;
+    private readonly InputAction m_Result_SelectDownOnEndLevelUp;
     public struct ResultActions
     {
         private @ControlActions m_Wrapper;
         public ResultActions(@ControlActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @BackToTitle => m_Wrapper.m_Result_BackToTitle;
+        public InputAction @SelectLeftOnLevelUp => m_Wrapper.m_Result_SelectLeftOnLevelUp;
+        public InputAction @SelectRightOnLevelUp => m_Wrapper.m_Result_SelectRightOnLevelUp;
+        public InputAction @SelectUpOnEndLevelUp => m_Wrapper.m_Result_SelectUpOnEndLevelUp;
+        public InputAction @SelectDownOnEndLevelUp => m_Wrapper.m_Result_SelectDownOnEndLevelUp;
         public InputActionMap Get() { return m_Wrapper.m_Result; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1015,6 +1136,18 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
                 @BackToTitle.started -= m_Wrapper.m_ResultActionsCallbackInterface.OnBackToTitle;
                 @BackToTitle.performed -= m_Wrapper.m_ResultActionsCallbackInterface.OnBackToTitle;
                 @BackToTitle.canceled -= m_Wrapper.m_ResultActionsCallbackInterface.OnBackToTitle;
+                @SelectLeftOnLevelUp.started -= m_Wrapper.m_ResultActionsCallbackInterface.OnSelectLeftOnLevelUp;
+                @SelectLeftOnLevelUp.performed -= m_Wrapper.m_ResultActionsCallbackInterface.OnSelectLeftOnLevelUp;
+                @SelectLeftOnLevelUp.canceled -= m_Wrapper.m_ResultActionsCallbackInterface.OnSelectLeftOnLevelUp;
+                @SelectRightOnLevelUp.started -= m_Wrapper.m_ResultActionsCallbackInterface.OnSelectRightOnLevelUp;
+                @SelectRightOnLevelUp.performed -= m_Wrapper.m_ResultActionsCallbackInterface.OnSelectRightOnLevelUp;
+                @SelectRightOnLevelUp.canceled -= m_Wrapper.m_ResultActionsCallbackInterface.OnSelectRightOnLevelUp;
+                @SelectUpOnEndLevelUp.started -= m_Wrapper.m_ResultActionsCallbackInterface.OnSelectUpOnEndLevelUp;
+                @SelectUpOnEndLevelUp.performed -= m_Wrapper.m_ResultActionsCallbackInterface.OnSelectUpOnEndLevelUp;
+                @SelectUpOnEndLevelUp.canceled -= m_Wrapper.m_ResultActionsCallbackInterface.OnSelectUpOnEndLevelUp;
+                @SelectDownOnEndLevelUp.started -= m_Wrapper.m_ResultActionsCallbackInterface.OnSelectDownOnEndLevelUp;
+                @SelectDownOnEndLevelUp.performed -= m_Wrapper.m_ResultActionsCallbackInterface.OnSelectDownOnEndLevelUp;
+                @SelectDownOnEndLevelUp.canceled -= m_Wrapper.m_ResultActionsCallbackInterface.OnSelectDownOnEndLevelUp;
             }
             m_Wrapper.m_ResultActionsCallbackInterface = instance;
             if (instance != null)
@@ -1022,6 +1155,18 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
                 @BackToTitle.started += instance.OnBackToTitle;
                 @BackToTitle.performed += instance.OnBackToTitle;
                 @BackToTitle.canceled += instance.OnBackToTitle;
+                @SelectLeftOnLevelUp.started += instance.OnSelectLeftOnLevelUp;
+                @SelectLeftOnLevelUp.performed += instance.OnSelectLeftOnLevelUp;
+                @SelectLeftOnLevelUp.canceled += instance.OnSelectLeftOnLevelUp;
+                @SelectRightOnLevelUp.started += instance.OnSelectRightOnLevelUp;
+                @SelectRightOnLevelUp.performed += instance.OnSelectRightOnLevelUp;
+                @SelectRightOnLevelUp.canceled += instance.OnSelectRightOnLevelUp;
+                @SelectUpOnEndLevelUp.started += instance.OnSelectUpOnEndLevelUp;
+                @SelectUpOnEndLevelUp.performed += instance.OnSelectUpOnEndLevelUp;
+                @SelectUpOnEndLevelUp.canceled += instance.OnSelectUpOnEndLevelUp;
+                @SelectDownOnEndLevelUp.started += instance.OnSelectDownOnEndLevelUp;
+                @SelectDownOnEndLevelUp.performed += instance.OnSelectDownOnEndLevelUp;
+                @SelectDownOnEndLevelUp.canceled += instance.OnSelectDownOnEndLevelUp;
             }
         }
     }
@@ -1043,6 +1188,7 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
         void OnResurrection(InputAction.CallbackContext context);
         void OnHighSpeedMove(InputAction.CallbackContext context);
         void OnToPause(InputAction.CallbackContext context);
+        void OnFullHeal(InputAction.CallbackContext context);
     }
     public interface IPauseActions
     {
@@ -1053,5 +1199,9 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
     public interface IResultActions
     {
         void OnBackToTitle(InputAction.CallbackContext context);
+        void OnSelectLeftOnLevelUp(InputAction.CallbackContext context);
+        void OnSelectRightOnLevelUp(InputAction.CallbackContext context);
+        void OnSelectUpOnEndLevelUp(InputAction.CallbackContext context);
+        void OnSelectDownOnEndLevelUp(InputAction.CallbackContext context);
     }
 }

@@ -48,6 +48,7 @@ public class PlayUI : MonoBehaviour
         m_water = GameObject.Find("PlayUI/Water");
         m_food = GameObject.Find("PlayUI/Food");
         m_hitUI = GameObject.FindWithTag("HitUI").GetComponent<HitUI>();
+        m_hitUI.gameObject.SetActive(false);
         m_hpColorSprite = m_hp.GetComponentsInChildren<Image>()[3];
         m_gameOverText = Instantiate(m_gameOverText, new Vector3(960, 540, 0), Quaternion.identity, transform);
         m_gameOverText.SetActive(false);
@@ -81,10 +82,11 @@ public class PlayUI : MonoBehaviour
             m_gameOverTime += Time.deltaTime;
             if (m_gameOverTime >= Parameter.GAME_OVER_TO_OTHER_SCENE)
             {
-                Parameter.NEXT_SCENE_NAME = "Play";
+                Parameter.NEXT_SCENE_NAME = "Result";
                 SceneManager.LoadSceneAsync("Loading");
             }
         }
+        if (m_player.GetCombo() <= 0) return;
         m_hitUI.SetHitCombo(m_player.GetCombo());
     }
 
@@ -127,8 +129,13 @@ public class PlayUI : MonoBehaviour
         m_food.GetComponentInChildren<Slider>().value = m_player.GetFoodGauge();
     }
 
+    private void Damage()
+    {
+        m_hp.GetComponentsInChildren<Image>()[0].transform.DOShakePosition(1.0f, 10.0f);
+    }
+
     private void SetScore()
     {
-        m_scoreUI.SetScore(m_player.GetScore(), m_player.GetAddScore());
+        m_scoreUI.SettingScore(m_player.GetScore(), m_player.GetAddScore());
     }
 }
