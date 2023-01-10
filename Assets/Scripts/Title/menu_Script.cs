@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -41,6 +42,10 @@ public class menu_Script : MonoBehaviour
 
     private void OnEnable()
     {
+        PlayerController.Controller.Title.SelectUp.started += SelectUp;
+        PlayerController.Controller.Title.SelectDown.started += SelectDown;
+        PlayerController.Controller.Title.EnterProcess.started += EnterProcess;
+
         buttons.AddRange(GetComponentsInChildren<Button>());
         menuProcess.Add(MENU_TYPE.NEWGAME, titleScene.Press_Start);
         menuProcess.Add(MENU_TYPE.CONTINUE, titleScene.Press_Continue);
@@ -51,8 +56,15 @@ public class menu_Script : MonoBehaviour
 
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnDisable()
+    {
+        PlayerController.Controller.Title.SelectUp.started -= SelectUp;
+        PlayerController.Controller.Title.SelectDown.started -= SelectDown;
+        PlayerController.Controller.Title.EnterProcess.started -= EnterProcess;
+    }
+
+        // Start is called before the first frame update
+        void Start()
     {
     }
 
@@ -64,13 +76,13 @@ public class menu_Script : MonoBehaviour
     public void SelectUp(InputAction.CallbackContext context)
     {
         button = System.Math.Abs(--button + (int)MENU_TYPE.MAX) % (int)MENU_TYPE.MAX;
-        FocusMenu(FocusSelect.GetComponent<Image>());
+        FocusMenu(FocusSelect.GetComponent<LineRenderer>());
     }
 
     public void SelectDown(InputAction.CallbackContext context)
     {
         button = System.Math.Abs(++button) % (int)MENU_TYPE.MAX;
-        FocusMenu(FocusSelect.GetComponent<Image>());
+        FocusMenu(FocusSelect.GetComponent<LineRenderer>());
     }
 
     public void EnterProcess(InputAction.CallbackContext context)
@@ -85,14 +97,16 @@ public class menu_Script : MonoBehaviour
         return button;
     }
 
-    private void FocusMenu(Image image)
+    private void FocusMenu(LineRenderer lineRenderer)
     {
+
         float alpha;
         if (buttons[button].IsInteractable())
-            alpha = 1.0f;
+            lineRenderer.colorGradient.colorKeys[1].color = Color.yellow;
         else
-            alpha = 0.5f;
-        image.DOFade(alpha, Parameter.FOCUS_TIME).SetUpdate(true);
-        FocusSelect.transform.DOLocalMoveY(buttons[button].transform.localPosition.y, Parameter.FOCUS_TIME).SetUpdate(true);
+            lineRenderer.colorGradient.colorKeys[1].color = Color.red;
+        //lineRenderer.SetPositions(new Vector3[] { new Vector3(-1.0f, 0.1f - 0.45f * button, -1.0f), new Vector3(0.0f, 0.1f - 0.45f * button, -1.0f), new Vector3(1.0f, 0.1f - 0.45f * button, -1.0f) });
+        FocusSelect.transform.DOLocalMoveY(-(button * 0.825f) + 0.5f, Parameter.FOCUS_TIME).SetUpdate(true);
+
     }
 }

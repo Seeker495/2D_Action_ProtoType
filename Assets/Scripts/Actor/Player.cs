@@ -45,6 +45,37 @@ public class Player : MonoBehaviour, IActor
     // ピンチの時に流すseのフラグ
     bool pinchiFlag = false;
 
+    private void OnEnable()
+    {
+        PlayerController.Controller.Play.Move.performed += Move;
+        PlayerController.Controller.Play.Move.canceled += MoveEnd;
+        PlayerController.Controller.Play.Attack.started += Attack;
+        PlayerController.Controller.Play.Dash.started += DashStart;
+        PlayerController.Controller.Play.Dash.performed += Dashing;
+        PlayerController.Controller.Play.Dash.canceled += DashEnd;
+        PlayerController.Controller.Play.ChangeWeaponToLeft.started += SelectWeaponToLeft;
+        PlayerController.Controller.Play.ChangeWeaponToRight.started += SelectWeaponToRight;
+        PlayerController.Controller.Play.Resurrection.started += Resurrection;
+        PlayerController.Controller.Play.HighSpeedMove.started += HighSpeedMove;
+        PlayerController.Controller.Play.FullHeal.started += FullHeal;
+    }
+
+    private void OnDisable()
+    {
+        PlayerController.Controller.Play.Move.performed -= Move;
+        PlayerController.Controller.Play.Move.canceled -= MoveEnd;
+        PlayerController.Controller.Play.Attack.started -= Attack;
+        PlayerController.Controller.Play.Dash.started -= DashStart;
+        PlayerController.Controller.Play.Dash.performed -= Dashing;
+        PlayerController.Controller.Play.Dash.canceled -= DashEnd;
+        PlayerController.Controller.Play.ChangeWeaponToLeft.started -= SelectWeaponToLeft;
+        PlayerController.Controller.Play.ChangeWeaponToRight.started -= SelectWeaponToRight;
+        PlayerController.Controller.Play.Resurrection.started -= Resurrection;
+        PlayerController.Controller.Play.HighSpeedMove.started -= HighSpeedMove;
+        PlayerController.Controller.Play.FullHeal.started -= FullHeal;
+    }
+
+
     void Awake()
     {
         soundManager_2 = GameObject.FindWithTag("SoundManager").GetComponent<SoundManager_2>();
@@ -101,6 +132,12 @@ public class Player : MonoBehaviour, IActor
         }
 
 
+    }
+
+
+    private void FullHeal(InputAction.CallbackContext context)
+    {
+        m_status.actorStatus.hp = Parameter.PLAYER_MAX_HP;
     }
 
     private void FixedUpdate()
@@ -357,8 +394,6 @@ public class Player : MonoBehaviour, IActor
     {
         gameObject.tag = "Untagged";
         gameObject.SetActive(false);
-        PlayerController playerController = GameObject.FindWithTag("GameController").GetComponent<PlayerController>();
-        playerController.Disable();
     }
 
     public void SetMoveRange(ref Map map)
@@ -376,6 +411,8 @@ public class Player : MonoBehaviour, IActor
 
     void Damage(in float attack = 0.0f)
     {
+        var playUI = GameObject.FindWithTag("PlayUI");
+        playUI.SendMessage("Damage");
         // ダメージを受ける音
         soundManager_2.PlaySe("ダメージ");
 

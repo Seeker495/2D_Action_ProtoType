@@ -49,15 +49,25 @@ public class PlayScene : MonoBehaviour
     private PlayUI m_playUI;
 
 
-    /* ユーザーのコントローラー関連 */
-    [SerializeField]
-    private GameObject m_playerController;
-
     [SerializeField]
     private GameObject m_pauseDisplayObject;
     private PauseDisplay m_pauseDisplay;
     [SerializeField]
     private List<string> m_stageNames;
+
+    private void OnEnable()
+    {
+        PlayerController.Controller.Play.Enable();
+        PlayerController.Controller.Play.ToPause.started += Pause;
+    }
+
+    private void OnDisable()
+    {
+        PlayerController.Controller.Play.ToPause.started -= Pause;
+        PlayerController.Controller.Play.Disable();
+
+    }
+
 
     private void Awake()
     {
@@ -74,7 +84,6 @@ public class PlayScene : MonoBehaviour
         Instantiate(m_enemyManagerObject, null).TryGetComponent(out m_enemyManager);
         Instantiate(m_playUIObject, GameObject.FindGameObjectWithTag("Canvas").transform).TryGetComponent(out m_playUI);
         Instantiate(m_pauseDisplayObject, GameObject.FindGameObjectWithTag("Canvas").transform).TryGetComponent(out m_pauseDisplay);
-        m_playerController = Instantiate(m_playerController, null);
         if (Parameter.CURRENT_ALIVE_DAY != 0)
             m_player.SetParameter(PlayerData.GetStatus());
         m_cameraObject.GetComponent<CinemachineVirtualCamera>().Follow = m_player.transform;
@@ -115,6 +124,5 @@ public class PlayScene : MonoBehaviour
     {
         Time.timeScale = 0.0f;
         m_pauseDisplay.gameObject.SetActive(true);
-        m_playerController.GetComponent<PlayerController>().SetPause(true);
     }
 }

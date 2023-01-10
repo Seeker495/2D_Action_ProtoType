@@ -96,3 +96,5 @@ MonoBehaviour:
     mapObject: {fileID: 8519906870335766851, guid: d04445976da9cd342b805ede07001da3, type: 3}
   - mapIndex: 44
     mapObject: {fileID: 8519906870335766851, guid: fbfad8e12724c454aa49f9807c7651f3, type: 3}
+  - mapIndex: 45
+    mapObject: {fileID: 7600944758857197791, guid: 7b9914a768215684d869d93c661487e5, type: 3}

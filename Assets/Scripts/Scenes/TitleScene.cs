@@ -11,15 +11,22 @@ using UnityEngine.SceneManagement;
 public class TitleScene : MonoBehaviour
 {
     [SerializeField]
-    private GameObject m_playerController;
-    [SerializeField]
     SoundManager_2 soundManager_2;
+
+    private void OnEnable()
+    {
+        PlayerController.Controller.Title.Enable();
+    }
+
+    private void OnDisable()
+    {
+        PlayerController.Controller.Title.Disable();
+    }
 
     private void Awake()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        m_playerController = Instantiate(m_playerController, null);
         InitializeParameter();
     }
 
@@ -42,7 +49,6 @@ public class TitleScene : MonoBehaviour
 
         Debug.Log("Press_Start");
         Parameter.NEXT_SCENE_NAME = "Play";
-        m_playerController.GetComponent<PlayerController>().Disable();
         SceneManager.LoadSceneAsync("Loading");
 
 

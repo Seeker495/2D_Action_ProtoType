@@ -34,8 +34,6 @@ public class Goal : MonoBehaviour
             Parameter.NEXT_SCENE_NAME = "Result";
         else
             Parameter.NEXT_SCENE_NAME = "Play";
-        PlayerController playerController = GameObject.FindWithTag("GameController").GetComponent<PlayerController>();
-        playerController.Disable();
         SceneManager.LoadSceneAsync("Loading");
 
     }

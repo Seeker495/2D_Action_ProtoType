@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &5983555165716207961
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4211465177611841922, guid: f4874de34961faa4189e09a82c55fc11, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211465177611841924, guid: f4874de34961faa4189e09a82c55fc11, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211465177611841924, guid: f4874de34961faa4189e09a82c55fc11, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211465177611841924, guid: f4874de34961faa4189e09a82c55fc11, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211465177611841924, guid: f4874de34961faa4189e09a82c55fc11, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211465177611841924, guid: f4874de34961faa4189e09a82c55fc11, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -19
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211465177611841924, guid: f4874de34961faa4189e09a82c55fc11, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211465177611841924, guid: f4874de34961faa4189e09a82c55fc11, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211465177611841924, guid: f4874de34961faa4189e09a82c55fc11, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211465177611841924, guid: f4874de34961faa4189e09a82c55fc11, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211465177611841924, guid: f4874de34961faa4189e09a82c55fc11, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211465177611841924, guid: f4874de34961faa4189e09a82c55fc11, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211465177611841924, guid: f4874de34961faa4189e09a82c55fc11, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211465177611841924, guid: f4874de34961faa4189e09a82c55fc11, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211465177611841926, guid: f4874de34961faa4189e09a82c55fc11, type: 3}
+      propertyPath: m_Name
+      value: Enemy_10
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f4874de34961faa4189e09a82c55fc11, type: 3}
+--- !u!50 &803608602469398524 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 6354339916395392677, guid: f4874de34961faa4189e09a82c55fc11, type: 3}
+  m_PrefabInstance: {fileID: 5983555165716207961}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7600944758857197791 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4211465177611841926, guid: f4874de34961faa4189e09a82c55fc11, type: 3}
+  m_PrefabInstance: {fileID: 5983555165716207961}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2041986603304657105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7600944758857197791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7156b4a6a76c902459e9864b219c5d1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_enemyParameter: {fileID: 11400000, guid: 3f7a005f828ce2348906d1e179345a60, type: 2}
+  m_rigidBody2D: {fileID: 803608602469398524}
+  m_attackObject: {fileID: 5145764392786984211, guid: 23b96047f968e4347b4ceac1c78d614e, type: 3}
