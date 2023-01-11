@@ -40,7 +40,7 @@ public static class Parameter
 
 // ☆プレイヤー関連
 #region PLAYER_CONSTANTS
-    
+
     // 〇移動関連
     #region ABOUT_MOVING
 
@@ -145,7 +145,7 @@ public static class Parameter
         public const float ATTACK_SPEED_MULTIPLY = 0.5f;
 
     #endregion
-   
+
 
 #endregion
 
@@ -159,12 +159,12 @@ public static class Parameter
 
     // 〇ドロップエフェクト
     #region ABOUT_DROP_EFFECT
-    
+
         // ドロップエフェクトの移動速度
         public const float DROP_EFFECT_SPEED = 13.0f;
         // ドロップエフェクトのサイズ倍率
         public const float DROP_EFFECT_SIZE_MULTIPLY = 0.06f;
-    
+
     #endregion
 
 #endregion
@@ -195,14 +195,14 @@ public static class Parameter
 
 // ☆ゲームシステム関連
 #region ABOUT_GAME_SYSTEM
-    
+
     // 現在の生存日数
     public static uint CURRENT_ALIVE_DAY = 0;
     // 生存できる最大日数
     public static uint LAST_ALIVE_DAY = 1;
     // ゲームオーバーから次のシーンに移行するまでの時間
     public static float GAME_OVER_TO_OTHER_SCENE = 3.0f;
-    
+
 #endregion
 
 
@@ -213,7 +213,10 @@ public static class Parameter
     // 初期スコア
     public static long CURRENT_SCORE = 0;
 
-#endregion
+    #endregion
 
-
+#if UNITY_EDITOR
+    public static bool IS_DEBUG_MODE = false;
+    public static int DEBUG_MAP_INDEX = 0;
+#endif
 }

@@ -159,8 +159,10 @@ MonoBehaviour:
   m_cameraObject: {fileID: 7760446807466482952, guid: a078761eaaca5eb419bd8bac449ba7e8, type: 3}
   m_farCameraObject: {fileID: 7760446807466482952, guid: 58a0cff7262bd774cba93555d89c079b, type: 3}
   m_playUIObject: {fileID: 7603062294837158794, guid: 2e34709dbfe91ad4284bf285b6385f0a, type: 3}
-  m_playerController: {fileID: 4958817270083638741, guid: 4df626c8948ac4c47afc9ab2a34e23f6, type: 3}
   m_pauseDisplayObject: {fileID: 5916264479481218073, guid: f9d1a620d96582a4f987f59cf9b9b640, type: 3}
+  m_debugDisplayObject: {fileID: 5916264479481218073, guid: 48d479d1baf927249a699cf663fa67c8, type: 3}
+  m_debugStageNames:
+  - EnemyDebug
   m_stageNames:
   - StageData
 --- !u!4 &466821779

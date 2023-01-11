@@ -57,7 +57,12 @@ public class Player : MonoBehaviour, IActor
         PlayerController.Controller.Play.ChangeWeaponToRight.started += SelectWeaponToRight;
         PlayerController.Controller.Play.Resurrection.started += Resurrection;
         PlayerController.Controller.Play.HighSpeedMove.started += HighSpeedMove;
+#if UNITY_EDITOR
         PlayerController.Controller.Play.FullHeal.started += FullHeal;
+        PlayerController.Controller.Play.FullFood.started += FullFood;
+        PlayerController.Controller.Play.FullWater.started += FullWater;
+
+#endif
     }
 
     private void OnDisable()
@@ -72,7 +77,11 @@ public class Player : MonoBehaviour, IActor
         PlayerController.Controller.Play.ChangeWeaponToRight.started -= SelectWeaponToRight;
         PlayerController.Controller.Play.Resurrection.started -= Resurrection;
         PlayerController.Controller.Play.HighSpeedMove.started -= HighSpeedMove;
+#if UNITY_EDITOR
         PlayerController.Controller.Play.FullHeal.started -= FullHeal;
+        PlayerController.Controller.Play.FullFood.started -= FullFood;
+        PlayerController.Controller.Play.FullWater.started -= FullWater;
+#endif
     }
 
 
@@ -134,12 +143,25 @@ public class Player : MonoBehaviour, IActor
 
     }
 
-
+#if UNITY_EDITOR
     private void FullHeal(InputAction.CallbackContext context)
     {
+
+
         m_status.actorStatus.hp = Parameter.PLAYER_MAX_HP;
     }
 
+    private void FullFood(InputAction.CallbackContext context)
+    {
+        m_status.foodGauge = Parameter.FOOD_GAUGE_MAX;
+    }
+
+    private void FullWater(InputAction.CallbackContext context)
+    {
+        m_status.waterGauge = Parameter.WATER_GAUGE_MAX;
+    }
+
+#endif
     private void FixedUpdate()
     {
         DecreaseGauge();
@@ -367,22 +389,22 @@ public class Player : MonoBehaviour, IActor
 
     private void Debuff_Status(bool haveFood)
     {
-        float attack = m_status.maxAttack;
-        float defence = m_status.maxdefence;
+        float attack;
+        float defence;
 
 
         if (!haveFood)
         {
-            attack *= (1f - Parameter.FOOD_GAUGE_DECREASE_RATIO_ATTACK);
-            defence *= (1f - Parameter.FOOD_GAUGE_DECREASE_RATIO_DEFENCE);
+            attack = (1f - Parameter.FOOD_GAUGE_DECREASE_RATIO_ATTACK);
+            defence = (1f - Parameter.FOOD_GAUGE_DECREASE_RATIO_DEFENCE);
         }
         else
         {
-            attack = m_status.maxAttack;
-            defence = m_status.maxdefence;
+            attack = 1f;
+            defence = 1f;
         }
-        m_status.actorStatus.attack = Mathf.Clamp(attack, m_status.maxAttack * (1f - Parameter.FOOD_GAUGE_DECREASE_RATIO_ATTACK), m_status.maxAttack);
-        m_status.actorStatus.defence = Mathf.Clamp(defence, m_status.maxdefence * (1f - Parameter.FOOD_GAUGE_DECREASE_RATIO_DEFENCE), m_status.maxdefence);
+        m_status.actorStatus.attack = m_status.maxAttack * attack;
+        m_status.actorStatus.defence = m_status.maxdefence * defence;
     }
 
     public bool HaveFood()

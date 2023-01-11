@@ -261,6 +261,33 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FullFood"",
+                    ""type"": ""Button"",
+                    ""id"": ""358e5ba8-1dc5-4f3f-b85a-b8a6d1e08349"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FullWater"",
+                    ""type"": ""Button"",
+                    ""id"": ""80108444-bbc0-42fc-9ad8-4138b4f3e2c4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenDebugMode"",
+                    ""type"": ""Button"",
+                    ""id"": ""6a85e2a1-115e-4bd1-974c-144175fafbf7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -564,11 +591,44 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""c824279d-22d6-4f74-a9d5-7a74df6a9b05"",
-                    ""path"": ""<Keyboard>/t"",
+                    ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""FullHeal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f553275a-ffd9-4fb0-8120-9581dbecd765"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FullFood"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3ebbf2cb-9fff-4baf-895f-5a268bb61d7d"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FullWater"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""05f4d7af-eec5-491f-b1e9-fbb98e26a4e5"",
+                    ""path"": ""<Keyboard>/0"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenDebugMode"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -815,6 +875,386 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Debug"",
+            ""id"": ""4df3661d-e4b6-4fd2-96c2-256cebd08f2e"",
+            ""actions"": [
+                {
+                    ""name"": ""DebugMode_Submit"",
+                    ""type"": ""Button"",
+                    ""id"": ""35d56a1f-ad0e-4ca4-8197-9f1e97e0df0f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugMode_Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""91e08df0-632e-47b5-a934-04f8c58ffadf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugMode_Down"",
+                    ""type"": ""Button"",
+                    ""id"": ""3703620d-ef8e-41c3-9805-5bc59c096c2a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugMode_Up"",
+                    ""type"": ""Button"",
+                    ""id"": ""58d4b8ba-9f55-41ce-8ac7-f870f49e78b5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugMode_Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""77f8670e-86bd-4e12-ad68-b7d052e96913"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(duration=0.2)"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugMode_Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""2270b44b-c896-4c91-8906-2644dd32b544"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(duration=0.2)"",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""b6edfc8b-3505-49da-8afb-0eeef744fcf5"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DebugMode_Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9833c7db-5cc5-4277-b4d9-d0e2a42d3717"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DebugMode_Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0cccdcdb-3355-457e-aae8-5a37353896e4"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DebugMode_Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f69f8fcb-c515-411c-943c-e52939ae9386"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DebugMode_Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b5b86b80-7b46-4cfb-9e44-014cbc052b8b"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DebugMode_Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0b209627-52b5-4840-bf40-3cee0c505ca9"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DebugMode_Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""32e2b087-6c05-4e3c-92e5-9cff6849bad9"",
+                    ""path"": ""<XInputController>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DebugMode_Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5afab135-0b89-4443-857f-cb6b7282d766"",
+                    ""path"": ""<Keyboard>/backspace"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DebugMode_Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""616b8351-2d21-42a7-beb6-a3950fc56ee4"",
+                    ""path"": ""<XInputController>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DebugMode_Submit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a23ae99b-03a9-4aeb-8319-1b135cdfc071"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DebugMode_Submit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""DebugTitle"",
+            ""id"": ""274cde53-2835-4bf3-ab28-4e6650b2332c"",
+            ""actions"": [
+                {
+                    ""name"": ""Stage1"",
+                    ""type"": ""Button"",
+                    ""id"": ""bba83afa-d68b-4e2f-a5b0-11707c43979e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Stage2"",
+                    ""type"": ""Button"",
+                    ""id"": ""fbabe1e3-8da9-49d7-9b91-08bdf58a4fd9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Stage3"",
+                    ""type"": ""Button"",
+                    ""id"": ""89b6e82b-f969-4fe0-8e04-a6e3ee35567a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Stage4"",
+                    ""type"": ""Button"",
+                    ""id"": ""7357b69e-b8dd-43e5-8e31-e1d7ad3474d4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Stage5"",
+                    ""type"": ""Button"",
+                    ""id"": ""1c255abf-34bc-4609-9883-7222dc4a862f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Stage6"",
+                    ""type"": ""Button"",
+                    ""id"": ""eb400cc6-8e33-4ba0-851c-d10e9330b655"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Stage7"",
+                    ""type"": ""Button"",
+                    ""id"": ""399ad824-5f8d-4ca0-b06e-45d5d8a7f91b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Stage8"",
+                    ""type"": ""Button"",
+                    ""id"": ""847c6321-08ab-4fce-8edf-abc1b904f78d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Stage9"",
+                    ""type"": ""Button"",
+                    ""id"": ""9c6e0185-6c99-45e2-ad38-e67dd16b8b0d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Stage10"",
+                    ""type"": ""Button"",
+                    ""id"": ""3c9daee3-7d8f-463b-a0b6-45832f0df9d7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""f826f65e-815e-49be-a935-dd1628126fd3"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Stage1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e9289848-3237-4930-b799-f74cf8f21da8"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Stage2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d9c61aef-de00-40d1-98d9-12257d9a5730"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Stage3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cddbc535-1bff-40b8-a6e9-ce2c6dbe0d01"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Stage4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e7eb5dbc-ec75-4ae9-a239-71f81512696b"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Stage5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f8534807-1aef-4d93-bcd5-4b96eb0a0968"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Stage6"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c53a5db5-2a84-4a74-a567-75a6a9e14ad3"",
+                    ""path"": ""<Keyboard>/7"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Stage7"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b17280ed-5bfc-44b7-9989-8ac6fe2aab89"",
+                    ""path"": ""<Keyboard>/8"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Stage8"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""99d59153-5a5e-4ea0-a708-4456dbdaaef2"",
+                    ""path"": ""<Keyboard>/9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Stage9"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""976a8804-b895-4e38-bd0a-f72472c25c2b"",
+                    ""path"": ""<Keyboard>/0"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Stage10"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -836,6 +1276,9 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
         m_Play_HighSpeedMove = m_Play.FindAction("HighSpeedMove", throwIfNotFound: true);
         m_Play_ToPause = m_Play.FindAction("ToPause", throwIfNotFound: true);
         m_Play_FullHeal = m_Play.FindAction("FullHeal", throwIfNotFound: true);
+        m_Play_FullFood = m_Play.FindAction("FullFood", throwIfNotFound: true);
+        m_Play_FullWater = m_Play.FindAction("FullWater", throwIfNotFound: true);
+        m_Play_OpenDebugMode = m_Play.FindAction("OpenDebugMode", throwIfNotFound: true);
         // Pause
         m_Pause = asset.FindActionMap("Pause", throwIfNotFound: true);
         m_Pause_SelectLeft = m_Pause.FindAction("SelectLeft", throwIfNotFound: true);
@@ -848,6 +1291,26 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
         m_Result_SelectRightOnLevelUp = m_Result.FindAction("SelectRightOnLevelUp", throwIfNotFound: true);
         m_Result_SelectUpOnEndLevelUp = m_Result.FindAction("SelectUpOnEndLevelUp", throwIfNotFound: true);
         m_Result_SelectDownOnEndLevelUp = m_Result.FindAction("SelectDownOnEndLevelUp", throwIfNotFound: true);
+        // Debug
+        m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
+        m_Debug_DebugMode_Submit = m_Debug.FindAction("DebugMode_Submit", throwIfNotFound: true);
+        m_Debug_DebugMode_Cancel = m_Debug.FindAction("DebugMode_Cancel", throwIfNotFound: true);
+        m_Debug_DebugMode_Down = m_Debug.FindAction("DebugMode_Down", throwIfNotFound: true);
+        m_Debug_DebugMode_Up = m_Debug.FindAction("DebugMode_Up", throwIfNotFound: true);
+        m_Debug_DebugMode_Right = m_Debug.FindAction("DebugMode_Right", throwIfNotFound: true);
+        m_Debug_DebugMode_Left = m_Debug.FindAction("DebugMode_Left", throwIfNotFound: true);
+        // DebugTitle
+        m_DebugTitle = asset.FindActionMap("DebugTitle", throwIfNotFound: true);
+        m_DebugTitle_Stage1 = m_DebugTitle.FindAction("Stage1", throwIfNotFound: true);
+        m_DebugTitle_Stage2 = m_DebugTitle.FindAction("Stage2", throwIfNotFound: true);
+        m_DebugTitle_Stage3 = m_DebugTitle.FindAction("Stage3", throwIfNotFound: true);
+        m_DebugTitle_Stage4 = m_DebugTitle.FindAction("Stage4", throwIfNotFound: true);
+        m_DebugTitle_Stage5 = m_DebugTitle.FindAction("Stage5", throwIfNotFound: true);
+        m_DebugTitle_Stage6 = m_DebugTitle.FindAction("Stage6", throwIfNotFound: true);
+        m_DebugTitle_Stage7 = m_DebugTitle.FindAction("Stage7", throwIfNotFound: true);
+        m_DebugTitle_Stage8 = m_DebugTitle.FindAction("Stage8", throwIfNotFound: true);
+        m_DebugTitle_Stage9 = m_DebugTitle.FindAction("Stage9", throwIfNotFound: true);
+        m_DebugTitle_Stage10 = m_DebugTitle.FindAction("Stage10", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -966,6 +1429,9 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Play_HighSpeedMove;
     private readonly InputAction m_Play_ToPause;
     private readonly InputAction m_Play_FullHeal;
+    private readonly InputAction m_Play_FullFood;
+    private readonly InputAction m_Play_FullWater;
+    private readonly InputAction m_Play_OpenDebugMode;
     public struct PlayActions
     {
         private @ControlActions m_Wrapper;
@@ -980,6 +1446,9 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
         public InputAction @HighSpeedMove => m_Wrapper.m_Play_HighSpeedMove;
         public InputAction @ToPause => m_Wrapper.m_Play_ToPause;
         public InputAction @FullHeal => m_Wrapper.m_Play_FullHeal;
+        public InputAction @FullFood => m_Wrapper.m_Play_FullFood;
+        public InputAction @FullWater => m_Wrapper.m_Play_FullWater;
+        public InputAction @OpenDebugMode => m_Wrapper.m_Play_OpenDebugMode;
         public InputActionMap Get() { return m_Wrapper.m_Play; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1019,6 +1488,15 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
                 @FullHeal.started -= m_Wrapper.m_PlayActionsCallbackInterface.OnFullHeal;
                 @FullHeal.performed -= m_Wrapper.m_PlayActionsCallbackInterface.OnFullHeal;
                 @FullHeal.canceled -= m_Wrapper.m_PlayActionsCallbackInterface.OnFullHeal;
+                @FullFood.started -= m_Wrapper.m_PlayActionsCallbackInterface.OnFullFood;
+                @FullFood.performed -= m_Wrapper.m_PlayActionsCallbackInterface.OnFullFood;
+                @FullFood.canceled -= m_Wrapper.m_PlayActionsCallbackInterface.OnFullFood;
+                @FullWater.started -= m_Wrapper.m_PlayActionsCallbackInterface.OnFullWater;
+                @FullWater.performed -= m_Wrapper.m_PlayActionsCallbackInterface.OnFullWater;
+                @FullWater.canceled -= m_Wrapper.m_PlayActionsCallbackInterface.OnFullWater;
+                @OpenDebugMode.started -= m_Wrapper.m_PlayActionsCallbackInterface.OnOpenDebugMode;
+                @OpenDebugMode.performed -= m_Wrapper.m_PlayActionsCallbackInterface.OnOpenDebugMode;
+                @OpenDebugMode.canceled -= m_Wrapper.m_PlayActionsCallbackInterface.OnOpenDebugMode;
             }
             m_Wrapper.m_PlayActionsCallbackInterface = instance;
             if (instance != null)
@@ -1053,6 +1531,15 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
                 @FullHeal.started += instance.OnFullHeal;
                 @FullHeal.performed += instance.OnFullHeal;
                 @FullHeal.canceled += instance.OnFullHeal;
+                @FullFood.started += instance.OnFullFood;
+                @FullFood.performed += instance.OnFullFood;
+                @FullFood.canceled += instance.OnFullFood;
+                @FullWater.started += instance.OnFullWater;
+                @FullWater.performed += instance.OnFullWater;
+                @FullWater.canceled += instance.OnFullWater;
+                @OpenDebugMode.started += instance.OnOpenDebugMode;
+                @OpenDebugMode.performed += instance.OnOpenDebugMode;
+                @OpenDebugMode.canceled += instance.OnOpenDebugMode;
             }
         }
     }
@@ -1171,6 +1658,184 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
         }
     }
     public ResultActions @Result => new ResultActions(this);
+
+    // Debug
+    private readonly InputActionMap m_Debug;
+    private IDebugActions m_DebugActionsCallbackInterface;
+    private readonly InputAction m_Debug_DebugMode_Submit;
+    private readonly InputAction m_Debug_DebugMode_Cancel;
+    private readonly InputAction m_Debug_DebugMode_Down;
+    private readonly InputAction m_Debug_DebugMode_Up;
+    private readonly InputAction m_Debug_DebugMode_Right;
+    private readonly InputAction m_Debug_DebugMode_Left;
+    public struct DebugActions
+    {
+        private @ControlActions m_Wrapper;
+        public DebugActions(@ControlActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @DebugMode_Submit => m_Wrapper.m_Debug_DebugMode_Submit;
+        public InputAction @DebugMode_Cancel => m_Wrapper.m_Debug_DebugMode_Cancel;
+        public InputAction @DebugMode_Down => m_Wrapper.m_Debug_DebugMode_Down;
+        public InputAction @DebugMode_Up => m_Wrapper.m_Debug_DebugMode_Up;
+        public InputAction @DebugMode_Right => m_Wrapper.m_Debug_DebugMode_Right;
+        public InputAction @DebugMode_Left => m_Wrapper.m_Debug_DebugMode_Left;
+        public InputActionMap Get() { return m_Wrapper.m_Debug; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(DebugActions set) { return set.Get(); }
+        public void SetCallbacks(IDebugActions instance)
+        {
+            if (m_Wrapper.m_DebugActionsCallbackInterface != null)
+            {
+                @DebugMode_Submit.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnDebugMode_Submit;
+                @DebugMode_Submit.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnDebugMode_Submit;
+                @DebugMode_Submit.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnDebugMode_Submit;
+                @DebugMode_Cancel.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnDebugMode_Cancel;
+                @DebugMode_Cancel.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnDebugMode_Cancel;
+                @DebugMode_Cancel.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnDebugMode_Cancel;
+                @DebugMode_Down.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnDebugMode_Down;
+                @DebugMode_Down.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnDebugMode_Down;
+                @DebugMode_Down.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnDebugMode_Down;
+                @DebugMode_Up.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnDebugMode_Up;
+                @DebugMode_Up.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnDebugMode_Up;
+                @DebugMode_Up.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnDebugMode_Up;
+                @DebugMode_Right.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnDebugMode_Right;
+                @DebugMode_Right.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnDebugMode_Right;
+                @DebugMode_Right.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnDebugMode_Right;
+                @DebugMode_Left.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnDebugMode_Left;
+                @DebugMode_Left.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnDebugMode_Left;
+                @DebugMode_Left.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnDebugMode_Left;
+            }
+            m_Wrapper.m_DebugActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @DebugMode_Submit.started += instance.OnDebugMode_Submit;
+                @DebugMode_Submit.performed += instance.OnDebugMode_Submit;
+                @DebugMode_Submit.canceled += instance.OnDebugMode_Submit;
+                @DebugMode_Cancel.started += instance.OnDebugMode_Cancel;
+                @DebugMode_Cancel.performed += instance.OnDebugMode_Cancel;
+                @DebugMode_Cancel.canceled += instance.OnDebugMode_Cancel;
+                @DebugMode_Down.started += instance.OnDebugMode_Down;
+                @DebugMode_Down.performed += instance.OnDebugMode_Down;
+                @DebugMode_Down.canceled += instance.OnDebugMode_Down;
+                @DebugMode_Up.started += instance.OnDebugMode_Up;
+                @DebugMode_Up.performed += instance.OnDebugMode_Up;
+                @DebugMode_Up.canceled += instance.OnDebugMode_Up;
+                @DebugMode_Right.started += instance.OnDebugMode_Right;
+                @DebugMode_Right.performed += instance.OnDebugMode_Right;
+                @DebugMode_Right.canceled += instance.OnDebugMode_Right;
+                @DebugMode_Left.started += instance.OnDebugMode_Left;
+                @DebugMode_Left.performed += instance.OnDebugMode_Left;
+                @DebugMode_Left.canceled += instance.OnDebugMode_Left;
+            }
+        }
+    }
+    public DebugActions @Debug => new DebugActions(this);
+
+    // DebugTitle
+    private readonly InputActionMap m_DebugTitle;
+    private IDebugTitleActions m_DebugTitleActionsCallbackInterface;
+    private readonly InputAction m_DebugTitle_Stage1;
+    private readonly InputAction m_DebugTitle_Stage2;
+    private readonly InputAction m_DebugTitle_Stage3;
+    private readonly InputAction m_DebugTitle_Stage4;
+    private readonly InputAction m_DebugTitle_Stage5;
+    private readonly InputAction m_DebugTitle_Stage6;
+    private readonly InputAction m_DebugTitle_Stage7;
+    private readonly InputAction m_DebugTitle_Stage8;
+    private readonly InputAction m_DebugTitle_Stage9;
+    private readonly InputAction m_DebugTitle_Stage10;
+    public struct DebugTitleActions
+    {
+        private @ControlActions m_Wrapper;
+        public DebugTitleActions(@ControlActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Stage1 => m_Wrapper.m_DebugTitle_Stage1;
+        public InputAction @Stage2 => m_Wrapper.m_DebugTitle_Stage2;
+        public InputAction @Stage3 => m_Wrapper.m_DebugTitle_Stage3;
+        public InputAction @Stage4 => m_Wrapper.m_DebugTitle_Stage4;
+        public InputAction @Stage5 => m_Wrapper.m_DebugTitle_Stage5;
+        public InputAction @Stage6 => m_Wrapper.m_DebugTitle_Stage6;
+        public InputAction @Stage7 => m_Wrapper.m_DebugTitle_Stage7;
+        public InputAction @Stage8 => m_Wrapper.m_DebugTitle_Stage8;
+        public InputAction @Stage9 => m_Wrapper.m_DebugTitle_Stage9;
+        public InputAction @Stage10 => m_Wrapper.m_DebugTitle_Stage10;
+        public InputActionMap Get() { return m_Wrapper.m_DebugTitle; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(DebugTitleActions set) { return set.Get(); }
+        public void SetCallbacks(IDebugTitleActions instance)
+        {
+            if (m_Wrapper.m_DebugTitleActionsCallbackInterface != null)
+            {
+                @Stage1.started -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage1;
+                @Stage1.performed -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage1;
+                @Stage1.canceled -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage1;
+                @Stage2.started -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage2;
+                @Stage2.performed -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage2;
+                @Stage2.canceled -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage2;
+                @Stage3.started -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage3;
+                @Stage3.performed -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage3;
+                @Stage3.canceled -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage3;
+                @Stage4.started -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage4;
+                @Stage4.performed -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage4;
+                @Stage4.canceled -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage4;
+                @Stage5.started -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage5;
+                @Stage5.performed -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage5;
+                @Stage5.canceled -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage5;
+                @Stage6.started -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage6;
+                @Stage6.performed -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage6;
+                @Stage6.canceled -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage6;
+                @Stage7.started -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage7;
+                @Stage7.performed -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage7;
+                @Stage7.canceled -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage7;
+                @Stage8.started -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage8;
+                @Stage8.performed -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage8;
+                @Stage8.canceled -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage8;
+                @Stage9.started -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage9;
+                @Stage9.performed -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage9;
+                @Stage9.canceled -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage9;
+                @Stage10.started -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage10;
+                @Stage10.performed -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage10;
+                @Stage10.canceled -= m_Wrapper.m_DebugTitleActionsCallbackInterface.OnStage10;
+            }
+            m_Wrapper.m_DebugTitleActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Stage1.started += instance.OnStage1;
+                @Stage1.performed += instance.OnStage1;
+                @Stage1.canceled += instance.OnStage1;
+                @Stage2.started += instance.OnStage2;
+                @Stage2.performed += instance.OnStage2;
+                @Stage2.canceled += instance.OnStage2;
+                @Stage3.started += instance.OnStage3;
+                @Stage3.performed += instance.OnStage3;
+                @Stage3.canceled += instance.OnStage3;
+                @Stage4.started += instance.OnStage4;
+                @Stage4.performed += instance.OnStage4;
+                @Stage4.canceled += instance.OnStage4;
+                @Stage5.started += instance.OnStage5;
+                @Stage5.performed += instance.OnStage5;
+                @Stage5.canceled += instance.OnStage5;
+                @Stage6.started += instance.OnStage6;
+                @Stage6.performed += instance.OnStage6;
+                @Stage6.canceled += instance.OnStage6;
+                @Stage7.started += instance.OnStage7;
+                @Stage7.performed += instance.OnStage7;
+                @Stage7.canceled += instance.OnStage7;
+                @Stage8.started += instance.OnStage8;
+                @Stage8.performed += instance.OnStage8;
+                @Stage8.canceled += instance.OnStage8;
+                @Stage9.started += instance.OnStage9;
+                @Stage9.performed += instance.OnStage9;
+                @Stage9.canceled += instance.OnStage9;
+                @Stage10.started += instance.OnStage10;
+                @Stage10.performed += instance.OnStage10;
+                @Stage10.canceled += instance.OnStage10;
+            }
+        }
+    }
+    public DebugTitleActions @DebugTitle => new DebugTitleActions(this);
     public interface ITitleActions
     {
         void OnEnterProcess(InputAction.CallbackContext context);
@@ -1189,6 +1854,9 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
         void OnHighSpeedMove(InputAction.CallbackContext context);
         void OnToPause(InputAction.CallbackContext context);
         void OnFullHeal(InputAction.CallbackContext context);
+        void OnFullFood(InputAction.CallbackContext context);
+        void OnFullWater(InputAction.CallbackContext context);
+        void OnOpenDebugMode(InputAction.CallbackContext context);
     }
     public interface IPauseActions
     {
@@ -1203,5 +1871,27 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
         void OnSelectRightOnLevelUp(InputAction.CallbackContext context);
         void OnSelectUpOnEndLevelUp(InputAction.CallbackContext context);
         void OnSelectDownOnEndLevelUp(InputAction.CallbackContext context);
+    }
+    public interface IDebugActions
+    {
+        void OnDebugMode_Submit(InputAction.CallbackContext context);
+        void OnDebugMode_Cancel(InputAction.CallbackContext context);
+        void OnDebugMode_Down(InputAction.CallbackContext context);
+        void OnDebugMode_Up(InputAction.CallbackContext context);
+        void OnDebugMode_Right(InputAction.CallbackContext context);
+        void OnDebugMode_Left(InputAction.CallbackContext context);
+    }
+    public interface IDebugTitleActions
+    {
+        void OnStage1(InputAction.CallbackContext context);
+        void OnStage2(InputAction.CallbackContext context);
+        void OnStage3(InputAction.CallbackContext context);
+        void OnStage4(InputAction.CallbackContext context);
+        void OnStage5(InputAction.CallbackContext context);
+        void OnStage6(InputAction.CallbackContext context);
+        void OnStage7(InputAction.CallbackContext context);
+        void OnStage8(InputAction.CallbackContext context);
+        void OnStage9(InputAction.CallbackContext context);
+        void OnStage10(InputAction.CallbackContext context);
     }
 }

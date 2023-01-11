@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 /*******************************************************************
  *  <概要>
@@ -15,19 +16,45 @@ public class TitleScene : MonoBehaviour
 
     private void OnEnable()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        InitializeParameter();
+        soundManager_2 = GetComponent<SoundManager_2>();
         PlayerController.Controller.Title.Enable();
+
+#if UNITY_EDITOR
+        PlayerController.Controller.DebugTitle.Stage1.started += Press_Start_Debug_1;
+        PlayerController.Controller.DebugTitle.Stage2.started += Press_Start_Debug_2;
+        PlayerController.Controller.DebugTitle.Stage3.started += Press_Start_Debug_3;
+        PlayerController.Controller.DebugTitle.Stage4.started += Press_Start_Debug_4;
+        PlayerController.Controller.DebugTitle.Stage5.started += Press_Start_Debug_5;
+        PlayerController.Controller.DebugTitle.Stage6.started += Press_Start_Debug_6;
+        PlayerController.Controller.DebugTitle.Stage7.started += Press_Start_Debug_7;
+        PlayerController.Controller.DebugTitle.Stage8.started += Press_Start_Debug_8;
+        PlayerController.Controller.DebugTitle.Stage9.started += Press_Start_Debug_9;
+        PlayerController.Controller.DebugTitle.Enable();
+#endif
     }
 
     private void OnDisable()
     {
         PlayerController.Controller.Title.Disable();
+#if UNITY_EDITOR
+        PlayerController.Controller.DebugTitle.Stage1.started -= Press_Start_Debug_1;
+        PlayerController.Controller.DebugTitle.Stage2.started -= Press_Start_Debug_2;
+        PlayerController.Controller.DebugTitle.Stage3.started -= Press_Start_Debug_3;
+        PlayerController.Controller.DebugTitle.Stage4.started -= Press_Start_Debug_4;
+        PlayerController.Controller.DebugTitle.Stage5.started -= Press_Start_Debug_5;
+        PlayerController.Controller.DebugTitle.Stage6.started -= Press_Start_Debug_6;
+        PlayerController.Controller.DebugTitle.Stage7.started -= Press_Start_Debug_7;
+        PlayerController.Controller.DebugTitle.Stage8.started -= Press_Start_Debug_8;
+        PlayerController.Controller.DebugTitle.Stage9.started -= Press_Start_Debug_9;
+        PlayerController.Controller.DebugTitle.Disable();
+#endif
     }
 
     private void Awake()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        InitializeParameter();
     }
 
     // Start is called before the first frame update
@@ -42,6 +69,77 @@ public class TitleScene : MonoBehaviour
     void Update()
     {
     }
+
+    private void DebugStart()
+    {
+        Parameter.IS_DEBUG_MODE = true;
+        Debug.Log("Press_Start");
+        Parameter.NEXT_SCENE_NAME = "Play";
+        SceneManager.LoadSceneAsync("Loading");
+    }
+
+    private void Press_Start_Debug_1(InputAction.CallbackContext context)
+    {
+        Parameter.DEBUG_MAP_INDEX = 0;
+        DebugStart();
+    }
+
+    private void Press_Start_Debug_2(InputAction.CallbackContext context)
+    {
+        Parameter.DEBUG_MAP_INDEX = 1;
+        DebugStart();
+    }
+
+    private void Press_Start_Debug_3(InputAction.CallbackContext context)
+    {
+        Parameter.DEBUG_MAP_INDEX = 2;
+        DebugStart();
+    }
+
+    private void Press_Start_Debug_4(InputAction.CallbackContext context)
+    {
+        Parameter.DEBUG_MAP_INDEX = 3;
+        DebugStart();
+    }
+
+    private void Press_Start_Debug_5(InputAction.CallbackContext context)
+    {
+        Parameter.DEBUG_MAP_INDEX = 4;
+        DebugStart();
+    }
+
+    private void Press_Start_Debug_6(InputAction.CallbackContext context)
+    {
+        Parameter.DEBUG_MAP_INDEX = 5;
+        DebugStart();
+    }
+
+    private void Press_Start_Debug_7(InputAction.CallbackContext context)
+    {
+        Parameter.DEBUG_MAP_INDEX = 6;
+        DebugStart();
+    }
+
+    private void Press_Start_Debug_8(InputAction.CallbackContext context)
+    {
+        Parameter.DEBUG_MAP_INDEX = 7;
+        DebugStart();
+    }
+
+    private void Press_Start_Debug_9(InputAction.CallbackContext context)
+    {
+        Parameter.DEBUG_MAP_INDEX = 8;
+        DebugStart();
+    }
+
+    private void Press_Start_Debug_0(InputAction.CallbackContext context)
+    {
+        Parameter.DEBUG_MAP_INDEX = 9;
+        DebugStart();
+    }
+
+
+
 
     // ゲームスタートのボタン
     public void Press_Start()
@@ -105,6 +203,9 @@ public class TitleScene : MonoBehaviour
     {
         Parameter.CURRENT_ALIVE_DAY = 0;
         Parameter.CURRENT_SCORE = 0;
+#if UNITY_EDITOR
+        Parameter.IS_DEBUG_MODE = false;
+#endif
     }
 
 }

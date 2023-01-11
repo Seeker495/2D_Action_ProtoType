@@ -52,6 +52,13 @@ public class PlayScene : MonoBehaviour
     [SerializeField]
     private GameObject m_pauseDisplayObject;
     private PauseDisplay m_pauseDisplay;
+
+#if UNITY_EDITOR
+    [SerializeField] private GameObject m_debugDisplayObject;
+    [SerializeField]
+    private List<string> m_debugStageNames;
+#endif
+
     [SerializeField]
     private List<string> m_stageNames;
 
@@ -59,11 +66,17 @@ public class PlayScene : MonoBehaviour
     {
         PlayerController.Controller.Play.Enable();
         PlayerController.Controller.Play.ToPause.started += Pause;
+#if UNITY_EDITOR
+        PlayerController.Controller.Play.OpenDebugMode.started += OpenDebugMode;
+#endif
     }
 
     private void OnDisable()
     {
         PlayerController.Controller.Play.ToPause.started -= Pause;
+#if UNITY_EDITOR
+        PlayerController.Controller.Play.OpenDebugMode.started -= OpenDebugMode;
+#endif
         PlayerController.Controller.Play.Disable();
 
     }
@@ -75,8 +88,19 @@ public class PlayScene : MonoBehaviour
 
         /* オブジェクトの複製及び代入を行う */
         Instantiate(m_mapObject, null).TryGetComponent(out m_map);
+#if UNITY_EDITOR
+        if (Parameter.IS_DEBUG_MODE)
+            // マップの読み込み(先に読み込まないとプレイヤーを取得できないため)
+            m_map.Load(m_debugStageNames[Parameter.DEBUG_MAP_INDEX]);
+        else
+            // マップの読み込み(先に読み込まないとプレイヤーを取得できないため)
+            m_map.Load(m_stageNames[(int)Parameter.CURRENT_ALIVE_DAY]);
+
+#else
         // マップの読み込み(先に読み込まないとプレイヤーを取得できないため)
         m_map.Load(m_stageNames[(int)Parameter.CURRENT_ALIVE_DAY]);
+#endif
+
         GameObject.FindWithTag("Player").TryGetComponent(out m_player);
         m_cameraObject = Instantiate(m_cameraObject, null);
         m_farCameraObject = Instantiate(m_farCameraObject, null);
@@ -89,6 +113,11 @@ public class PlayScene : MonoBehaviour
         m_cameraObject.GetComponent<CinemachineVirtualCamera>().Follow = m_player.transform;
         m_farCameraObject.GetComponent<CinemachineVirtualCamera>().Follow = m_player.transform;
         m_pauseDisplay.gameObject.SetActive(false);
+#if UNITY_EDITOR
+        m_debugDisplayObject = Instantiate(m_debugDisplayObject, GameObject.FindGameObjectWithTag("Canvas").transform);
+        m_debugDisplayObject.SetActive(false);
+#endif
+
 
     }
 
@@ -125,4 +154,11 @@ public class PlayScene : MonoBehaviour
         Time.timeScale = 0.0f;
         m_pauseDisplay.gameObject.SetActive(true);
     }
+
+#if UNITY_EDITOR
+    private void OpenDebugMode(InputAction.CallbackContext context)
+    {
+        m_debugDisplayObject.SetActive(true);
+    }
+#endif
 }

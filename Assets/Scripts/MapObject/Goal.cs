@@ -29,6 +29,15 @@ public class Goal : MonoBehaviour
 
     private void ToNextDay()
     {
+#if UNITY_EDITOR
+        if(Parameter.IS_DEBUG_MODE)
+        {
+            Parameter.NEXT_SCENE_NAME = "Title";
+            SceneManager.LoadSceneAsync("Loading");
+            return;
+        }
+#endif
+
         Parameter.CURRENT_ALIVE_DAY++;
         if (Parameter.CURRENT_ALIVE_DAY == Parameter.LAST_ALIVE_DAY)
             Parameter.NEXT_SCENE_NAME = "Result";
