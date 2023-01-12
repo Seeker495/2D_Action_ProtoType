@@ -146,11 +146,9 @@ public class TitleScene : MonoBehaviour
     // ゲームスタートのボタン
     public void Press_Start()
     {
-
         Debug.Log("Press_Start");
         Parameter.NEXT_SCENE_NAME = "Play";
         SceneManager.LoadSceneAsync("Loading");
-
 
         // 決定音
         SoundPlayer.PlaySFX(eSFX.DECISION);
