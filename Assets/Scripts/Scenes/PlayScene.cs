@@ -109,7 +109,10 @@ public class PlayScene : MonoBehaviour
         Instantiate(m_playUIObject, GameObject.FindGameObjectWithTag("Canvas").transform).TryGetComponent(out m_playUI);
         Instantiate(m_pauseDisplayObject, GameObject.FindGameObjectWithTag("Canvas").transform).TryGetComponent(out m_pauseDisplay);
         if (Parameter.CURRENT_ALIVE_DAY != 0)
+        {
             m_player.SetParameter(PlayerData.GetStatus());
+            m_player.SetSkill(PlayerData.GetSkillList());
+        }
         m_cameraObject.GetComponent<CinemachineVirtualCamera>().Follow = m_player.transform;
         m_farCameraObject.GetComponent<CinemachineVirtualCamera>().Follow = m_player.transform;
         m_pauseDisplay.gameObject.SetActive(false);

@@ -35,6 +35,7 @@ public class Player : MonoBehaviour, IActor
     private long m_increaseScore = 0;
     private int m_hitCombo = 0;
     private bool m_isDashing = false;
+    private SkillInfo[] m_haveSkillList;
     // サウンドマネージャー
     public SoundManager_2 soundManager_2;
 
@@ -117,6 +118,10 @@ public class Player : MonoBehaviour, IActor
         m_status = status;
     }
 
+    public void SetSkill(SkillInfo[] skills)
+    {
+        m_haveSkillList = skills;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -559,4 +564,10 @@ public class Player : MonoBehaviour, IActor
         bool isOutY = Mathf.Abs(rigidbody.position.x - m_rigidbody2D.position.x) > 10.0f;
         return isOutX && isOutY;
     }
+
+    private bool IsGotSkill(in int index)
+    {
+        return m_haveSkillList[index] != null;
+    }
+
 }
