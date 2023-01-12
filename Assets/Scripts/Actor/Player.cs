@@ -35,9 +35,26 @@ public class Player : MonoBehaviour, IActor
     private long m_increaseScore = 0;
     private int m_hitCombo = 0;
     private bool m_isDashing = false;
-    private SkillInfo[] m_haveSkillList;
+    private SkillInfo[] m_haveSkillList = new SkillInfo[50];
     // サウンドマネージャー
     public SoundManager_2 soundManager_2;
+
+    // 最大HPアップ
+    int skill_MaxHpUp = 0; 
+    // 最大攻撃力アップ
+    float skill_MaxAttackUp = 0; 
+    // 最大防御力アップ
+    float skill_MaxDefenceUp = 0; 
+    // 最大お腹ゲージアップ
+    int skill_MaxFoodGaugeUp = 0; 
+    // 最大喉ゲージアップ
+    int skill_MaxWaterGaugeUp = 0;
+    // 最大速度アップ
+    float skill_SpeedUp = 0;
+    // 入手コインアップ
+    int skill_MoneyUp = 0;
+    // 入手経験値アップ
+    int skill_ExpUp = 0;
 
     // 煙アニメーションのオブジェクト
     [SerializeField]
@@ -91,18 +108,139 @@ public class Player : MonoBehaviour, IActor
         soundManager_2 = GameObject.FindWithTag("SoundManager").GetComponent<SoundManager_2>();
 
         m_rigidbody2D = GetComponent<Rigidbody2D>();
+        
+        // 最大HP +10%
+        if (IsGotSkill(0))
+        {
+            skill_MaxHpUp = Parameter.PLAYER_MAX_HP + (Parameter.PLAYER_MAX_HP / 10);
+        }
+        // 最大HP +25%
+        if (IsGotSkill(1))
+        {
+            skill_MaxHpUp = Parameter.PLAYER_MAX_HP + (Parameter.PLAYER_MAX_HP / 4);
+        }
+        // 最大HP +50%
+        if (IsGotSkill(2))
+        {
+            skill_MaxHpUp = Parameter.PLAYER_MAX_HP + (Parameter.PLAYER_MAX_HP / 2);
+        }    
+        // 最大攻撃力 +5%
+        if (IsGotSkill(3))
+        {
+            skill_MaxAttackUp = Parameter.PLAYER_INIT_ATTACK + (Parameter.PLAYER_INIT_ATTACK / 20.0f);
+        } 
+        // 最大攻撃力 +10%
+        if (IsGotSkill(4))
+        {
+            skill_MaxAttackUp = Parameter.PLAYER_INIT_ATTACK + (Parameter.PLAYER_INIT_ATTACK / 10.0f);
+        } 
+        // 最大攻撃力 +20%
+        if (IsGotSkill(5))
+        {
+            skill_MaxAttackUp = Parameter.PLAYER_INIT_ATTACK + (Parameter.PLAYER_INIT_ATTACK / 5.0f);
+        } 
+        // 最大防御力 +5%
+        if (IsGotSkill(6))
+        {
+            skill_MaxDefenceUp = Parameter.PLAYER_INIT_DEFENCE + (Parameter.PLAYER_INIT_DEFENCE / 20.0f);
+        }
+        // 最大防御力 +10%
+        if (IsGotSkill(7))
+        {
+            skill_MaxDefenceUp = Parameter.PLAYER_INIT_DEFENCE + (Parameter.PLAYER_INIT_DEFENCE / 10.0f);
+        }
+        // 最大防御力 +20%
+        if (IsGotSkill(8))
+        {
+            skill_MaxDefenceUp = Parameter.PLAYER_INIT_DEFENCE + (Parameter.PLAYER_INIT_DEFENCE / 5.0f);
+        }
+        // 最大お腹ゲージ +10%
+        if (IsGotSkill(9))
+        {
+            skill_MaxFoodGaugeUp = Parameter.FOOD_GAUGE_MAX + (Parameter.FOOD_GAUGE_MAX / 10);
+        }
+        // 最大お腹ゲージ +25%
+        if (IsGotSkill(10))
+        {
+            skill_MaxFoodGaugeUp = Parameter.FOOD_GAUGE_MAX + (Parameter.FOOD_GAUGE_MAX / 4);
+        }
+        // 最大お腹ゲージ +50%
+        if (IsGotSkill(11))
+        {
+            skill_MaxFoodGaugeUp = Parameter.FOOD_GAUGE_MAX + (Parameter.FOOD_GAUGE_MAX / 2);
+        }
+        // 最大喉ゲージ +10%
+        if (IsGotSkill(12))
+        {
+            skill_MaxWaterGaugeUp = Parameter.WATER_GAUGE_MAX + (Parameter.WATER_GAUGE_MAX / 10);
+        }
+        // 最大喉ゲージ +25%
+        if (IsGotSkill(13))
+        {
+            skill_MaxWaterGaugeUp = Parameter.WATER_GAUGE_MAX + (Parameter.WATER_GAUGE_MAX / 4);
+        }
+        // 最大喉ゲージ +50%
+        if (IsGotSkill(14))
+        {
+            skill_MaxWaterGaugeUp = Parameter.WATER_GAUGE_MAX + (Parameter.WATER_GAUGE_MAX / 2);
+        }
+        // 最大スピード +5%
+        if (IsGotSkill(15))
+        {
+            skill_SpeedUp = Parameter.PLAYER_NORMAL_VELOCITY + (Parameter.PLAYER_NORMAL_VELOCITY / 20.0f);
+        }
+        // 入手コイン +5%
+        if (IsGotSkill(16))
+        {
+            skill_MoneyUp = m_status.money + (m_status.money / 20);
+        }        
+        // 入手経験値 +5%
+        if (IsGotSkill(17))
+        {
+            skill_ExpUp = m_status.exp + (m_status.exp / 20);
+        }
+        // 星３出現率アップ
+        if (IsGotSkill(18))
+        {            
+        }
+        // レアお宝出現率アップ
+        if (IsGotSkill(19))
+        {            
+        }
+        // お宝ドロップ率アップ
+        if (IsGotSkill(20))
+        {            
+        }
+        // 攻撃力2倍,喉ゲージ減少量2倍
+        if (IsGotSkill(21))
+        {            
+        }
+        // 回復アイテムの回復量2倍
+        if (IsGotSkill(22))
+        {            
+        }
+        // 喉ゲージ減少量半減
+        if (IsGotSkill(23))
+        {            
+        }
+        // お腹がすくと攻撃量2倍
+        if (IsGotSkill(24))
+        {            
+        }
 
-        m_status.actorStatus.hp = Parameter.PLAYER_MAX_HP;
+
+
+        m_status.actorStatus.hp = Parameter.PLAYER_MAX_HP ;
         m_status.actorStatus.speed = Parameter.PLAYER_NORMAL_VELOCITY;
-        m_status.actorStatus.attack = Parameter.PLAYER_INIT_ATTACK;
-        m_status.actorStatus.defence = Parameter.PLAYER_INIT_DEFENCE;
+        m_status.actorStatus.attack = Parameter.PLAYER_INIT_ATTACK ;
+        m_status.actorStatus.defence = Parameter.PLAYER_INIT_DEFENCE ;
         m_status.exp = 0;
         m_status.money = 0;
-        m_status.foodGauge = Parameter.FOOD_GAUGE_MAX;
+        m_status.foodGauge = Parameter.FOOD_GAUGE_MAX ;
         m_status.waterGauge = Parameter.WATER_GAUGE_MAX;
-        m_status.maxHP = Parameter.PLAYER_MAX_HP;
-        m_status.maxAttack = Parameter.PLAYER_INIT_ATTACK;
-        m_status.maxdefence = Parameter.PLAYER_INIT_DEFENCE;
+        m_status.maxHP = Parameter.PLAYER_MAX_HP ;
+        m_status.maxAttack = Parameter.PLAYER_INIT_ATTACK ;
+        m_status.maxdefence = Parameter.PLAYER_INIT_DEFENCE ; 
 
         // 武器リスト
         m_weapons = new List<AttackBase>(3)

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b74a764bfcceec943855a6a75593fff9, type: 3}
-  m_Name: Skill_1
+  m_Name: Skill_6
   m_EditorClassIdentifier: 
-  m_name: "\u6700\u5927HP\u30A2\u30C3\u30D7+10%"
-  m_rare: 1
-  m_description: "\u6700\u5927HP\u304C10%\u4E0A\u304C\u308B"
+  m_name: "\u653B\u6483\u529B\u30A2\u30C3\u30D7+20%"
+  m_rare: 3
+  m_description: "\u653B\u6483\u529B\u304C20%\u4E0A\u304C\u308B"
   m_libraryIndex: 1

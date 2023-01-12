@@ -17,7 +17,7 @@ public class SoundManager_2 : MonoBehaviour
 
     // オーディオの構造体
     [System.Serializable]
-    public struct AudioInfo
+    public struct AudioInfo 
     {
         // 音の名前
         public string name;
@@ -36,7 +36,7 @@ public class SoundManager_2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+      
     }
 
     // bgmを流す
