@@ -62,8 +62,14 @@ public class PlayScene : MonoBehaviour
     [SerializeField]
     private List<string> m_stageNames;
 
+    [SerializeField] private GameObject m_soundManagerObject;
+
     private void OnEnable()
     {
+        m_soundManagerObject = Instantiate(m_soundManagerObject, null);
+        SoundPlayer.SetUp(m_soundManagerObject);
+        SoundPlayer.PlayBGM(eBGM.PLAY);
+
         PlayerController.Controller.Play.Enable();
         PlayerController.Controller.Play.ToPause.started += Pause;
 #if UNITY_EDITOR

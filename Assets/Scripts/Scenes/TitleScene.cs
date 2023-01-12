@@ -11,15 +11,17 @@ using UnityEngine.InputSystem;
  *******************************************************************/
 public class TitleScene : MonoBehaviour
 {
-    [SerializeField]
-    SoundManager_2 soundManager_2;
+    [SerializeField] private GameObject m_soundManagerObject;
 
     private void OnEnable()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         InitializeParameter();
-        soundManager_2 = GetComponent<SoundManager_2>();
+        m_soundManagerObject = Instantiate(m_soundManagerObject, null);
+        SoundPlayer.SetUp(m_soundManagerObject);
+        SoundPlayer.PlayBGM(eBGM.TITLE);
+
         PlayerController.Controller.Title.Enable();
 
 #if UNITY_EDITOR
@@ -151,38 +153,38 @@ public class TitleScene : MonoBehaviour
 
 
         // 決定音
-        soundManager_2.PlaySe(0);
+        SoundPlayer.PlaySFX(eSFX.DECISION);
     }
     // コンティニューボタン
     public void Press_Continue()
     {
         Debug.Log("Press_Continue");
         // 決定音
-        soundManager_2.PlaySe(0);
+        SoundPlayer.PlaySFX(eSFX.DECISION);
     }
     // エンドレスボタン
-     public void Press_Endless()
+    public void Press_Endless()
     {
 
         Debug.Log("Press_Endless");
         // 決定音
-        soundManager_2.PlaySe(0);
+        SoundPlayer.PlaySFX(eSFX.DECISION);
     }
     // コレクションボタン
-     public void Press_Collection()
+    public void Press_Collection()
     {
 
         Debug.Log("Press_Collection");
         // 決定音
-        soundManager_2.PlaySe(0);
+        SoundPlayer.PlaySFX(eSFX.DECISION);
     }
 
     // オプションのボタン
-     public void Press_Option()
+    public void Press_Option()
     {
         Debug.Log("Press_Option");
         // 決定音
-        soundManager_2.PlaySe(0);
+        SoundPlayer.PlaySFX(eSFX.DECISION);
     }
 
     // ゲームを終わる
@@ -190,7 +192,7 @@ public class TitleScene : MonoBehaviour
     {
         Debug.Log("Press_Quit");
         // 決定音
-        soundManager_2.PlaySe(0);
+        SoundPlayer.PlaySFX(eSFX.DECISION);
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
