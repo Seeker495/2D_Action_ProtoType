@@ -2470,6 +2470,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9293d4bffc77a9b4996cc5af41c83fa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sampleImage: {fileID: 0}
+  sprite: []
+  walkSpeed: 0
 --- !u!114 &1665478647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2490,7 +2493,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1596084570, guid: 34a00cf34d17e2c4f88a63082cd8fd89, type: 3}
+  m_Sprite: {fileID: 53273629, guid: 1e0a46d114eaf294d97658fb09767447, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

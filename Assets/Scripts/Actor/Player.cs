@@ -36,17 +36,15 @@ public class Player : MonoBehaviour, IActor
     private int m_hitCombo = 0;
     private bool m_isDashing = false;
     private SkillInfo[] m_haveSkillList = new SkillInfo[50];
-    // サウンドマネージャー
-    public SoundManager_2 soundManager_2;
 
     // 最大HPアップ
-    int skill_MaxHpUp = 0; 
+    int skill_MaxHpUp = 0;
     // 最大攻撃力アップ
-    float skill_MaxAttackUp = 0; 
+    float skill_MaxAttackUp = 0;
     // 最大防御力アップ
-    float skill_MaxDefenceUp = 0; 
+    float skill_MaxDefenceUp = 0;
     // 最大お腹ゲージアップ
-    int skill_MaxFoodGaugeUp = 0; 
+    int skill_MaxFoodGaugeUp = 0;
     // 最大喉ゲージアップ
     int skill_MaxWaterGaugeUp = 0;
     // 最大速度アップ
@@ -105,10 +103,9 @@ public class Player : MonoBehaviour, IActor
 
     void Awake()
     {
-        soundManager_2 = GameObject.FindWithTag("SoundManager").GetComponent<SoundManager_2>();
 
         m_rigidbody2D = GetComponent<Rigidbody2D>();
-        
+
         // 最大HP +10%
         if (IsGotSkill(0))
         {
@@ -123,22 +120,22 @@ public class Player : MonoBehaviour, IActor
         if (IsGotSkill(2))
         {
             skill_MaxHpUp = Parameter.PLAYER_MAX_HP + (Parameter.PLAYER_MAX_HP / 2);
-        }    
+        }
         // 最大攻撃力 +5%
         if (IsGotSkill(3))
         {
             skill_MaxAttackUp = Parameter.PLAYER_INIT_ATTACK + (Parameter.PLAYER_INIT_ATTACK / 20.0f);
-        } 
+        }
         // 最大攻撃力 +10%
         if (IsGotSkill(4))
         {
             skill_MaxAttackUp = Parameter.PLAYER_INIT_ATTACK + (Parameter.PLAYER_INIT_ATTACK / 10.0f);
-        } 
+        }
         // 最大攻撃力 +20%
         if (IsGotSkill(5))
         {
             skill_MaxAttackUp = Parameter.PLAYER_INIT_ATTACK + (Parameter.PLAYER_INIT_ATTACK / 5.0f);
-        } 
+        }
         // 最大防御力 +5%
         if (IsGotSkill(6))
         {
@@ -193,7 +190,7 @@ public class Player : MonoBehaviour, IActor
         if (IsGotSkill(16))
         {
             skill_MoneyUp = m_status.money + (m_status.money / 20);
-        }        
+        }
         // 入手経験値 +5%
         if (IsGotSkill(17))
         {
@@ -201,31 +198,31 @@ public class Player : MonoBehaviour, IActor
         }
         // 星３出現率アップ
         if (IsGotSkill(18))
-        {            
+        {
         }
         // レアお宝出現率アップ
         if (IsGotSkill(19))
-        {            
+        {
         }
         // お宝ドロップ率アップ
         if (IsGotSkill(20))
-        {            
+        {
         }
         // 攻撃力2倍,喉ゲージ減少量2倍
         if (IsGotSkill(21))
-        {            
+        {
         }
         // 回復アイテムの回復量2倍
         if (IsGotSkill(22))
-        {            
+        {
         }
         // 喉ゲージ減少量半減
         if (IsGotSkill(23))
-        {            
+        {
         }
         // お腹がすくと攻撃量2倍
         if (IsGotSkill(24))
-        {            
+        {
         }
 
 
@@ -240,7 +237,7 @@ public class Player : MonoBehaviour, IActor
         m_status.waterGauge = Parameter.WATER_GAUGE_MAX;
         m_status.maxHP = Parameter.PLAYER_MAX_HP ;
         m_status.maxAttack = Parameter.PLAYER_INIT_ATTACK ;
-        m_status.maxdefence = Parameter.PLAYER_INIT_DEFENCE ; 
+        m_status.maxdefence = Parameter.PLAYER_INIT_DEFENCE ;
 
         // 武器リスト
         m_weapons = new List<AttackBase>(3)
@@ -276,7 +273,7 @@ public class Player : MonoBehaviour, IActor
         if (!pinchiFlag && (float)m_status.actorStatus.hp / (float)m_status.maxHP <= 0.3f)
         {
             pinchiFlag = true;
-            soundManager_2.PlaySe("ピンチ");
+            SoundPlayer.PlaySFX(eSFX.PINCHI);
         }
         else
         {
@@ -332,7 +329,7 @@ public class Player : MonoBehaviour, IActor
     {
         //m_isDashing = true;
         // 早い移動の音
-        soundManager_2.PlaySe("早い移動");
+        SoundPlayer.PlaySFX(eSFX.HIGH_SPEED);
         m_rigidbody2D.velocity = m_velocity * m_rigidbody2D.velocity.normalized *Parameter.PLAYER_DASH_MULTIPLY;
 
     }
@@ -371,7 +368,7 @@ public class Player : MonoBehaviour, IActor
         WeaponIndex = System.Math.Abs(--WeaponIndex + m_weapons.Count) % m_weapons.Count;
 
         // 武器チェンジの音
-        soundManager_2.PlaySe("武器チェンジ");
+        SoundPlayer.PlaySFX(eSFX.CHANGE_WEAPON);
 
         if (!GetComponentInChildren<SmokeAnimation>())
         {
@@ -388,7 +385,7 @@ public class Player : MonoBehaviour, IActor
         WeaponIndex = System.Math.Abs(++WeaponIndex) % m_weapons.Count;
 
         // 武器チェンジの音
-        soundManager_2.PlaySe("武器チェンジ");
+        SoundPlayer.PlaySFX(eSFX.CHANGE_WEAPON);
 
         if (!GetComponentInChildren<SmokeAnimation>())
         {
@@ -579,7 +576,7 @@ public class Player : MonoBehaviour, IActor
         var playUI = GameObject.FindWithTag("PlayUI");
         playUI.SendMessage("Damage");
         // ダメージを受ける音
-        soundManager_2.PlaySe("ダメージ");
+        SoundPlayer.PlaySFX(eSFX.DAMAGE);
 
         int damage = Mathf.RoundToInt(attack - m_status.actorStatus.defence);
         m_status.actorStatus.hp -= damage;
@@ -627,7 +624,7 @@ public class Player : MonoBehaviour, IActor
     public void AddExp(in int exp)
     {
         // 経験値取得
-        soundManager_2.PlaySe("経験値");
+        SoundPlayer.PlaySFX(eSFX.GET_EXP);
 
         m_status.exp += exp * 2;
     }
