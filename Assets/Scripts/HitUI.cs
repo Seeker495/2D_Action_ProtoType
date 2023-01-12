@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Hit : MonoBehaviour
+public class HitUI : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI m_hitValueText;
@@ -26,7 +26,8 @@ public class Hit : MonoBehaviour
 
     public void SetHitCombo(in int hitCombo)
     {
-        if(hitCombo <= 0 || m_hitValueText.text == hitCombo.ToString()) return;
+        if (hitCombo <= 0 || m_hitValueText.text == hitCombo.ToString()) return;
+        gameObject.SetActive(true);
 
         m_hitValueText.text = hitCombo.ToString();
         if(m_coroutine != null)
@@ -37,12 +38,16 @@ public class Hit : MonoBehaviour
     private IEnumerator DisplayHit(int hitCombo, float duration = 0.0f)
     {
         float t = 0.0f;
-        m_animator.PlayInFixedTime("ScalingHit", 0, 0);
+        m_animator.PlayInFixedTime("New State", 0, 0);
+        m_animator.SetBool("IsStart", true);
         while (t < 3.0f)
         {
             t += Time.deltaTime;
             yield return null;
         }
+        m_animator.SetBool("IsStart", false);
         m_player.ResetCombo();
+        gameObject.SetActive(false);
+
     }
 }

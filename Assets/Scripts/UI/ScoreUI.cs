@@ -33,11 +33,12 @@ public class ScoreUI : MonoBehaviour
 
         m_animator.SetBool(isStart, true);
         m_animator.SetBool(isFinish, false);
+
+        StartCoroutine(AddScoreAnimation(1000));
     }
 
     public void AddScore()
     {
-        StartCoroutine(AddScoreAnimation(1000));
     }
 
     IEnumerator AddScoreAnimation(long unit = 1)
@@ -56,10 +57,8 @@ public class ScoreUI : MonoBehaviour
         Parameter.CURRENT_SCORE = m_score;
     }
 
-    public void SetScore(long score, long addScore = 0)
+    public void SettingScore(long score, long addScore = 0)
     {
-        if(m_score == 0)
-            m_score = score;
         if (m_addScore == 0)
             m_addScore = addScore;
         else

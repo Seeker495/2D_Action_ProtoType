@@ -32,6 +32,16 @@ public class FollowCamera : MonoBehaviour
         {eCameraDistanceRatio.FAR,      Parameter.CAMERA_FAR_DISTANCE },
     };
 
+    private void OnEnable()
+    {
+        PlayerController.Controller.Play.AdjustCameraDistance.started += AdjustCameraDistance;
+    }
+
+    private void OnDisable()
+    {
+        PlayerController.Controller.Play.AdjustCameraDistance.started -= AdjustCameraDistance;
+    }
+
     /*******************************************************************
      *  ƒJƒƒ‰‚Ì‹——£‚ğ’²®‚·‚é(ƒJƒƒ‰‚Ì‹——£‚ÌØ‚è‘Ö‚¦)
      *******************************************************************/

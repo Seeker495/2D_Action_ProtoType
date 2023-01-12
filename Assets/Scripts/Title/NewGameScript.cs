@@ -8,41 +8,41 @@ public class NewGameScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-  
+
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        // 画像を透過させる処理
-        Color color = gameObject.GetComponent<Image>().color;
-        
-        Vector2 targetSize;
-        
-        if (menu_Script.GetButtonNum() == (int)menu_Script.MENU_TYPE.NEWGAME)
-        {
-            // ボタンのサイズを300x200に変更する
-            targetSize = menu_Script.SizeSelect;
+        //// 画像を透過させる処理
+        //Color color = gameObject.GetComponent<Image>().color;
 
-            // 画像を透過させる処理
-            color.r = menu_Script.ColorSelect.x;
-            color.g = menu_Script.ColorSelect.y;
-            color.b = menu_Script.ColorSelect.z;
-            color.a = 1.0f;
-        }
-        else
-        {
-            targetSize = menu_Script.SizeNotSelect;
-            color.r = menu_Script.ColorNotSelect.x;
-            color.g = menu_Script.ColorNotSelect.y;
-            color.b = menu_Script.ColorNotSelect.z;
-            color.a = 0.0f;
-        }
-        
+        //Vector2 targetSize;
 
-        gameObject.GetComponent<Image>().color = color;
+        //if (menu_Script.GetButtonNum() == (int)menu_Script.MENU_TYPE.NEWGAME)
+        //{
+        //    // ボタンのサイズを300x200に変更する
+        //    targetSize = menu_Script.SizeSelect;
 
-        GetComponent<RectTransform>().sizeDelta = targetSize;
+        //    // 画像を透過させる処理
+        //    color.r = menu_Script.ColorSelect.x;
+        //    color.g = menu_Script.ColorSelect.y;
+        //    color.b = menu_Script.ColorSelect.z;
+        //    color.a = 1.0f;
+        //}
+        //else
+        //{
+        //    targetSize = menu_Script.SizeNotSelect;
+        //    color.r = menu_Script.ColorNotSelect.x;
+        //    color.g = menu_Script.ColorNotSelect.y;
+        //    color.b = menu_Script.ColorNotSelect.z;
+        //    color.a = 0.0f;
+        //}
+
+
+        //gameObject.GetComponent<Image>().color = color;
+
+        //GetComponent<RectTransform>().sizeDelta = targetSize;
     }
 }

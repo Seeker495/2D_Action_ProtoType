@@ -34,7 +34,7 @@ public class Player : MonoBehaviour, IActor
     private long m_score = 0;
     private long m_increaseScore = 0;
     private int m_hitCombo = 0;
-
+    private bool m_isDashing = false;
     // サウンドマネージャー
     public SoundManager_2 soundManager_2;
 
@@ -44,6 +44,46 @@ public class Player : MonoBehaviour, IActor
 
     // ピンチの時に流すseのフラグ
     bool pinchiFlag = false;
+
+    private void OnEnable()
+    {
+        PlayerController.Controller.Play.Move.performed += Move;
+        PlayerController.Controller.Play.Move.canceled += MoveEnd;
+        PlayerController.Controller.Play.Attack.started += Attack;
+        PlayerController.Controller.Play.Dash.started += DashStart;
+        PlayerController.Controller.Play.Dash.performed += Dashing;
+        PlayerController.Controller.Play.Dash.canceled += DashEnd;
+        PlayerController.Controller.Play.ChangeWeaponToLeft.started += SelectWeaponToLeft;
+        PlayerController.Controller.Play.ChangeWeaponToRight.started += SelectWeaponToRight;
+        PlayerController.Controller.Play.Resurrection.started += Resurrection;
+        PlayerController.Controller.Play.HighSpeedMove.started += HighSpeedMove;
+#if UNITY_EDITOR
+        PlayerController.Controller.Play.FullHeal.started += FullHeal;
+        PlayerController.Controller.Play.FullFood.started += FullFood;
+        PlayerController.Controller.Play.FullWater.started += FullWater;
+
+#endif
+    }
+
+    private void OnDisable()
+    {
+        PlayerController.Controller.Play.Move.performed -= Move;
+        PlayerController.Controller.Play.Move.canceled -= MoveEnd;
+        PlayerController.Controller.Play.Attack.started -= Attack;
+        PlayerController.Controller.Play.Dash.started -= DashStart;
+        PlayerController.Controller.Play.Dash.performed -= Dashing;
+        PlayerController.Controller.Play.Dash.canceled -= DashEnd;
+        PlayerController.Controller.Play.ChangeWeaponToLeft.started -= SelectWeaponToLeft;
+        PlayerController.Controller.Play.ChangeWeaponToRight.started -= SelectWeaponToRight;
+        PlayerController.Controller.Play.Resurrection.started -= Resurrection;
+        PlayerController.Controller.Play.HighSpeedMove.started -= HighSpeedMove;
+#if UNITY_EDITOR
+        PlayerController.Controller.Play.FullHeal.started -= FullHeal;
+        PlayerController.Controller.Play.FullFood.started -= FullFood;
+        PlayerController.Controller.Play.FullWater.started -= FullWater;
+#endif
+    }
+
 
     void Awake()
     {
@@ -103,9 +143,30 @@ public class Player : MonoBehaviour, IActor
 
     }
 
+#if UNITY_EDITOR
+    private void FullHeal(InputAction.CallbackContext context)
+    {
+
+
+        m_status.actorStatus.hp = Parameter.PLAYER_MAX_HP;
+    }
+
+    private void FullFood(InputAction.CallbackContext context)
+    {
+        m_status.foodGauge = Parameter.FOOD_GAUGE_MAX;
+    }
+
+    private void FullWater(InputAction.CallbackContext context)
+    {
+        m_status.waterGauge = Parameter.WATER_GAUGE_MAX;
+    }
+
+#endif
     private void FixedUpdate()
     {
         DecreaseGauge();
+        GetComponent<BoxCollider2D>().isTrigger = m_isDamaged;
+        Debug.Log($"Velocity = {m_rigidbody2D.velocity}");
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -124,28 +185,29 @@ public class Player : MonoBehaviour, IActor
     }
 
     // ダッシュ
-    public void Dash(InputAction.CallbackContext context)
+    public void DashStart(InputAction.CallbackContext context)
     {
-        switch (context.phase)
-        {
-            case InputActionPhase.Started:
-                m_velocity *= Parameter.PLAYER_DASH_MULTIPLY;
-
-                // 早い移動の音
-                soundManager_2.PlaySe("早い移動");
-                break;
-            case InputActionPhase.Canceled:
-                m_velocity *= 1.0f / Parameter.PLAYER_DASH_MULTIPLY;
-                break;
-        }
-        m_rigidbody2D.velocity = m_velocity;
+        //m_isDashing = true;
+        // 早い移動の音
+        soundManager_2.PlaySe("早い移動");
+        m_rigidbody2D.velocity = m_velocity * m_rigidbody2D.velocity.normalized *Parameter.PLAYER_DASH_MULTIPLY;
 
     }
 
+    public void Dashing(InputAction.CallbackContext context)
+    {
+        m_rigidbody2D.velocity = m_velocity * m_rigidbody2D.velocity.normalized * Parameter.PLAYER_DASH_MULTIPLY;
+    }
+
+    public void DashEnd(InputAction.CallbackContext context)
+    {
+        m_rigidbody2D.velocity = m_velocity;
+        //m_isDashing = false;
+    }
 
     public void Attack(InputAction.CallbackContext context)
     {
-        if (m_rigidbody2D.velocity != Vector2.zero && m_weapons[WeaponIndex].GetAttackType().Equals(eAttackType.BLADE)) return;
+
         m_weapons[WeaponIndex].Attack();
         string[] sfxName = new string[]
         {
@@ -327,22 +389,22 @@ public class Player : MonoBehaviour, IActor
 
     private void Debuff_Status(bool haveFood)
     {
-        float attack = m_status.maxAttack;
-        float defence = m_status.maxdefence;
+        float attack;
+        float defence;
 
 
         if (!haveFood)
         {
-            attack *= (1f - Parameter.FOOD_GAUGE_DECREASE_RATIO_ATTACK);
-            defence *= (1f - Parameter.FOOD_GAUGE_DECREASE_RATIO_DEFENCE);
+            attack = (1f - Parameter.FOOD_GAUGE_DECREASE_RATIO_ATTACK);
+            defence = (1f - Parameter.FOOD_GAUGE_DECREASE_RATIO_DEFENCE);
         }
         else
         {
-            attack = m_status.maxAttack;
-            defence = m_status.maxdefence;
+            attack = 1f;
+            defence = 1f;
         }
-        m_status.actorStatus.attack = Mathf.Clamp(attack, m_status.maxAttack * (1f - Parameter.FOOD_GAUGE_DECREASE_RATIO_ATTACK), m_status.maxAttack);
-        m_status.actorStatus.defence = Mathf.Clamp(defence, m_status.maxdefence * (1f - Parameter.FOOD_GAUGE_DECREASE_RATIO_DEFENCE), m_status.maxdefence);
+        m_status.actorStatus.attack = m_status.maxAttack * attack;
+        m_status.actorStatus.defence = m_status.maxdefence * defence;
     }
 
     public bool HaveFood()
@@ -354,8 +416,6 @@ public class Player : MonoBehaviour, IActor
     {
         gameObject.tag = "Untagged";
         gameObject.SetActive(false);
-        PlayerController playerController = GameObject.FindWithTag("GameController").GetComponent<PlayerController>();
-        playerController.Disable();
     }
 
     public void SetMoveRange(ref Map map)
@@ -373,6 +433,8 @@ public class Player : MonoBehaviour, IActor
 
     void Damage(in float attack = 0.0f)
     {
+        var playUI = GameObject.FindWithTag("PlayUI");
+        playUI.SendMessage("Damage");
         // ダメージを受ける音
         soundManager_2.PlaySe("ダメージ");
 

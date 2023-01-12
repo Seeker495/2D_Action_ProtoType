@@ -239,11 +239,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
+  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -520,6 +520,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgmAudioSource: {fileID: 1876305125}
   seAudioSource: {fileID: 1972573219}
+  pinchSource: {fileID: 0}
   m_bgmList:
   - name: 
     clip: {fileID: 8300000, guid: b9fc6a67bd2a81345a38abaa153be8d6, type: 3}
@@ -632,5 +633,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a7da9e775a2604ebdd70cdf207be67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_resultUIObject: {fileID: 2919202753738400469, guid: 5de51f5741ac0434aa9cc117ca45ae85, type: 3}
+  m_resultUIObject: {fileID: 4903598130544019657, guid: a0c413d8cdf076546b4901ae645428b2, type: 3}
   m_playerController: {fileID: 4958817270083638741, guid: 4df626c8948ac4c47afc9ab2a34e23f6, type: 3}
