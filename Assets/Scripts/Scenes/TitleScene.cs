@@ -12,11 +12,12 @@ using UnityEngine.InputSystem;
 public class TitleScene : MonoBehaviour
 {
     [SerializeField] private GameObject m_soundManagerObject;
+    [SerializeField] private GameObject m_optionWindow;
 
     private void OnEnable()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
         InitializeParameter();
         m_soundManagerObject = Instantiate(m_soundManagerObject, null);
         SoundPlayer.SetUp(m_soundManagerObject);
@@ -183,6 +184,7 @@ public class TitleScene : MonoBehaviour
         Debug.Log("Press_Option");
         // åàíËâπ
         SoundPlayer.PlaySFX(eSFX.DECISION);
+        m_optionWindow.SetActive(true);
     }
 
     // ÉQÅ[ÉÄÇèIÇÌÇÈ

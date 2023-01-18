@@ -1255,6 +1255,235 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Option"",
+            ""id"": ""4bf3c6e5-dea6-49ee-9950-1a3124cc7455"",
+            ""actions"": [
+                {
+                    ""name"": ""SelectUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""d735708e-d9be-4646-af2c-81fb2e9a26a6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""b295747b-291e-48ae-a29b-8a3cb86dbdbf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EnterProcess"",
+                    ""type"": ""Button"",
+                    ""id"": ""38a6115f-9c0b-4955-b37b-013dc5cc22e9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""VolumeUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""d0faa487-b400-4515-813b-0c8feeb45579"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""VolumeDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""65128e2a-17d4-4630-b756-3d4d38c7c37a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""fcf53aa3-523a-4aa2-9864-8b277bf4333e"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a8f4f6d1-9489-4fb8-9c0e-a17e39558f18"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6f3ec89a-d308-4367-b45b-7a2229f69a56"",
+                    ""path"": ""<XInputController>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fa5aa051-8aa6-479c-b061-5edb5a845c9a"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""93e76258-375e-4546-a4f3-a4438e93f22a"",
+                    ""path"": ""<XInputController>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""14d31adc-0660-4fcd-9d60-7263985ea2d8"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b276dd2c-df4e-487d-a15f-558ebac60a3c"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EnterProcess"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d3683076-5d14-4631-bd03-ea4704286a04"",
+                    ""path"": ""<XInputController>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EnterProcess"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2a7b3d22-b60f-47af-8544-70c67be55457"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EnterProcess"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""872fa81a-58c9-4f94-a55b-8376a801d204"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EnterProcess"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""11ff89ac-ebea-43e4-8156-a22d0c5a602c"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VolumeUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0637ef56-ec63-44b6-abc4-211b09fa8ca8"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VolumeUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aff580c2-8171-440d-ab45-f48407c9b7e4"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VolumeUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f781e61b-fa0d-4885-9a52-6141c8d3daae"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VolumeDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""004380d5-16a4-46d5-be43-90ffc1bb861d"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VolumeDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0e8a3de6-a599-478c-a1d8-f07cab017e10"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VolumeDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -1311,6 +1540,13 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
         m_DebugTitle_Stage8 = m_DebugTitle.FindAction("Stage8", throwIfNotFound: true);
         m_DebugTitle_Stage9 = m_DebugTitle.FindAction("Stage9", throwIfNotFound: true);
         m_DebugTitle_Stage10 = m_DebugTitle.FindAction("Stage10", throwIfNotFound: true);
+        // Option
+        m_Option = asset.FindActionMap("Option", throwIfNotFound: true);
+        m_Option_SelectUp = m_Option.FindAction("SelectUp", throwIfNotFound: true);
+        m_Option_SelectDown = m_Option.FindAction("SelectDown", throwIfNotFound: true);
+        m_Option_EnterProcess = m_Option.FindAction("EnterProcess", throwIfNotFound: true);
+        m_Option_VolumeUp = m_Option.FindAction("VolumeUp", throwIfNotFound: true);
+        m_Option_VolumeDown = m_Option.FindAction("VolumeDown", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1836,6 +2072,71 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
         }
     }
     public DebugTitleActions @DebugTitle => new DebugTitleActions(this);
+
+    // Option
+    private readonly InputActionMap m_Option;
+    private IOptionActions m_OptionActionsCallbackInterface;
+    private readonly InputAction m_Option_SelectUp;
+    private readonly InputAction m_Option_SelectDown;
+    private readonly InputAction m_Option_EnterProcess;
+    private readonly InputAction m_Option_VolumeUp;
+    private readonly InputAction m_Option_VolumeDown;
+    public struct OptionActions
+    {
+        private @ControlActions m_Wrapper;
+        public OptionActions(@ControlActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @SelectUp => m_Wrapper.m_Option_SelectUp;
+        public InputAction @SelectDown => m_Wrapper.m_Option_SelectDown;
+        public InputAction @EnterProcess => m_Wrapper.m_Option_EnterProcess;
+        public InputAction @VolumeUp => m_Wrapper.m_Option_VolumeUp;
+        public InputAction @VolumeDown => m_Wrapper.m_Option_VolumeDown;
+        public InputActionMap Get() { return m_Wrapper.m_Option; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(OptionActions set) { return set.Get(); }
+        public void SetCallbacks(IOptionActions instance)
+        {
+            if (m_Wrapper.m_OptionActionsCallbackInterface != null)
+            {
+                @SelectUp.started -= m_Wrapper.m_OptionActionsCallbackInterface.OnSelectUp;
+                @SelectUp.performed -= m_Wrapper.m_OptionActionsCallbackInterface.OnSelectUp;
+                @SelectUp.canceled -= m_Wrapper.m_OptionActionsCallbackInterface.OnSelectUp;
+                @SelectDown.started -= m_Wrapper.m_OptionActionsCallbackInterface.OnSelectDown;
+                @SelectDown.performed -= m_Wrapper.m_OptionActionsCallbackInterface.OnSelectDown;
+                @SelectDown.canceled -= m_Wrapper.m_OptionActionsCallbackInterface.OnSelectDown;
+                @EnterProcess.started -= m_Wrapper.m_OptionActionsCallbackInterface.OnEnterProcess;
+                @EnterProcess.performed -= m_Wrapper.m_OptionActionsCallbackInterface.OnEnterProcess;
+                @EnterProcess.canceled -= m_Wrapper.m_OptionActionsCallbackInterface.OnEnterProcess;
+                @VolumeUp.started -= m_Wrapper.m_OptionActionsCallbackInterface.OnVolumeUp;
+                @VolumeUp.performed -= m_Wrapper.m_OptionActionsCallbackInterface.OnVolumeUp;
+                @VolumeUp.canceled -= m_Wrapper.m_OptionActionsCallbackInterface.OnVolumeUp;
+                @VolumeDown.started -= m_Wrapper.m_OptionActionsCallbackInterface.OnVolumeDown;
+                @VolumeDown.performed -= m_Wrapper.m_OptionActionsCallbackInterface.OnVolumeDown;
+                @VolumeDown.canceled -= m_Wrapper.m_OptionActionsCallbackInterface.OnVolumeDown;
+            }
+            m_Wrapper.m_OptionActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @SelectUp.started += instance.OnSelectUp;
+                @SelectUp.performed += instance.OnSelectUp;
+                @SelectUp.canceled += instance.OnSelectUp;
+                @SelectDown.started += instance.OnSelectDown;
+                @SelectDown.performed += instance.OnSelectDown;
+                @SelectDown.canceled += instance.OnSelectDown;
+                @EnterProcess.started += instance.OnEnterProcess;
+                @EnterProcess.performed += instance.OnEnterProcess;
+                @EnterProcess.canceled += instance.OnEnterProcess;
+                @VolumeUp.started += instance.OnVolumeUp;
+                @VolumeUp.performed += instance.OnVolumeUp;
+                @VolumeUp.canceled += instance.OnVolumeUp;
+                @VolumeDown.started += instance.OnVolumeDown;
+                @VolumeDown.performed += instance.OnVolumeDown;
+                @VolumeDown.canceled += instance.OnVolumeDown;
+            }
+        }
+    }
+    public OptionActions @Option => new OptionActions(this);
     public interface ITitleActions
     {
         void OnEnterProcess(InputAction.CallbackContext context);
@@ -1893,5 +2194,13 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
         void OnStage8(InputAction.CallbackContext context);
         void OnStage9(InputAction.CallbackContext context);
         void OnStage10(InputAction.CallbackContext context);
+    }
+    public interface IOptionActions
+    {
+        void OnSelectUp(InputAction.CallbackContext context);
+        void OnSelectDown(InputAction.CallbackContext context);
+        void OnEnterProcess(InputAction.CallbackContext context);
+        void OnVolumeUp(InputAction.CallbackContext context);
+        void OnVolumeDown(InputAction.CallbackContext context);
     }
 }

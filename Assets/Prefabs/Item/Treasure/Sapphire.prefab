@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7935429457901392710, guid: b19efad76f1900a429fdf04fbc737d75, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 811700892617962174, guid: b19efad76f1900a429fdf04fbc737d75, type: 3}
       propertyPath: m_Name
       value: Sapphire

@@ -18,9 +18,9 @@ public static class SoundPlayer
         SoundManager.PlayBGM(type);
     }
 
-    public static void PlaySFX(in eSFX type)
+    public static void PlaySFX(in eSFX type, in bool isLoop = false)
     {
-        SoundManager.PlaySFX(type);
+        SoundManager.PlaySFX(type, isLoop);
     }
 
     public static void PlaySFX_With_Scene(in eSFX type, in string scene)
@@ -28,6 +28,15 @@ public static class SoundPlayer
         SoundManager.StartCoroutine(GoToScene(type, scene));
     }
 
+    public static void StopBGM()
+    {
+        SoundManager.StopBGM();
+    }
+
+    public static void StopSFX()
+    {
+        SoundManager.StopSFX();
+    }
     private static IEnumerator GoToScene(eSFX type, string scene)
     {
         AudioSource audioPlayer = SoundManager.GetUnUsedSFXPlayer();

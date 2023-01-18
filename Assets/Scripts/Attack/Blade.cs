@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Effekseer;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,11 +11,11 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
  *******************************************************************/
 public class Blade : AttackBase
 {
-    [SerializeField]
-    Rigidbody2D m_rigidBody2D;
-    [SerializeField]
-    EffekseerEffectAsset m_effect;
-
+    [SerializeField] private Rigidbody2D m_rigidBody2D;
+    [SerializeField] private EffekseerEffectAsset m_effect;
+    private int m_pressCount = 0;
+    private float m_pressTime = 0.0f;
+    private readonly float PRESS_INTERVAL = 0.3f;
     IEnumerator m_enumrator;
     // 剣の振るスピード
     const float BLADE_SPEED = 6.0f;
@@ -56,6 +57,7 @@ public class Blade : AttackBase
     private void FixedUpdate()
     {
         m_rigidBody2D.position = GetComponentInParent<Rigidbody2D>().position;
+        m_pressTime += Time.deltaTime;
     }
 
     /*
@@ -64,6 +66,34 @@ public class Blade : AttackBase
      */
     public IEnumerator Attacking(float degree)
     {
+        if (m_pressCount >= 3)
+        {
+            GetComponent<EdgeCollider2D>().enabled = false;
+            yield return new WaitForSeconds(0.5f);
+            m_pressCount = 0;
+            yield break;
+        }
+        m_pressCount++;
+
+
+        if (m_pressTime >= PRESS_INTERVAL)
+        {
+            m_pressCount = 0;
+            m_pressTime = 0.0f;
+        }
+        switch (m_pressCount)
+        {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+                break;
+        }
+
+
         GetComponent<EdgeCollider2D>().enabled = true;
         Quaternion q = transform.rotation;
         var direction = GetComponentInParent<IActor>().GetDirection();

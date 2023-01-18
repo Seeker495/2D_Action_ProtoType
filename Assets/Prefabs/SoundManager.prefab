@@ -117,6 +117,21 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  m_bgmGroup: {fileID: 318915417416083006, guid: 371b3db5318ac64489355324a764e909, type: 2}
+  m_sfxGroup: {fileID: -8678371271545650246, guid: 371b3db5318ac64489355324a764e909, type: 2}
 --- !u!82 &5559519569921470700
 AudioSource:
   m_ObjectHideFlags: 0

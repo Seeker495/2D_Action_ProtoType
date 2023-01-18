@@ -273,11 +273,12 @@ public class Player : MonoBehaviour, IActor
         if (!pinchiFlag && (float)m_status.actorStatus.hp / (float)m_status.maxHP <= 0.3f)
         {
             pinchiFlag = true;
-            SoundPlayer.PlaySFX(eSFX.PINCHI);
+            SoundPlayer.PlaySFX(eSFX.PINCHI, true);
         }
         else
         {
             pinchiFlag = false;
+            SoundPlayer.StopSFX();
         }
 
 
@@ -349,13 +350,13 @@ public class Player : MonoBehaviour, IActor
     {
 
         m_weapons[WeaponIndex].Attack();
-        string[] sfxName = new string[]
+        eSFX[] sfx = new eSFX[]
         {
-            "Œ•","‹|",
+            eSFX.BLADE,eSFX.BOW,
         };
 
         // WeaponIndex ‚É‰ž‚¶‚½•Ší‚Ì‰¹‚ðo‚·
-        //soundManager_2.PlaySe(sfxName[WeaponIndex]);
+        SoundPlayer.PlaySFX(sfx[WeaponIndex]);
     }
 
     public Sprite GetWeaponSprite()
@@ -543,7 +544,17 @@ public class Player : MonoBehaviour, IActor
             attack = 1f;
             defence = 1f;
         }
-        m_status.actorStatus.attack = m_status.maxAttack * attack;
+        float powerUp;
+        // ‚¨• ‚ª‚·‚­‚ÆUŒ‚—Ê2”{
+        if (IsGotSkill(24) && !HaveFood())
+        {
+           powerUp = 2f;
+        }
+        else
+        {
+            powerUp = 1f;
+        }
+        m_status.actorStatus.attack = m_status.maxAttack * attack * powerUp;
         m_status.actorStatus.defence = m_status.maxdefence * defence;
     }
 
@@ -586,7 +597,6 @@ public class Player : MonoBehaviour, IActor
     IEnumerator OnDamage(float duration, float interval)
     {
         m_isDamaged = true;
-        StartCoroutine(KnockBack());
         bool changed = false;
         int inter = 0;
 

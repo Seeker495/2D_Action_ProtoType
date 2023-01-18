@@ -1,9 +1,11 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SoundManager : MonoBehaviour
 {
@@ -48,20 +50,25 @@ public class SoundManager : MonoBehaviour
     private List<AudioSource> m_multiSfxPlayer;
 
     private List<BGMPlayer> m_currentPlayers = new List<BGMPlayer>();
+    private List<AudioSource> m_currentSFXPlayers = new List<AudioSource>();
 
     private float m_bgmVolume;
     private float m_sfxVolume;
+    [SerializeField] private AudioMixerGroup m_bgmGroup;
+    [SerializeField] private AudioMixerGroup m_sfxGroup;
 
     // Start is called before the first frame update
-    void Awake()
+    void OnEnable()
     {
-        for(int i = 0; i < m_multiSfxPlayer.Count; i++)
+        for (int i = 0; i < m_multiSfxPlayer.Count; i++)
         {
             m_multiSfxPlayer[i] = gameObject.AddComponent<AudioSource>(); ;
         }
-        SoundPlayer.BGM_Volume = m_bgmVolume = m_multiBgmPlayer.First().volume;
-        SoundPlayer.SFX_Volume = m_sfxVolume = m_multiSfxPlayer.First().volume;
+        m_bgmVolume = m_multiBgmPlayer.First().volume;
+        m_sfxVolume = m_multiSfxPlayer.First().volume;
+        m_multiBgmPlayer.ForEach(player => { player.audioSource.outputAudioMixerGroup = m_bgmGroup; });
 
+        m_multiSfxPlayer.ForEach(player => { player.outputAudioMixerGroup = m_sfxGroup; });
 
     }
 
@@ -72,22 +79,41 @@ public class SoundManager : MonoBehaviour
         {
             m_multiBgmPlayer.ForEach(player => { player.audioSource.mute = false; });
             m_multiBgmPlayer.ForEach(player => { player.volume = SoundPlayer.BGM_Volume; player.audioSource.volume = player.audioSource.volume / m_bgmVolume * player.volume; });
+            m_currentPlayers.ForEach(player => { player.audioSource.mute = false; });
+            m_currentPlayers.ForEach(player => { player.volume = SoundPlayer.BGM_Volume; player.audioSource.volume = player.audioSource.volume / m_bgmVolume * player.volume; });
+
             m_bgmVolume = SoundPlayer.BGM_Volume;
         }
         else
         {
             m_multiBgmPlayer.ForEach(player => { player.audioSource.mute = true; });
+            m_multiBgmPlayer.ForEach(player => { player.volume = 0.0f; player.audioSource.volume = 0.0f; });
+            m_currentPlayers.ForEach(player => { player.audioSource.mute = true; });
+            m_currentPlayers.ForEach(player => { player.volume = 0.0f; player.audioSource.volume = 0.0f; });
+            m_bgmVolume = 0.0f;
+
         }
         if (SoundPlayer.SFX_Volume >= 0.01f)
         {
             m_multiSfxPlayer.ForEach(player => { player.mute = false; });
             m_multiSfxPlayer.ForEach(player => { player.volume = SoundPlayer.SFX_Volume; player.volume = player.volume / m_sfxVolume * player.volume; });
+            m_currentSFXPlayers.ForEach(player => { player.mute = false; });
+            m_currentSFXPlayers.ForEach(player => { player.volume = SoundPlayer.SFX_Volume; player.volume = player.volume / m_sfxVolume * player.volume; });
+
             m_sfxVolume = SoundPlayer.SFX_Volume;
         }
         else
         {
             m_multiSfxPlayer.ForEach(player => { player.mute = true; });
+            m_multiSfxPlayer.ForEach(player => { player.volume = 0.0f; player.volume = 0.0f; });
+            m_currentSFXPlayers.ForEach(player => { player.mute = true; });
+            m_currentSFXPlayers.ForEach(player => { player.volume = 0.0f; player.volume = 0.0f; });
+
+            m_sfxVolume = 0.0f;
         }
+        m_bgmGroup.audioMixer.SetFloat("BGM", VolumeToDB(SoundPlayer.BGM_Volume));
+        m_sfxGroup.audioMixer.SetFloat("SFX", VolumeToDB(SoundPlayer.SFX_Volume));
+
         if (m_currentPlayers.Count == 0) return;
         if (m_currentPlayers.First().audioSource.timeSamples >= m_currentPlayers.First().endSample - CalculateSample(0.05f) && m_currentPlayers.First().isLoop)
         {
@@ -101,7 +127,7 @@ public class SoundManager : MonoBehaviour
             unusedBgmPlayer.isLoop = m_currentPlayers[0].isLoop;
             unusedBgmPlayer.audioSource.Play();
             unusedBgmPlayer.audioSource.timeSamples = unusedBgmPlayer.startSample;
-
+            unusedBgmPlayer.audioSource.outputAudioMixerGroup = m_bgmGroup;
             m_currentPlayers.Add(unusedBgmPlayer);
             m_currentPlayers.Remove(m_currentPlayers.First());
             //m_currentPlayer.audioSource.Stop();
@@ -135,6 +161,8 @@ public class SoundManager : MonoBehaviour
         }
         bgmPlayer.isLoop = bgm.isLoopMusic;
         bgmPlayer.audioSource.loop = true;
+        bgmPlayer.audioSource.outputAudioMixerGroup = m_bgmGroup;
+
         bgmPlayer.audioSource.Play();
         m_currentPlayers.Add(bgmPlayer);
     }
@@ -145,11 +173,35 @@ public class SoundManager : MonoBehaviour
         return (int)secondToMill * 441;
     }
 
-    public void PlaySFX(in eSFX type)
+    public void StopBGM()
+    {
+        if (m_currentPlayers.Count == 0) return;
+        m_currentPlayers.Find(player => player.audioSource.isPlaying).audioSource.Stop();
+    }
+
+    public void StopSFX()
+    {
+        if (m_currentSFXPlayers.Count == 0) return;
+        m_currentSFXPlayers.Find(player => player.loop).Stop();
+    }
+
+
+    public void PlaySFX(in eSFX type, in bool isLoop = false)
     {
         var sfx = GetSFX(type);
         AudioSource sfxPlayer = GetUnUsedSFXPlayer();
-        sfxPlayer.PlayOneShot(sfx.clip, m_sfxVolume * sfx.volume);
+        if (isLoop)
+        {
+            sfxPlayer.loop = true;
+            sfxPlayer.clip = sfx.clip;
+            sfxPlayer.volume = m_sfxVolume * sfx.volume;
+            sfxPlayer.Play();
+            m_currentSFXPlayers.Add(sfxPlayer);
+        }
+        else
+        {
+            sfxPlayer.PlayOneShot(sfx.clip, m_sfxVolume * sfx.volume);
+        }
     }
 
     public AudioSource GetUnUsedSFXPlayer()
@@ -165,6 +217,8 @@ public class SoundManager : MonoBehaviour
     {
         return m_multiBgmPlayer.Find(player => player.audioSource.isPlaying == true);
     }
+
+    private float VolumeToDB(float volume) { return Mathf.Clamp(Mathf.Log10(volume) * 20f, -80f, 0f); }
 
 }
 
