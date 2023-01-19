@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_name: "\u6843\u6C34"
   m_sprite: {fileID: 21300000, guid: 48b483a6d6182eb4fb0c9778b2d5248f, type: 3}
-  m_healRatio: 1
+  m_healRatio: 0.5

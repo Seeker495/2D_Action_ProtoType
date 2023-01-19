@@ -113,6 +113,8 @@ public class SoundManager : MonoBehaviour
         }
         m_bgmGroup.audioMixer.SetFloat("BGM", VolumeToDB(SoundPlayer.BGM_Volume));
         m_sfxGroup.audioMixer.SetFloat("SFX", VolumeToDB(SoundPlayer.SFX_Volume));
+        SoundPlayer.BGM_Volume = m_bgmVolume;
+        SoundPlayer.SFX_Volume = m_sfxVolume;
 
         if (m_currentPlayers.Count == 0) return;
         if (m_currentPlayers.First().audioSource.timeSamples >= m_currentPlayers.First().endSample - CalculateSample(0.05f) && m_currentPlayers.First().isLoop)

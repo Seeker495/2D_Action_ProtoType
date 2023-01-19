@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c24c1c41f34a9348a9c16b1cb70d6ea, type: 3}
-  m_Name: Vase
+  m_Name: VaseNothing
   m_EditorClassIdentifier: 
   m_hp: 15
   m_dropItems:
   - startChance: 0.01
-    endChance: 0.1
-    dropItem: {fileID: 8519906870335766851, guid: 89536debf7f98184488a157c114421dd, type: 3}
+    endChance: 1
+    dropItem: {fileID: 0}
   m_sprite: {fileID: 21300000, guid: b852f6430b03195479fd5d352e9e18bf, type: 3}

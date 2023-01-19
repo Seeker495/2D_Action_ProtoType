@@ -14,6 +14,14 @@ public class OptionWindow : MonoBehaviour
     private int m_index = 1;
     private List<GameObject> m_objects;
 
+    private void Awake()
+    {
+        m_bgmSlider.value = 0.15f;
+        m_sfxSlider.value = 0.5f;
+        SoundPlayer.BGM_Volume = m_bgmSlider.value;
+        SoundPlayer.SFX_Volume = m_sfxSlider.value;
+    }
+
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -24,7 +32,7 @@ public class OptionWindow : MonoBehaviour
         var sequence = DOTween.Sequence();
         sequence.Append(transform.DOScale(0.0f, 0.0f));
         sequence.Append(transform.DOScale(1.0f, 0.5f));
-        sequence.Play();
+        sequence.Play().SetUpdate(true);
         m_bgmSlider.value = SoundPlayer.BGM_Volume;
         m_sfxSlider.value = SoundPlayer.SFX_Volume;
         m_bgmSlider.onValueChanged.AddListener((volume) => volume = SoundPlayer.BGM_Volume);
@@ -71,7 +79,7 @@ public class OptionWindow : MonoBehaviour
         var sequence = DOTween.Sequence();
         sequence.Append(transform.DOScale(1.0f, 0.0f));
         sequence.Append(transform.DOScale(0.0f, 0.5f));
-        sequence.Play().OnComplete(() => gameObject.SetActive(false));
+        sequence.Play().OnComplete(() => gameObject.SetActive(false)).SetUpdate(true);
     }
 
     private void SelectUp(InputAction.CallbackContext context)

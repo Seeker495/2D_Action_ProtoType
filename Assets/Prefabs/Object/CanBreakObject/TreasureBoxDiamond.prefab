@@ -18,10 +18,10 @@ PrefabInstance:
     - target: {fileID: 4077698671220743560, guid: e234a6d85ece24e4390b26d4e2cf6efe, type: 3}
       propertyPath: m_info
       value: 
-      objectReference: {fileID: 11400000, guid: c42dc9a4ea8dca14eb3bf769ecff9bb1, type: 2}
+      objectReference: {fileID: 11400000, guid: f470783108d103541a88c7109dbd05c4, type: 2}
     - target: {fileID: 5072150498048035598, guid: e234a6d85ece24e4390b26d4e2cf6efe, type: 3}
       propertyPath: m_Name
-      value: TreasureBox
+      value: TreasureBoxDiamond
       objectReference: {fileID: 0}
     - target: {fileID: 7532238245449041747, guid: e234a6d85ece24e4390b26d4e2cf6efe, type: 3}
       propertyPath: m_RootOrder
