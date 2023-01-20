@@ -306,7 +306,6 @@ public class Player : MonoBehaviour, IActor
     private void FixedUpdate()
     {
         DecreaseGauge();
-        GetComponent<BoxCollider2D>().isTrigger = m_isDamaged;
         Debug.Log($"Velocity = {m_rigidbody2D.velocity}");
     }
 
@@ -599,6 +598,7 @@ public class Player : MonoBehaviour, IActor
         m_isDamaged = true;
         bool changed = false;
         int inter = 0;
+        gameObject.layer = LayerMask.NameToLayer("Invisible");
 
         while (duration > 0.0f)
         {
@@ -613,6 +613,7 @@ public class Player : MonoBehaviour, IActor
             yield return null;
         }
         GetComponent<SpriteRenderer>().color = Color.white;
+        gameObject.layer = LayerMask.NameToLayer("Player");
         m_isDamaged = false;
     }
 
