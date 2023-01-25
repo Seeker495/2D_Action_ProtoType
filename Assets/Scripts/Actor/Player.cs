@@ -20,6 +20,12 @@ public class Player : MonoBehaviour, IActor
     // 衝突判定
     Rigidbody2D m_rigidbody2D;
 
+    // 変更後の画像を持つスプライト。
+    [SerializeField] private Sprite rightSprite;
+    [SerializeField] private Sprite leftSprite;
+    [SerializeField] private Sprite upSprite;
+    [SerializeField] private Sprite downSprite;
+
     [SerializeField]
     private Vector2 m_startPosition;
     private Vector2 m_velocity;
@@ -280,10 +286,22 @@ public class Player : MonoBehaviour, IActor
             pinchiFlag = false;
             SoundPlayer.StopSFX();
         }
+        // 変更対象のオブジェクトが持つ SpriteRenderer を取得
+        var spriteRenderer = this.GetComponent<SpriteRenderer>();
 
+        // 向きで画像を変える
+        if (m_direction == Vector2.right)
+            spriteRenderer.sprite = rightSprite;
 
+        if (m_direction == Vector2.left)
+            spriteRenderer.sprite = leftSprite;
+
+        if (m_direction == Vector2.up)
+            spriteRenderer.sprite = upSprite;
+
+        if (m_direction == Vector2.down)
+            spriteRenderer.sprite = downSprite;
     }
-
 #if UNITY_EDITOR
     private void FullHeal(InputAction.CallbackContext context)
     {

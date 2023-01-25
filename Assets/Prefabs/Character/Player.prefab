@@ -154,8 +154,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e3aff9229ac5648a77e0f83f63f9db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rightSprite: {fileID: 191373564, guid: 1e0a46d114eaf294d97658fb09767447, type: 3}
+  leftSprite: {fileID: -1428897816, guid: 1e0a46d114eaf294d97658fb09767447, type: 3}
+  upSprite: {fileID: 270915034, guid: 1e0a46d114eaf294d97658fb09767447, type: 3}
+  downSprite: {fileID: 1380944396, guid: 1e0a46d114eaf294d97658fb09767447, type: 3}
   m_startPosition: {x: 0, y: 0}
-  soundManager_2: {fileID: 0}
   m_smokeObject: {fileID: 632800804679340183, guid: 193e54495ded0754db6c75c2320762bd, type: 3}
 --- !u!58 &704948454924202990
 CircleCollider2D:
