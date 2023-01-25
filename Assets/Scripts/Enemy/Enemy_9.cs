@@ -19,7 +19,7 @@ public class Enemy_9 : EnemyBase
         base.Awake();
         PatternFactory.CreateMovePattern(ref m_status.movePattern, out m_normalMovePattern, out m_findMovePattern, transform);
         PatternFactory.CreateAttackPattern(ref m_status.attackPattern, out m_attackList);
-        
+
     }
 
     public override void Execute()
@@ -59,17 +59,21 @@ public class Enemy_9 : EnemyBase
             for (int i = 0; i < 8; ++i)
             {
                 float angleZ = Mathf.PI * 0.25f * Mathf.Rad2Deg * i;
-                GameObject magicObject = Instantiate(magic, transform.position, Quaternion.Euler(0, 0, angleZ), transform);
+                GameObject magicObject = Instantiate(magic, transform.position, Quaternion.Euler(0, 0, angleZ), null);
                 AttackBase homing = magicObject.AddComponent(m_attackList[0].GetType()) as Attack_EightDirection;
                 homing.SetTarget(GameObject.FindWithTag("Player"));
+                homing.GetComponent<MagicStatus>().Attack = GetComponent<IActor>().GetBaseStatus().attack;
                 homing.Attack();
             }
         }
         else
         {
-            GameObject magicObject = Instantiate(magic, transform.position, Quaternion.identity, transform);
+            GameObject magicObject = Instantiate(magic, transform.position, Quaternion.identity, null);
             AttackBase homing = magicObject.AddComponent(m_attackList[1].GetType()) as Homing;
             homing.SetTarget(GameObject.FindWithTag("Player"));
+            homing.GetComponent<MagicStatus>().Attack = GetComponent<IActor>().GetBaseStatus().attack;
+            homing.GetComponent<MagicStatus>().Position = GetComponent<Rigidbody2D>().position;
+
             homing.Attack();
         }
     }

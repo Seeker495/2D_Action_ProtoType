@@ -14,13 +14,13 @@ using UnityEngine.Audio;
 public class DropManager : MonoBehaviour
 {
     private List<GameObject> m_exp = new List<GameObject>();
-    private List<GameObject> m_money = new List<GameObject>();
+    //private List<GameObject> m_money = new List<GameObject>();
     private List<float> m_angle = new List<float>();
 
     [SerializeField]
     private GameObject m_expObject;
-    [SerializeField]
-    private GameObject m_moneyObject;
+    //[SerializeField]
+    //private GameObject m_moneyObject;
 
     private void Awake()
     {
@@ -52,27 +52,29 @@ public class DropManager : MonoBehaviour
         };
 
         m_expObject.SetActive(false);
-        m_moneyObject.SetActive(false);
+        //m_moneyObject.SetActive(false);
 
         foreach (eDropSize size in Enum.GetValues(typeof(eDropSize)))
         {
             for (int i = 0; i < expAmounts[size]; ++i)
             {
-                m_exp.Add(Instantiate(m_expObject, transform));
-                m_exp[i].transform.localScale = new Vector3(objectScale[size], objectScale[size], 0.0f);
-                m_exp[i].GetComponent<DropObjectBase>().SetSize(size);
+                var exp = Instantiate(m_expObject, transform);
+                exp.transform.localScale = new Vector3(objectScale[size], objectScale[size], 0.0f);
+                exp.GetComponent<DropObjectBase>().SetSize(size);
+                m_exp.Add(exp);
             }
         }
 
-        foreach (eDropSize size in Enum.GetValues(typeof(eDropSize)))
-        {
-            for (int i = 0; i < moneyAmounts[size]; ++i)
-            {
-                m_money.Add(Instantiate(m_moneyObject, transform));
-                m_money[i].transform.localScale = new Vector3(objectScale[size], objectScale[size], 0.0f);
-                m_money[i].GetComponent<DropObjectBase>().SetSize(size);
-            }
-        }
+        //foreach (eDropSize size in Enum.GetValues(typeof(eDropSize)))
+        //{
+        //    for (int i = 0; i < moneyAmounts[size]; ++i)
+        //    {
+        //        var money = Instantiate(m_moneyObject, transform);
+        //        money.transform.localScale = new Vector3(objectScale[size], objectScale[size], 0.0f);
+        //        money.GetComponent<DropObjectBase>().SetSize(size);
+        //        m_money.Add(money);
+        //    }
+        //}
     }
 
     void Update()
@@ -80,7 +82,7 @@ public class DropManager : MonoBehaviour
         if (transform.parent != null)
         {
             transform.position = transform.parent.position;
-            m_money.ForEach(money => money.transform.position = transform.position);
+            //m_money.ForEach(money => money.transform.position = transform.position);
             m_exp.ForEach(exp => exp.transform.position = transform.position);
         }
         if(transform.childCount == 0 && transform.parent == null)
@@ -89,35 +91,23 @@ public class DropManager : MonoBehaviour
 
     public IEnumerator Diffusion()
     {
+        List<GameObject> dropObjects = new List<GameObject>();
+        dropObjects.AddRange(m_exp);
+        //dropObjects.AddRange(m_money);
+        dropObjects.ForEach(dropObject => dropObject.SetActive(true));
+
         Vector2 randomDirection;
-        foreach (var exp in m_exp)
+        foreach (var dropObject in dropObjects)
         {
-            exp.SetActive(true);
             randomDirection = new Vector2(UnityEngine.Random.Range(0.0f, 1.0f), UnityEngine.Random.Range(0.0f, 1.0f));
             float toAngle = Mathf.Atan2(randomDirection.y, randomDirection.x);
             m_angle.Add(toAngle);
-
             if (m_angle.Count(angle => Mathf.Abs(toAngle - angle) < 2.0f) != 0)
                 randomDirection = new Vector2(UnityEngine.Random.Range(0.0f, 1.0f), UnityEngine.Random.Range(0.0f, 1.0f));
 
-            exp.GetComponent<Rigidbody2D>().velocity = randomDirection * UnityEngine.Random.Range(3.0f, 4.0f);
-            yield return exp;
-
+            dropObject.GetComponent<Rigidbody2D>().velocity = randomDirection * UnityEngine.Random.Range(3.0f, 4.0f);
+            yield return null;
         }
-
-        foreach (var money in m_money)
-        {
-            money.SetActive(true);
-            randomDirection = new Vector2(UnityEngine.Random.Range(0.0f, 1.0f), UnityEngine.Random.Range(0.0f, 1.0f));
-            float toAngle = Mathf.Atan2(randomDirection.y, randomDirection.x);
-            m_angle.Add(toAngle);
-
-            if (m_angle.Count(angle => Mathf.Abs(toAngle - angle) < 2.0f) != 0)
-                randomDirection = new Vector2(UnityEngine.Random.Range(0.0f, 1.0f), UnityEngine.Random.Range(0.0f, 1.0f));
-            money.GetComponent<Rigidbody2D>().velocity = randomDirection * UnityEngine.Random.Range(3.0f, 4.0f);
-            yield return money;
-        }
-
 
     }
 }

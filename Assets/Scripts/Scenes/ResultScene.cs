@@ -13,6 +13,7 @@ public class ResultScene : MonoBehaviour
     /* ユーザーのコントローラー関連 */
     private void OnEnable()
     {
+        Parameter.TOTAL_SCORE += Parameter.CURRENT_SCORE;
         PlayerController.Controller.Result.Enable();
         PlayerController.Controller.Result.BackToTitle.started += BackToTitle;
     }

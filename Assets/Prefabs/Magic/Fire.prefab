@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5145764392786984208}
   - component: {fileID: 5145764392786984209}
   - component: {fileID: 5145764392786984210}
+  - component: {fileID: 2524794823321925546}
   m_Layer: 11
   m_Name: Fire
   m_TagString: Magic
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 5145764392786984211}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.648998, y: 1.2547519, z: -0.028196396}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -147,3 +148,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rigidbody2D: {fileID: 5145764392786984209}
+--- !u!114 &2524794823321925546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5145764392786984211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f50b1e02caecfff4baf3ea1a47f5c6cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

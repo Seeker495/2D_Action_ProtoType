@@ -55,7 +55,7 @@ MonoBehaviour:
   - mapIndex: 12
     mapObject: {fileID: 7683653709502583484, guid: 83db30322fab2fa4f947d398ac7128df, type: 3}
   - mapIndex: 13
-    mapObject: {fileID: 2033728444293934651, guid: 2f4521c6f29b7b543a35d7e940b85a59, type: 3}
+    mapObject: {fileID: 7683653709502583484, guid: f4ebd05198d4b0443bce65f52a8ee6c8, type: 3}
   - mapIndex: 19
     mapObject: {fileID: 7663021404870125010, guid: d25b9b8c1a201b0498827eefa918d01c, type: 3}
   - mapIndex: 21

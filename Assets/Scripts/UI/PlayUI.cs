@@ -78,11 +78,15 @@ public class PlayUI : MonoBehaviour
         {
             m_gameOverText.SetActive(true);
             m_gameOverText.GetComponent<TextMeshProUGUI>().text = "GameOver";
+            m_gameOverText.GetComponent<TextMeshProUGUI>().color = Color.red;
+            m_gameOverText.GetComponent<TextMeshProUGUI>().fontSize = 100;
+
             m_gameOverText.GetComponent<TextMeshProUGUI>().enableAutoSizing = true;
             m_gameOverTime += Time.deltaTime;
             if (m_gameOverTime >= Parameter.GAME_OVER_TO_OTHER_SCENE)
             {
-                Parameter.NEXT_SCENE_NAME = "Result";
+                Parameter.NEXT_SCENE_NAME = "EndResult";
+                PlayerData.SetStatus(m_player.GetStatus());
                 SceneManager.LoadSceneAsync("Loading");
             }
         }
@@ -134,8 +138,8 @@ public class PlayUI : MonoBehaviour
         m_hp.GetComponentsInChildren<Image>()[0].transform.DOShakePosition(1.0f, 10.0f);
     }
 
-    private void SetScore()
+    public void SetScore()
     {
-        m_scoreUI.SettingScore(m_player.GetScore(), m_player.GetAddScore());
+        m_scoreUI.SettingScore(m_player.GetAddScore());
     }
 }

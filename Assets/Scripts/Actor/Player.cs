@@ -499,12 +499,13 @@ public class Player : MonoBehaviour, IActor
             var playUI = GameObject.FindWithTag("PlayUI");
             long score = collision.GetComponent<ImmediateTreasureItem>().GetInfo().score;
             m_increaseScore = score;
-            playUI.SendMessage("SetScore");
+            Destroy(collision.gameObject);
+            playUI.GetComponent<PlayUI>().SetScore();
         }
 
         if (m_isDamaged && !collision.CompareTag("Wall") && !collision.CompareTag("NormalObstacle") && !collision.CompareTag("WaterObstacle")) return;
         if (collision.CompareTag("Magic"))
-            Damage(collision.transform.parent.GetComponent<IActor>().GetBaseStatus().attack);
+            Damage(collision.GetComponent<MagicStatus>().Attack);
 
 
     }

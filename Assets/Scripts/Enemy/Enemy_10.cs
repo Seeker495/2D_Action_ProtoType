@@ -90,9 +90,11 @@ public class Enemy_10 : EnemyBase
             for (int i = 0; i < 8; ++i)
             {
                 float angleZ = Mathf.PI * 0.25f * Mathf.Rad2Deg * i;
-                GameObject magicObject = Instantiate(obj, transform.position, Quaternion.Euler(0, 0, angleZ + ADJUST_ANGLE), transform);
+                GameObject magicObject = Instantiate(obj, transform.position, Quaternion.Euler(0, 0, angleZ + ADJUST_ANGLE), null);
                 AttackBase homing = magicObject.AddComponent<Attack_EightDirection>();
                 homing.SetTarget(GameObject.FindWithTag("Player"));
+                homing.GetComponent<MagicStatus>().Attack = GetComponent<IActor>().GetBaseStatus().attack;
+                homing.GetComponent<MagicStatus>().Position = GetComponent<Rigidbody2D>().position;
                 homing.Attack();
             }
             ADJUST_ANGLE += 10.0f;
@@ -106,9 +108,11 @@ public class Enemy_10 : EnemyBase
 
     private IEnumerator Attack2(GameObject obj)
     {
-        GameObject magicObject = Instantiate(obj, transform.position, Quaternion.identity, transform);
+        GameObject magicObject = Instantiate(obj, transform.position, Quaternion.identity, null);
         AttackBase homing = magicObject.AddComponent<Homing>();
         homing.SetTarget(GameObject.FindWithTag("Player"));
+        homing.GetComponent<MagicStatus>().Attack = GetComponent<IActor>().GetBaseStatus().attack;
+        homing.GetComponent<MagicStatus>().Position = GetComponent<Rigidbody2D>().position;
         homing.Attack();
         yield return null;
     }
@@ -121,9 +125,11 @@ public class Enemy_10 : EnemyBase
             for (int i = 0; i < 8; ++i)
             {
                 float angleZ = Mathf.PI * 0.25f * Mathf.Rad2Deg * i;
-                GameObject magicObject = Instantiate(obj, transform.position, Quaternion.Euler(0, 0, angleZ + ADJUST_ANGLE), transform);
+                GameObject magicObject = Instantiate(obj, transform.position, Quaternion.Euler(0, 0, angleZ + ADJUST_ANGLE), null);
                 AttackBase homing = magicObject.AddComponent<Attack_EightDirection>();
                 homing.SetTarget(GameObject.FindWithTag("Player"));
+                homing.GetComponent<MagicStatus>().Attack = GetComponent<IActor>().GetBaseStatus().attack;
+                homing.GetComponent<MagicStatus>().Position = GetComponent<Rigidbody2D>().position;
                 homing.Attack();
             }
             ADJUST_ANGLE += 10.0f;
@@ -141,9 +147,10 @@ public class Enemy_10 : EnemyBase
     {
         System.Action attack = () =>
         {
-            GameObject magicObject = Instantiate(obj, transform.position, Quaternion.identity, transform);
+            GameObject magicObject = Instantiate(obj, transform.position, Quaternion.identity, null);
             AttackBase homing = magicObject.AddComponent<Homing>();
             homing.SetTarget(GameObject.FindWithTag("Player"));
+            homing.GetComponent<MagicStatus>().Position = GetComponent<Rigidbody2D>().position;
             homing.Attack();
         };
         attack();

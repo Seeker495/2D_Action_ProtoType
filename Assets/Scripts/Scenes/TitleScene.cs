@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using TMPro;
 
 /*******************************************************************
  *  <ŠT—v>
@@ -13,9 +14,11 @@ public class TitleScene : MonoBehaviour
 {
     [SerializeField] private GameObject m_soundManagerObject;
     [SerializeField] private GameObject m_optionWindow;
-
+    [SerializeField] private TextMeshProUGUI m_highScoreText;
     private void OnEnable()
     {
+        ScoreFile.Load();
+        m_highScoreText.text = $"High Score:{ScoreFile.GetHighScore().ToString("#,#")}";
         //Cursor.visible = false;
         //Cursor.lockState = CursorLockMode.Locked;
         InitializeParameter();

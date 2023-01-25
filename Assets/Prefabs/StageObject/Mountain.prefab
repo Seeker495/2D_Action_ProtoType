@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1659848815583077768}
   - component: {fileID: 9041529895464668392}
   - component: {fileID: 9032791129056383850}
-  - component: {fileID: -495595099383733364}
   m_Layer: 0
   m_Name: Mountain
   m_TagString: NormalObstacle
@@ -27,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7683653709502583484}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 69, y: -59, z: 0}
+  m_LocalPosition: {x: 12, y: -8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -110,17 +109,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.96, y: 0.9}
+  m_Size: {x: 0.96, y: 0.8}
   m_EdgeRadius: 0
---- !u!114 &-495595099383733364
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7683653709502583484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8249fab6d9670e041a877209bb131bfd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

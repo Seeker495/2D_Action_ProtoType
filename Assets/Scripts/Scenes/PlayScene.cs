@@ -146,8 +146,6 @@ public class PlayScene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float fps = 1f / Time.deltaTime;
-        Debug.Log("fps: " + fps);
     }
 
     private void FixedUpdate()

@@ -51,9 +51,11 @@ public class Enemy_4 : EnemyBase
         for (int i = 0; i < 8; ++i)
         {
             float angleZ = Mathf.PI * 0.25f * Mathf.Rad2Deg * i;
-            GameObject magicObject = Instantiate(magic, transform.position, Quaternion.identity, transform);
+            GameObject magicObject = Instantiate(magic, transform.position, Quaternion.identity, null);
             magicObject.transform.rotation = Quaternion.Euler(0,0,angleZ);
             AttackBase homing = magicObject.AddComponent<Attack_EightDirection>();
+            homing.GetComponent<MagicStatus>().Attack = GetComponent<IActor>().GetBaseStatus().attack;
+            homing.GetComponent<MagicStatus>().Position = GetComponent<Rigidbody2D>().position;
             homing.Attack();
         }
     }

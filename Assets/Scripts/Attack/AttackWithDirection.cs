@@ -24,7 +24,7 @@ public class AttackWithDirection : AttackBase
     public override void Attack()
     {
 
-        Rigidbody2D.position = transform.parent.GetComponent<Rigidbody2D>().position;
+        Rigidbody2D.position = transform.position;
         var direction = (m_target.GetComponent<Rigidbody2D>().position - Rigidbody2D.position).normalized;
         transform.rotation = Quaternion.Euler(direction.x, direction.y, 0.0f);
         Rigidbody2D.velocity = transform.rotation * direction * ATTACK_SPEED * Parameter.ATTACK_SPEED_MULTIPLY;

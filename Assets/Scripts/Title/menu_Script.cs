@@ -32,9 +32,6 @@ public class menu_Script : MonoBehaviour
     public enum MENU_TYPE
     {
         NEWGAME,
-        CONTINUE,
-        ENDLESS,
-        COLLECTION,
         OPTION,
         QUIT,
         MAX
@@ -48,9 +45,6 @@ public class menu_Script : MonoBehaviour
 
         buttons.AddRange(GetComponentsInChildren<Button>());
         menuProcess.Add(MENU_TYPE.NEWGAME, titleScene.Press_Start);
-        menuProcess.Add(MENU_TYPE.CONTINUE, titleScene.Press_Continue);
-        menuProcess.Add(MENU_TYPE.ENDLESS, titleScene.Press_Endless);
-        menuProcess.Add(MENU_TYPE.COLLECTION, titleScene.Press_Collection);
         menuProcess.Add(MENU_TYPE.OPTION, titleScene.Press_Option);
         menuProcess.Add(MENU_TYPE.QUIT, titleScene.Press_Quit);
 

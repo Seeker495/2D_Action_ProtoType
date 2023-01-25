@@ -18,27 +18,8 @@ public class ImmediateTreasureItem : ImmediateItemBase<TreasureInfo>
         m_treasureInfo.score = m_itemParamter.Score;
         GetComponent<SpriteRenderer>().sprite = m_itemParamter.Sprite;
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     public override TreasureInfo GetInfo()
     {
         return m_treasureInfo;
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-            Destroy(gameObject);
-    }
-
 }

@@ -212,6 +212,8 @@ public static class Parameter
 
     // ‰ŠúƒXƒRƒA
     public static long CURRENT_SCORE = 0;
+    public static long TOTAL_SCORE = 0;
+
 
     #endregion
 

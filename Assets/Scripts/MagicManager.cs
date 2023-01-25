@@ -29,7 +29,7 @@ public class MagicManager : MonoBehaviour
     {
         var magic = await Addressables.LoadAssetAsync<GameObject>("Fire").Task;
         Debug.Log(magic);
-        GameObject magicObject = Instantiate(magic, transform);
+        GameObject magicObject = Instantiate(magic, null);
         AttackBase homing = magicObject.GetComponent<Homing>();
         homing.SetTarget(GameObject.FindWithTag("Player"));
         homing.Attack();

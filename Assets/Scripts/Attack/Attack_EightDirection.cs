@@ -23,7 +23,7 @@ public class Attack_EightDirection : AttackBase
 
     public override void Attack()
     {
-        Rigidbody2D.position = transform.parent.GetComponent<Rigidbody2D>().position;
+        Rigidbody2D.position = GetComponent<MagicStatus>().Position;
         var direction = Vector2.up;
         Rigidbody2D.velocity = transform.rotation * direction * ATTACK_SPEED * Parameter.ATTACK_SPEED_MULTIPLY;
         Debug.Log(Rigidbody2D.velocity);

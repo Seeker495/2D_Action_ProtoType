@@ -61,9 +61,11 @@ public class Enemy_6 : EnemyBase
     {
         var magic = await Addressables.LoadAssetAsync<GameObject>("Fire").Task;
         Debug.Log(magic);
-        GameObject magicObject = Instantiate(magic, transform);
+        GameObject magicObject = Instantiate(magic, null);
         AttackBase homing = magicObject.GetComponent<Homing>();
         homing.SetTarget(GameObject.FindWithTag("Player"));
+        homing.GetComponent<MagicStatus>().Attack = GetComponent<IActor>().GetBaseStatus().attack;
+        homing.GetComponent<MagicStatus>().Position = GetComponent<Rigidbody2D>().position;
         homing.Attack();
     }
 

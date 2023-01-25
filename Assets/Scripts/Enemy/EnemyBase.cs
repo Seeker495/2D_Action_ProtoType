@@ -42,8 +42,8 @@ public abstract class EnemyBase : MonoBehaviour, IActor
         SetParameter();
         m_magicManager = GetComponentInChildren<MagicManager>();
         m_rigidBody2D = GetComponent<Rigidbody2D>();
-        if (m_status.actorStatus.speed <= 0.0f)
-            m_rigidBody2D.constraints = RigidbodyConstraints2D.FreezePosition;
+        //if (m_status.actorStatus.speed <= 0.0f)
+        //    m_rigidBody2D.constraints = RigidbodyConstraints2D.FreezePosition;
     }
 
     /*******************************************************************
@@ -144,13 +144,8 @@ public abstract class EnemyBase : MonoBehaviour, IActor
         m_rigidBody2D.velocity = Vector2.zero;
 
         var dropManager = GetComponentInChildren<DropManager>();
-        if (dropManager != null)
-        {
-            dropManager.enabled = true;
-            StartCoroutine(dropManager.Diffusion());
-            dropManager.transform.position = transform.position;
-            dropManager.transform.SetParent(null, true);
-        }
+
+
 
         while (duration > 0.0f)
         {
@@ -163,8 +158,19 @@ public abstract class EnemyBase : MonoBehaviour, IActor
         GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
         GetComponent<BoxCollider2D>().enabled = false;
 
+        var diffusion = dropManager.Diffusion();
 
+        if (dropManager != null)
+        {
+            dropManager.enabled = true;
+            StartCoroutine(diffusion);
+            dropManager.transform.position = transform.position;
+            dropManager.transform.SetParent(null, true);
+        }
+        if(diffusion.Current is string)
         gameObject.SetActive(false);
+
+
         Destroy(gameObject);
     }
 
@@ -295,7 +301,6 @@ public abstract class EnemyBase : MonoBehaviour, IActor
         if (Camera.main)
         {
             transform.position = m_status.position;
-            m_rigidBody2D.constraints = RigidbodyConstraints2D.FreezeAll;
         }
     }
 
@@ -303,7 +308,6 @@ public abstract class EnemyBase : MonoBehaviour, IActor
     {
         if (Camera.main)
         {
-            m_rigidBody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
     }
 }
