@@ -634,4 +634,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_resultUIObject: {fileID: 4903598130544019657, guid: a0c413d8cdf076546b4901ae645428b2, type: 3}
-  m_playerController: {fileID: 4958817270083638741, guid: 4df626c8948ac4c47afc9ab2a34e23f6, type: 3}

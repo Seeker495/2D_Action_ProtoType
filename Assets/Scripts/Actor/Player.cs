@@ -301,6 +301,8 @@ public class Player : MonoBehaviour, IActor
 
         if (m_direction == Vector2.down)
             spriteRenderer.sprite = downSprite;
+
+        Debug.Log("ÇÈÅ[Ç’");
     }
 #if UNITY_EDITOR
     private void FullHeal(InputAction.CallbackContext context)
