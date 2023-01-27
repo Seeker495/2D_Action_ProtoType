@@ -1052,7 +1052,7 @@ GameObject:
   - component: {fileID: 659820156}
   - component: {fileID: 659820155}
   m_Layer: 0
-  m_Name: karasu3 (2)
+  m_Name: karasu3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1073,6 +1073,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: c3db50e61d9543c4cba476916261f1a3, type: 3}
   sprite2: {fileID: 21300000, guid: bdd4338eda48bfa4e87bed9696d021ae, type: 3}
   SceneNum: 0
+  bardSpeed: 0.019
 --- !u!212 &659820156
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1152,7 +1153,7 @@ GameObject:
   - component: {fileID: 664172256}
   - component: {fileID: 664172255}
   m_Layer: 0
-  m_Name: karasu3 (3)
+  m_Name: pigeon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1173,6 +1174,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 902abd4687167e641a4381aaa173f196, type: 3}
   sprite2: {fileID: 21300000, guid: ac64b73d2e494794db47de7118a3f358, type: 3}
   SceneNum: 2
+  bardSpeed: 0.01
 --- !u!212 &664172256
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1904,7 +1906,7 @@ GameObject:
   - component: {fileID: 1106006844}
   - component: {fileID: 1106006843}
   m_Layer: 0
-  m_Name: karasu3 (1)
+  m_Name: karasu2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1925,6 +1927,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: bdd4338eda48bfa4e87bed9696d021ae, type: 3}
   sprite2: {fileID: 21300000, guid: c3db50e61d9543c4cba476916261f1a3, type: 3}
   SceneNum: 0
+  bardSpeed: 0.021
 --- !u!212 &1106006844
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2164,7 +2167,7 @@ GameObject:
   - component: {fileID: 1207963118}
   - component: {fileID: 1207963117}
   m_Layer: 0
-  m_Name: karasu3
+  m_Name: karasu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2185,6 +2188,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: c3db50e61d9543c4cba476916261f1a3, type: 3}
   sprite2: {fileID: 21300000, guid: bdd4338eda48bfa4e87bed9696d021ae, type: 3}
   SceneNum: 0
+  bardSpeed: 0.02
 --- !u!212 &1207963118
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4071,7 +4075,7 @@ GameObject:
   - component: {fileID: 2080630858}
   - component: {fileID: 2080630857}
   m_Layer: 0
-  m_Name: karasu3 (4)
+  m_Name: chick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4092,6 +4096,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: a97f8d03a2ed8364fa0f65d50abc0d70, type: 3}
   sprite2: {fileID: 21300000, guid: 302a10a4b6adc4f4e9b6a83a06a0a1a9, type: 3}
   SceneNum: 2
+  bardSpeed: 0.01
 --- !u!212 &2080630858
 SpriteRenderer:
   m_ObjectHideFlags: 0

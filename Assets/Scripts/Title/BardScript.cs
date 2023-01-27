@@ -14,7 +14,12 @@ public class BardScript : MonoBehaviour
 
     // 時間
     private float spriteChangeTime = 0.0f;
+
+    // 鳥が羽ばたく時間
     private float spriteNextChange = 20.0f;
+
+    // 鳥のスピード
+    public float bardSpeed = 0.01f;
 
     // フラグ　
     private bool spriteChangeFlag = false;
@@ -48,13 +53,13 @@ public class BardScript : MonoBehaviour
         Vector2 position = transform.position;
         if (SceneNum == 0)
         {
-            position.x -= 0.01f;
-            if (position.x <= -9.0f)
-                position.x = 10.5f;
+            position.x -= bardSpeed;
+            if (position.x <= -9.5f)
+                position.x = 10.0f;
         }
         if (SceneNum == 1)
         {
-            position.x += 0.01f;
+            position.x += bardSpeed;
             if (position.x >= 9.0f)
                 position.x = -10.5f;
         }
