@@ -67,6 +67,7 @@ public class Player : MonoBehaviour, IActor
     // ピンチの時に流すseのフラグ
     bool pinchiFlag = false;
 
+
     private void OnEnable()
     {
         PlayerController.Controller.Play.Move.performed += Move;
@@ -246,11 +247,10 @@ public class Player : MonoBehaviour, IActor
         m_status.maxdefence = Parameter.PLAYER_INIT_DEFENCE ;
 
         // 武器リスト
-        m_weapons = new List<AttackBase>(3)
+        m_weapons = new List<AttackBase>(2)
         {
             GetComponentInChildren<Blade>(),
             GetComponentInChildren<Bow>(),
-            GetComponentInChildren<GrenadeManager>(),
         };
     }
 
@@ -349,7 +349,7 @@ public class Player : MonoBehaviour, IActor
         // 早い移動の音
         SoundPlayer.PlaySFX(eSFX.HIGH_SPEED);
         m_rigidbody2D.velocity = m_velocity * m_rigidbody2D.velocity.normalized *Parameter.PLAYER_DASH_MULTIPLY;
-
+        m_direction = m_rigidbody2D.velocity.normalized;
     }
 
     public void Dashing(InputAction.CallbackContext context)
@@ -374,6 +374,7 @@ public class Player : MonoBehaviour, IActor
 
         // WeaponIndex に応じた武器の音を出す
         SoundPlayer.PlaySFX(sfx[WeaponIndex]);
+
     }
 
     public Sprite GetWeaponSprite()
@@ -583,8 +584,7 @@ public class Player : MonoBehaviour, IActor
 
     private void Dead()
     {
-        gameObject.tag = "Untagged";
-        gameObject.SetActive(false);
+        GetComponent<Renderer>().enabled = false;
     }
 
     public void SetMoveRange(ref Map map)

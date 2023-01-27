@@ -11,6 +11,34 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 559825541556256153, guid: b19efad76f1900a429fdf04fbc737d75, type: 3}
+      propertyPath: m_Size.x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 559825541556256153, guid: b19efad76f1900a429fdf04fbc737d75, type: 3}
+      propertyPath: m_Size.y
+      value: 6.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 559825541556256153, guid: b19efad76f1900a429fdf04fbc737d75, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 559825541556256153, guid: b19efad76f1900a429fdf04fbc737d75, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 559825541556256153, guid: b19efad76f1900a429fdf04fbc737d75, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 559825541556256153, guid: b19efad76f1900a429fdf04fbc737d75, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 559825541556256153, guid: b19efad76f1900a429fdf04fbc737d75, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 811700892617962174, guid: b19efad76f1900a429fdf04fbc737d75, type: 3}
       propertyPath: m_Name
       value: Sapphire
@@ -25,11 +53,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4414774614454746942, guid: b19efad76f1900a429fdf04fbc737d75, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 69
+      value: 97
       objectReference: {fileID: 0}
     - target: {fileID: 4414774614454746942, guid: b19efad76f1900a429fdf04fbc737d75, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5
+      value: -93
       objectReference: {fileID: 0}
     - target: {fileID: 4414774614454746942, guid: b19efad76f1900a429fdf04fbc737d75, type: 3}
       propertyPath: m_LocalPosition.z

@@ -16,15 +16,20 @@ public class SmokeAnimation : MonoBehaviour
         StartCoroutine(Play());
     }
 
+    private void FixedUpdate()
+    {
+        m_displayTime += Time.deltaTime;
+    }
+
     private IEnumerator Play()
     {
+        m_displayTime = 0.0f;
         transform.DOScale(0.1f, 0.3f).SetLoops(-1, LoopType.Yoyo);
         while (m_displayTime < CHANGE_TIME)
         {
             int spriteIndex = Random.Range(0, m_smokeSprites.Count);
             GetComponent<SpriteRenderer>().sprite = m_smokeSprites[spriteIndex];
-            m_displayTime += Time.deltaTime;
-            yield return null;
+            yield return new WaitForSeconds(0.1f);
         }
         Destroy(gameObject);
     }

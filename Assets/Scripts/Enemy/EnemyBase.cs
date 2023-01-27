@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -141,6 +142,9 @@ public abstract class EnemyBase : MonoBehaviour, IActor
 
     IEnumerator OnDead(float duration, float interval)
     {
+        transform.DOScale(Vector3.one, 3.0f);
+        transform.DOShakePosition(3.0f, 0.1f);
+
         m_rigidBody2D.velocity = Vector2.zero;
 
         var dropManager = GetComponentInChildren<DropManager>();
@@ -151,7 +155,7 @@ public abstract class EnemyBase : MonoBehaviour, IActor
         {
             duration -= Time.deltaTime;
             GetComponent<SpriteRenderer>().color = Color.red;
-            yield return new WaitForSeconds(Time.deltaTime);
+            yield return null;
             GetComponent<SpriteRenderer>().color = Color.white;
         }
 
@@ -168,7 +172,7 @@ public abstract class EnemyBase : MonoBehaviour, IActor
             dropManager.transform.SetParent(null, true);
         }
         if(diffusion.Current is string)
-        gameObject.SetActive(false);
+            gameObject.SetActive(false);
 
 
         Destroy(gameObject);
