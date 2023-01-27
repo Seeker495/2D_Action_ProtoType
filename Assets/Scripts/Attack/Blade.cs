@@ -15,7 +15,7 @@ public class Blade : AttackBase
     [SerializeField] private EffekseerEffectAsset m_effect;
     private int m_pressCount = 0;
     private float m_pressTime = 0.0f;
-    private readonly float PRESS_INTERVAL = 0.3f;
+    private readonly float PRESS_INTERVAL = 0.2f;
     IEnumerator m_enumrator;
     // 剣の振るスピード
     const float BLADE_SPEED = 6.0f;
@@ -58,6 +58,20 @@ public class Blade : AttackBase
     {
         m_rigidBody2D.position = GetComponentInParent<Rigidbody2D>().position;
         m_pressTime += Time.deltaTime;
+
+        switch (m_pressCount)
+        {
+            case 1:
+
+                GetComponentInParent<Rigidbody2D>().velocity = (/*direction **/ new Vector2(2, 2));
+                break;
+            case 2:
+                GetComponentInParent<Rigidbody2D>().velocity = (/*direction **/ new Vector2(2, -2));
+                break;
+            case 3:
+                GetComponentInParent<Rigidbody2D>().velocity = (/*direction * */new Vector2(2, 2));
+                break;
+        }
     }
 
     /*
@@ -66,6 +80,8 @@ public class Blade : AttackBase
      */
     public IEnumerator Attacking(float degree)
     {
+        var direction = GetComponentInParent<IActor>().GetDirection();
+
         if (m_pressCount >= 3)
         {
             GetComponent<EdgeCollider2D>().enabled = false;
@@ -81,22 +97,11 @@ public class Blade : AttackBase
             m_pressCount = 0;
             m_pressTime = 0.0f;
         }
-        switch (m_pressCount)
-        {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            default:
-                break;
-        }
+
 
 
         GetComponent<EdgeCollider2D>().enabled = true;
         Quaternion q = transform.rotation;
-        var direction = GetComponentInParent<IActor>().GetDirection();
         var handle = EffekseerSystem.PlayEffect(m_effect, transform.position);
         handle.speed = 3.5f;
 
