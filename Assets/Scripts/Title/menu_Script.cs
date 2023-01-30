@@ -100,7 +100,7 @@ public class menu_Script : MonoBehaviour
         else
             lineRenderer.colorGradient.colorKeys[1].color = Color.red;
         //lineRenderer.SetPositions(new Vector3[] { new Vector3(-1.0f, 0.1f - 0.45f * button, -1.0f), new Vector3(0.0f, 0.1f - 0.45f * button, -1.0f), new Vector3(1.0f, 0.1f - 0.45f * button, -1.0f) });
-        FocusSelect.transform.DOLocalMoveY(-(button * 0.825f) + 0.5f, Parameter.FOCUS_TIME).SetUpdate(true);
+        FocusSelect.transform.DOLocalMoveY(-(button * 1.2f) + 0.5f, Parameter.FOCUS_TIME).SetUpdate(true);
 
     }
 }

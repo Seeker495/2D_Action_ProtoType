@@ -367,7 +367,7 @@ public class Player : MonoBehaviour, IActor
 
     public void Attack(InputAction.CallbackContext context)
     {
-
+        if (GetComponentInChildren<SmokeAnimation>()) return;
         m_weapons[WeaponIndex].Attack();
         eSFX[] sfx = new eSFX[]
         {

@@ -29,7 +29,7 @@ public class SmokeAnimation : MonoBehaviour
         {
             int spriteIndex = Random.Range(0, m_smokeSprites.Count);
             GetComponent<SpriteRenderer>().sprite = m_smokeSprites[spriteIndex];
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.05f);
         }
         Destroy(gameObject);
     }
