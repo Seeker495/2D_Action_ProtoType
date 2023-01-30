@@ -76,6 +76,8 @@ public class TitleScene : MonoBehaviour
     {
     }
 
+#if UNITY_EDITOR
+
     private void DebugStart()
     {
         Parameter.IS_DEBUG_MODE = true;
@@ -83,6 +85,7 @@ public class TitleScene : MonoBehaviour
         Parameter.NEXT_SCENE_NAME = "Play";
         SceneManager.LoadSceneAsync("Loading");
     }
+
 
     private void Press_Start_Debug_1(InputAction.CallbackContext context)
     {
@@ -143,7 +146,7 @@ public class TitleScene : MonoBehaviour
         Parameter.DEBUG_MAP_INDEX = 9;
         DebugStart();
     }
-
+#endif
 
 
 

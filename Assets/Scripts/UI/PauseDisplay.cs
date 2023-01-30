@@ -10,6 +10,7 @@ public class PauseDisplay : MonoBehaviour
 {
     public List<Button> m_buttons;
     public int m_index;
+    public GameObject m_option;
 
     private void OnEnable()
     {
@@ -30,11 +31,14 @@ public class PauseDisplay : MonoBehaviour
     }
 
 
+
     // Start is called before the first frame update
     void Awake()
     {
         m_buttons = GetComponentsInChildren<Button>().ToList();
         Select();
+        m_option = Instantiate(m_option, transform);
+        m_option.SetActive(false);
     }
 
     // Update is called once per frame
@@ -124,8 +128,7 @@ public class PauseDisplay : MonoBehaviour
 
     private void RetryFromStart()
     {
-        Parameter.NEXT_SCENE_NAME = "Play";
-        SceneManager.LoadSceneAsync("Loading");
+        m_option.SetActive(true);
     }
 
     private void BackToTitle()

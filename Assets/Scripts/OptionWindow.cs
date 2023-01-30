@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class OptionWindow : MonoBehaviour
@@ -28,8 +29,15 @@ public class OptionWindow : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
-        PlayerController.Controller.Title.Disable();
-        PlayerController.Controller.DebugTitle.Disable();
+        if (SceneManager.GetActiveScene().name == "Title")
+        {
+            PlayerController.Controller.Title.Disable();
+            PlayerController.Controller.DebugTitle.Disable();
+        }
+        else if(SceneManager.GetActiveScene().name == "Play")
+        {
+            PlayerController.Controller.Pause.Disable();
+        }
         PlayerController.Controller.Option.Enable();
 
         var sequence = DOTween.Sequence();
@@ -65,9 +73,15 @@ public class OptionWindow : MonoBehaviour
         PlayerController.Controller.Option.VolumeUp.started -= VolumeUp;
 
         PlayerController.Controller.Option.Disable();
-        PlayerController.Controller.Title.Enable();
-        PlayerController.Controller.DebugTitle.Enable();
-
+        if (SceneManager.GetActiveScene().name == "Title")
+        {
+            PlayerController.Controller.Title.Enable();
+            PlayerController.Controller.DebugTitle.Enable();
+        }
+        else if (SceneManager.GetActiveScene().name == "Play")
+        {
+            PlayerController.Controller.Pause.Enable();
+        }
 
 
     }

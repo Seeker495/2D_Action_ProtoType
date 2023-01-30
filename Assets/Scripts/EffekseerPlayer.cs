@@ -1,5 +1,7 @@
 using Effekseer;
+#if UNITY_EDITOR
 using Effekseer.Editor;
+#endif
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
