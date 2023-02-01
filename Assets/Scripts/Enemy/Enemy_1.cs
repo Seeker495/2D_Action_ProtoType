@@ -11,9 +11,8 @@ public class Enemy_1 : EnemyBase
 {
     private eEnemyAction m_enemyAction = eEnemyAction.STOP;
 
-    private void Awake()
+    private void Start()
     {
-        base.Awake();
         PatternFactory.CreateMovePattern(ref m_status.movePattern, out m_normalMovePattern, out m_findMovePattern, transform);
         PatternFactory.CreateAttackPattern(ref m_status.attackPattern, out m_attackList);
     }
