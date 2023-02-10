@@ -64,8 +64,8 @@ public class SoundManager : MonoBehaviour
         {
             m_multiSfxPlayer[i] = gameObject.AddComponent<AudioSource>(); ;
         }
-        m_bgmVolume = m_multiBgmPlayer.First().volume;
-        m_sfxVolume = m_multiSfxPlayer.First().volume;
+        SoundPlayer.BGM_Volume = m_bgmVolume = m_multiBgmPlayer.First().volume;
+        SoundPlayer.SFX_Volume = m_sfxVolume = m_multiSfxPlayer.First().volume;
         m_multiBgmPlayer.ForEach(player => { player.audioSource.outputAudioMixerGroup = m_bgmGroup; });
 
         m_multiSfxPlayer.ForEach(player => { player.outputAudioMixerGroup = m_sfxGroup; });
@@ -78,9 +78,9 @@ public class SoundManager : MonoBehaviour
         if (SoundPlayer.BGM_Volume >= 0.01f)
         {
             m_multiBgmPlayer.ForEach(player => { player.audioSource.mute = false; });
-            m_multiBgmPlayer.ForEach(player => { player.volume = SoundPlayer.BGM_Volume; player.audioSource.volume = player.audioSource.volume / m_bgmVolume * player.volume; });
+            m_multiBgmPlayer.ForEach(player => { player.volume = SoundPlayer.BGM_Volume; player.audioSource.volume = player.volume / m_bgmVolume * player.volume; });
             m_currentPlayers.ForEach(player => { player.audioSource.mute = false; });
-            m_currentPlayers.ForEach(player => { player.volume = SoundPlayer.BGM_Volume; player.audioSource.volume = player.audioSource.volume / m_bgmVolume * player.volume; });
+            m_currentPlayers.ForEach(player => { player.volume = SoundPlayer.BGM_Volume; player.audioSource.volume = player.volume / m_bgmVolume * player.volume; });
 
             m_bgmVolume = SoundPlayer.BGM_Volume;
         }
@@ -152,7 +152,7 @@ public class SoundManager : MonoBehaviour
         var bgm = GetBGM(type);
         bgmPlayer.audioSource.clip = bgm.clip;
         bgmPlayer.volume = bgm.volume;
-        bgmPlayer.audioSource.volume = m_bgmVolume;
+        bgmPlayer.audioSource.volume = m_bgmVolume * bgmPlayer.volume;
         if (bgm.isLoopMusic)
         {
             if (bgm.endSecond <= 0)
@@ -246,4 +246,5 @@ public enum eSFX
     WATER,
     OK,
     PINCHI,
+    CURSOR,
 }

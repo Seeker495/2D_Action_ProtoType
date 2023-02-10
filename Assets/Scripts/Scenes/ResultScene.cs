@@ -14,12 +14,12 @@ public class ResultScene : MonoBehaviour
     private void OnEnable()
     {
         PlayerController.Controller.Result.Enable();
-        PlayerController.Controller.Result.BackToTitle.started += BackToTitle;
+        PlayerController.Controller.Result.GoToPlay.started += BackToTitle;
     }
 
     private void OnDisable()
     {
-        PlayerController.Controller.Result.BackToTitle.started -= BackToTitle;
+        PlayerController.Controller.Result.GoToPlay.started -= BackToTitle;
         PlayerController.Controller.Result.Disable();
     }
 
@@ -32,7 +32,7 @@ public class ResultScene : MonoBehaviour
 
     public void BackToTitle(InputAction.CallbackContext context)
     {
-        Parameter.NEXT_SCENE_NAME = "Title";
+        Parameter.NEXT_SCENE_NAME = "Play";
         SceneManager.LoadSceneAsync("Loading");
     }
 }

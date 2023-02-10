@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FallJewel : MonoBehaviour
 {
     [SerializeField] private List<GameObject> m_fallJewels;
+    [SerializeField] private TextMeshProUGUI m_score;
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(FallingJewel(100));
+        StartCoroutine(FallingJewel(/*Parameter.TOTAL_SCORE / 1000000*/40));
     }
 
     // Update is called once per frame
@@ -17,7 +21,7 @@ public class FallJewel : MonoBehaviour
 
     }
 
-    private IEnumerator FallingJewel(int jewelNum)
+    private IEnumerator FallingJewel(long jewelNum)
     {
         while(jewelNum > 0)
         {
@@ -32,5 +36,18 @@ public class FallJewel : MonoBehaviour
             yield return new WaitForSeconds(waitSecond);
             jewelNum--;
         }
+        yield return StartCoroutine(Score());
     }
+
+    private IEnumerator Score()
+    {
+        m_score.text = "SCORE :";
+        yield return new WaitForSeconds(1.0f);
+        m_score.text = $"SCORE :{Parameter.TOTAL_SCORE}";
+        yield return new WaitForSeconds(2.0f);
+        Parameter.NEXT_SCENE_NAME = "Title";
+        SceneManager.LoadSceneAsync("Loading");
+        yield return null;
+    }
+
 }

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,7 @@ using UnityEngine.AddressableAssets;
 public class Enemy_3 : EnemyBase
 {
     private eEnemyAction m_enemyAction = eEnemyAction.STOP;
-
+    [SerializeField] private Sprite m_explosion;
     // Start is called before the first frame update
     void Start()
     {
@@ -64,7 +65,10 @@ public class Enemy_3 : EnemyBase
     private IEnumerator Explosion()
     {
         var circleCollider = gameObject.AddComponent<CircleCollider2D>();
-        circleCollider.radius = 5.0f;
+        var sprite = GetComponentInChildren<SpriteRenderer>();
+        sprite.sprite = m_explosion;
+        sprite.transform.DOScale(0.1f, 1.0f).SetEase(Ease.OutExpo).SetLoops(-1, LoopType.Yoyo).SetUpdate(true);
+        circleCollider.radius = 0.7f;
         float explosionTime = 0.0f;
         while (explosionTime < 2.0f)
         {

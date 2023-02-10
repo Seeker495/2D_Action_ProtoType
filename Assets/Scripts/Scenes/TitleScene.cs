@@ -74,6 +74,7 @@ public class TitleScene : MonoBehaviour
     // çXêV
     void Update()
     {
+        Debug.Log(SoundPlayer.BGM_Volume);
     }
 
 #if UNITY_EDITOR

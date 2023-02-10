@@ -1,3 +1,5 @@
+using DG.Tweening;
+using DG.Tweening.Core;
 using Mono.Cecil;
 using System.Collections;
 using System.Collections.Generic;
@@ -351,7 +353,6 @@ public class Player : MonoBehaviour, IActor
         // ‘‚¢ˆÚ“®‚Ì‰¹
         SoundPlayer.PlaySFX(eSFX.HIGH_SPEED);
         m_rigidbody2D.velocity = m_velocity * m_rigidbody2D.velocity.normalized *Parameter.PLAYER_DASH_MULTIPLY;
-        m_direction = m_rigidbody2D.velocity.normalized;
     }
 
     public void Dashing(InputAction.CallbackContext context)
@@ -611,6 +612,7 @@ public class Player : MonoBehaviour, IActor
 
         int damage = Mathf.RoundToInt(attack - m_status.actorStatus.defence);
         m_status.actorStatus.hp -= damage;
+        //DOTween.To(() => m_status.actorStatus.hp, (x) => m_status.actorStatus.hp = damage, 1.0.)
         StartCoroutine(OnDamage(2.0f, 0.3f));
     }
 

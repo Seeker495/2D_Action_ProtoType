@@ -50,14 +50,18 @@ public class Map : MonoBehaviour
         m_stageName = stageName;
         var mapData = LoadStage.Load(m_stageName);
 
+        if (mapData.width == 0 && mapData.height == 0) return;
+
         m_mapInfo.width = mapData.width;
         m_mapInfo.height = mapData.height;
-
+        Debug.Log($"幅:{m_mapInfo.width}, 高さ:{m_mapInfo.height}");
         for (int i = 0; i < mapData.stage.Count; i++)
         {
+
             //Debug.Assert(int.Parse(mapData.stage[i]) >= 0, "正しい形式で呼ばれていません。");
             var chip = m_mapObjects.Find(obj => obj.mapIndex == mapData.stage[i]).mapObject;
-            Debug.Assert(chip, $"{i}番目で{m_mapObjects.Find(obj => obj.mapIndex == mapData.stage[i]).mapIndex}を参照しました");
+            Debug.Assert(chip, $"{i}番目で{m_mapObjects.Find(obj => obj.mapIndex == mapData.stage[i]).mapIndex}を参照しました\n{i % m_mapInfo.height} {i / m_mapInfo.width}");
+
             chip.transform.position = new Vector3(0.0f + (i % m_mapInfo.width), 0.0f - ((i / m_mapInfo.width) % m_mapInfo.height), 0.0f);
             switch (mapData.stage[i])
             {

@@ -30,7 +30,7 @@ public class ScoreUI : MonoBehaviour
     public void StartScoreAnimation()
     {
 
-        StartCoroutine(AddScoreAnimation(1000));
+        StartCoroutine(AddScoreAnimation(5000));
     }
 
     public void AddScore()

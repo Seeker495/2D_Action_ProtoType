@@ -73,44 +73,44 @@ public class ResultUI : MonoBehaviour
         if (m_expEnumerator.Current is string && m_expCoroutine != null)
         {
             m_expCoroutine = null;
-            m_levelCoroutine = StartCoroutine(m_levelEnumerator);
+            m_endWindowObject.gameObject.SetActive(true);
         }
 
-        if (m_levelCoroutine != null && m_levelEnumerator.Current is IEnumerator)
-        {
-            m_levelEnumerator = m_levelEnumerator.Current as IEnumerator;
-        }
+        //if (m_levelCoroutine != null && m_levelEnumerator.Current is IEnumerator)
+        //{
+        //    m_levelEnumerator = m_levelEnumerator.Current as IEnumerator;
+        //}
 
-        if (m_levelEnumerator.Current is string)
-        {
-             m_endWindowObject.gameObject.SetActive(true);
-        }
+        //if (m_levelEnumerator.Current is string)
+        //{
+        //     m_endWindowObject.gameObject.SetActive(true);
+        //}
 
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            AddScore.IS_LEVEL_UP = false;
-        }
+        //if (Input.GetKeyUp(KeyCode.A))
+        //{
+        //    AddScore.IS_LEVEL_UP = false;
+        //}
 
-        if (AddScore.IS_LEVEL_UP)
-        {
-            m_SkillObjects.ForEach(skillObject => skillObject.SetActive(true));
-            m_skillFocus.SetActive(true);
-        }
-        else
-        {
-            m_SkillObjects.ForEach(skillObject => skillObject.SetActive(false));
-            m_skillFocus.SetActive(false);
-        }
+        //if (AddScore.IS_LEVEL_UP)
+        //{
+        //    m_SkillObjects.ForEach(skillObject => skillObject.SetActive(true));
+        //    m_skillFocus.SetActive(true);
+        //}
+        //else
+        //{
+        //    m_SkillObjects.ForEach(skillObject => skillObject.SetActive(false));
+        //    m_skillFocus.SetActive(false);
+        //}
 
-        if (AddScore.IS_LEVEL_UP && Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            --m_skillIndex;
-        }
+        //if (AddScore.IS_LEVEL_UP && Input.GetKeyDown(KeyCode.LeftArrow))
+        //{
+        //    --m_skillIndex;
+        //}
 
-        if (AddScore.IS_LEVEL_UP && Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            ++m_skillIndex;
-        }
+        //if (AddScore.IS_LEVEL_UP && Input.GetKeyDown(KeyCode.RightArrow))
+        //{
+        //    ++m_skillIndex;
+        //}
     }
 
     private void SelectLeft(InputAction.CallbackContext context)

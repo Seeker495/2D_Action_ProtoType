@@ -70,12 +70,14 @@ public class menu_Script : MonoBehaviour
     public void SelectUp(InputAction.CallbackContext context)
     {
         button = System.Math.Abs(--button + (int)MENU_TYPE.MAX) % (int)MENU_TYPE.MAX;
+        SoundPlayer.PlaySFX(eSFX.CURSOR);
         FocusMenu(FocusSelect.GetComponent<LineRenderer>());
     }
 
     public void SelectDown(InputAction.CallbackContext context)
     {
         button = System.Math.Abs(++button) % (int)MENU_TYPE.MAX;
+        SoundPlayer.PlaySFX(eSFX.CURSOR);
         FocusMenu(FocusSelect.GetComponent<LineRenderer>());
     }
 

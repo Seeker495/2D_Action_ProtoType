@@ -49,19 +49,19 @@ MonoBehaviour:
   m_bgmList:
   - type: 0
     clip: {fileID: 8300000, guid: a258c2866ebca624e8440f43f4fab05c, type: 3}
-    volume: 0.41
+    volume: 0
     isLoopMusic: 0
     startSecond: 0
     endSecond: 0
   - type: 1
     clip: {fileID: 8300000, guid: 86fddf0b64645104e84ca85b64d2381f, type: 3}
-    volume: 0.41
+    volume: 0.1
     isLoopMusic: 0
     startSecond: 0
     endSecond: 0
   - type: 2
     clip: {fileID: 8300000, guid: b9fc6a67bd2a81345a38abaa153be8d6, type: 3}
-    volume: 0.41
+    volume: 0.1
     isLoopMusic: 0
     startSecond: 0
     endSecond: 0
@@ -101,6 +101,9 @@ MonoBehaviour:
     volume: 0.5
   - type: 11
     clip: {fileID: 8300000, guid: 078169eb9c105ad4f9f0be0e627fd694, type: 3}
+    volume: 0.5
+  - type: 12
+    clip: {fileID: 8300000, guid: b3b61da89b6cca547b864c58282191e0, type: 3}
     volume: 0.5
   m_multiBgmPlayer:
   - audioSource: {fileID: 5559519569921470700}

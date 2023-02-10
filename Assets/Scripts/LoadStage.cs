@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /*******************************************************************
  *  <ŠT—v>
@@ -28,10 +29,18 @@ public static class LoadStage
         MapData map = new MapData();
         string StagePath = "";
 #if UNITY_EDITOR
-        StagePath = $"Assets/Stage/";
+        StagePath = $"{Application.streamingAssetsPath}/Stage/";
 #elif UNITY_STANDALONE
-        StagePath = $"Stage/";
+        StagePath = $"{Application.streamingAssetsPath}/Stage/";
 #endif
+
+        if(!File.Exists($"{StagePath}{fileName}.csv"))
+        {
+            Parameter.LAST_ALIVE_DAY--;
+            Parameter.NEXT_SCENE_NAME = "EndResult";
+            SceneManager.LoadScene("Loading");
+            return map;
+        }
         using (StreamReader reader = new StreamReader($"{StagePath}{fileName}.csv", Encoding.UTF8))
         {
             string line = string.Empty;

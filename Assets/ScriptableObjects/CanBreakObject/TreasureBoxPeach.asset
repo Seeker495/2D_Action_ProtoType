@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c24c1c41f34a9348a9c16b1cb70d6ea, type: 3}
+  m_Name: TreasureBoxPeach
+  m_EditorClassIdentifier: 
+  m_hp: 50
+  m_dropItems:
+  - startChance: 0.01
+    endChance: 1
+    dropItem: {fileID: 4173427007155563017, guid: afbf69741423d6146a97b9ff28e819aa, type: 3}
+  m_sprite: {fileID: 21300000, guid: 6b4d09b4a604b13488be0486060ece72, type: 3}

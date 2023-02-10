@@ -1,6 +1,7 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
@@ -90,6 +91,11 @@ public class PlayScene : MonoBehaviour
 
     private void Awake()
     {
+        m_stageNames = new List<string>();
+        for(int i= 0;i<100;++i)
+        {
+            m_stageNames.Add($"Stage_{i + 1}");
+        }
         if(Time.timeScale <= 0.0f) Time.timeScale = 1.0f;
 
         /* オブジェクトの複製及び代入を行う */
@@ -106,6 +112,7 @@ public class PlayScene : MonoBehaviour
         // マップの読み込み(先に読み込まないとプレイヤーを取得できないため)
         m_map.Load(m_stageNames[(int)Parameter.CURRENT_ALIVE_DAY]);
 #endif
+        if (!m_map.IsLoadFinished) return;
 
         GameObject.FindWithTag("Player").TryGetComponent(out m_player);
         m_cameraObject = Instantiate(m_cameraObject, null);
@@ -133,6 +140,8 @@ public class PlayScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (!m_map.IsLoadFinished) return;
+
         // マップの移動制限のための範囲を決める
         m_wall.SetRange(ref m_map);
 

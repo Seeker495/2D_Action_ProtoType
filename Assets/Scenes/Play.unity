@@ -164,8 +164,7 @@ MonoBehaviour:
   m_debugStageNames:
   - EnemyDebug
   - EnemyDebug
-  m_stageNames:
-  - StageData
+  m_stageNames: []
   m_soundManagerObject: {fileID: 5812165010260564879, guid: ac0c8526dec0d9a4bba43b379454840b, type: 3}
 --- !u!4 &466821779
 Transform:
@@ -180,7 +179,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1202013653
 GameObject:
@@ -299,7 +298,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2633362701637228743, guid: 761a5ec8a58510c42a135334f91fb84c, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2633362701637228743, guid: 761a5ec8a58510c42a135334f91fb84c, type: 3}
       propertyPath: m_LocalPosition.x

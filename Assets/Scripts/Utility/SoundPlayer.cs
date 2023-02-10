@@ -10,6 +10,7 @@ public static class SoundPlayer
     public static float SFX_Volume;
     public static void SetUp(GameObject soundObj)
     {
+        if (SoundManager != null) return;
         soundObj.TryGetComponent(out SoundManager);
     }
 

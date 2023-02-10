@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,9 +48,10 @@ public class CanBreakObject : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Arrow"))
+        if (collision.CompareTag("Arrow") || collision.CompareTag("Blade"))
         {
             Damage(Mathf.RoundToInt(collision.GetComponentInParent<IActor>().GetBaseStatus().attack));
+
         }
     }
 
@@ -57,5 +59,6 @@ public class CanBreakObject : MonoBehaviour
     void Damage(int damage)
     {
         m_hp -= damage;
+        transform.DOShakePosition(3.0f, 0.1f);
     }
 }

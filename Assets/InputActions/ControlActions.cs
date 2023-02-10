@@ -158,7 +158,7 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""0e25ee4b-26ca-4342-adbd-9f1f0712d650"",
-                    ""path"": ""<XInputController>/buttonSouth"",
+                    ""path"": ""<XInputController>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -458,6 +458,17 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""1c9b8d15-26d2-464a-87fc-a76c5109c616"",
+                    ""path"": ""<XInputController>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""bc669abb-f2cd-4f83-ac5e-24aecd7d8d84"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
@@ -482,6 +493,17 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""3f5fc295-944a-4b57-afc5-214ec1ea5267"",
                     ""path"": ""<DualShockGamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""065f3d71-8d6d-41eb-9de6-840068c5d7a5"",
+                    ""path"": ""<XInputController>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -806,7 +828,7 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
             ""id"": ""5f20e910-6aef-41c5-b7b7-2fe3777380b9"",
             ""actions"": [
                 {
-                    ""name"": ""BackToTitle"",
+                    ""name"": ""GoToPlay"",
                     ""type"": ""Button"",
                     ""id"": ""b2f8dbd0-6d5a-48ff-b763-134abbfb91ce"",
                     ""expectedControlType"": ""Button"",
@@ -859,7 +881,7 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""BackToTitle"",
+                    ""action"": ""GoToPlay"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -870,13 +892,46 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""BackToTitle"",
+                    ""action"": ""GoToPlay"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1ee01550-44d0-48fa-a424-c6a5fb21bbc9"",
+                    ""path"": ""<XInputController>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GoToPlay"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""c5dc5fdf-c60c-4daa-9ffc-7b0f7d87ba2d"",
+                    ""path"": ""<XInputController>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectLeftOnLevelUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0b634f58-6d68-4986-904c-85bc8fcf7f30"",
+                    ""path"": ""<XInputController>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectLeftOnLevelUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""06e3d4b4-b98f-4343-bb0c-d752b292fef7"",
                     ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -888,6 +943,17 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""42a26536-a087-4699-9927-2a99da26713f"",
+                    ""path"": ""<XInputController>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectRightOnLevelUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""43a43f97-7233-428b-8ed2-b1f340ab2034"",
                     ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -898,8 +964,41 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""00bfb745-af0e-4c48-9943-dc727868381a"",
+                    ""path"": ""<XInputController>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectRightOnLevelUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""ba9956dc-ee29-4185-81ca-9b5187416e3a"",
+                    ""path"": ""<XInputController>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectUpOnEndLevelUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b863021a-60bc-4ac3-a11e-9d0cebfc2e8f"",
                     ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectUpOnEndLevelUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e7a51616-82b6-4c79-8241-05face40201c"",
+                    ""path"": ""<XInputController>/dpad/up"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -911,6 +1010,28 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""487af185-d6dc-49b7-b58a-7e870ea89a08"",
                     ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectDownOnEndLevelUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8fe60e92-b4b0-4c1a-bf4e-3d2b92a288de"",
+                    ""path"": ""<XInputController>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectDownOnEndLevelUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e5812576-7529-434c-8a82-4e8b02199778"",
+                    ""path"": ""<XInputController>/dpad/down"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -1386,6 +1507,17 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""7473aafe-4fb2-49a6-85ab-7d6775a9fcc1"",
+                    ""path"": ""<XInputController>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""fa5aa051-8aa6-479c-b061-5edb5a845c9a"",
                     ""path"": ""<Gamepad>/dpad/down"",
                     ""interactions"": """",
@@ -1419,6 +1551,17 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""1b8d5c6e-20db-41e4-978e-216d1580e8eb"",
+                    ""path"": ""<XInputController>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""b276dd2c-df4e-487d-a15f-558ebac60a3c"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
@@ -1431,7 +1574,7 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""d3683076-5d14-4631-bd03-ea4704286a04"",
-                    ""path"": ""<XInputController>/buttonSouth"",
+                    ""path"": ""<XInputController>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -1496,6 +1639,28 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""eac1ddab-08e3-4953-b07b-0987e7d26c06"",
+                    ""path"": ""<XInputController>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VolumeUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d23d9f4d-e8bf-4123-8490-2860af7a3995"",
+                    ""path"": ""<XInputController>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VolumeUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""f781e61b-fa0d-4885-9a52-6141c8d3daae"",
                     ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
@@ -1520,6 +1685,28 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""0e8a3de6-a599-478c-a1d8-f07cab017e10"",
                     ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VolumeDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4c9b1f43-870c-4236-ac96-50ebf610318a"",
+                    ""path"": ""<XInputController>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VolumeDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eac746e7-4c1d-479f-a686-916db11d27cc"",
+                    ""path"": ""<XInputController>/leftStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -1559,7 +1746,7 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
         m_Pause_Enter = m_Pause.FindAction("Enter", throwIfNotFound: true);
         // Result
         m_Result = asset.FindActionMap("Result", throwIfNotFound: true);
-        m_Result_BackToTitle = m_Result.FindAction("BackToTitle", throwIfNotFound: true);
+        m_Result_GoToPlay = m_Result.FindAction("GoToPlay", throwIfNotFound: true);
         m_Result_SelectLeftOnLevelUp = m_Result.FindAction("SelectLeftOnLevelUp", throwIfNotFound: true);
         m_Result_SelectRightOnLevelUp = m_Result.FindAction("SelectRightOnLevelUp", throwIfNotFound: true);
         m_Result_SelectUpOnEndLevelUp = m_Result.FindAction("SelectUpOnEndLevelUp", throwIfNotFound: true);
@@ -1877,7 +2064,7 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
     // Result
     private readonly InputActionMap m_Result;
     private IResultActions m_ResultActionsCallbackInterface;
-    private readonly InputAction m_Result_BackToTitle;
+    private readonly InputAction m_Result_GoToPlay;
     private readonly InputAction m_Result_SelectLeftOnLevelUp;
     private readonly InputAction m_Result_SelectRightOnLevelUp;
     private readonly InputAction m_Result_SelectUpOnEndLevelUp;
@@ -1886,7 +2073,7 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
     {
         private @ControlActions m_Wrapper;
         public ResultActions(@ControlActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @BackToTitle => m_Wrapper.m_Result_BackToTitle;
+        public InputAction @GoToPlay => m_Wrapper.m_Result_GoToPlay;
         public InputAction @SelectLeftOnLevelUp => m_Wrapper.m_Result_SelectLeftOnLevelUp;
         public InputAction @SelectRightOnLevelUp => m_Wrapper.m_Result_SelectRightOnLevelUp;
         public InputAction @SelectUpOnEndLevelUp => m_Wrapper.m_Result_SelectUpOnEndLevelUp;
@@ -1900,9 +2087,9 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_ResultActionsCallbackInterface != null)
             {
-                @BackToTitle.started -= m_Wrapper.m_ResultActionsCallbackInterface.OnBackToTitle;
-                @BackToTitle.performed -= m_Wrapper.m_ResultActionsCallbackInterface.OnBackToTitle;
-                @BackToTitle.canceled -= m_Wrapper.m_ResultActionsCallbackInterface.OnBackToTitle;
+                @GoToPlay.started -= m_Wrapper.m_ResultActionsCallbackInterface.OnGoToPlay;
+                @GoToPlay.performed -= m_Wrapper.m_ResultActionsCallbackInterface.OnGoToPlay;
+                @GoToPlay.canceled -= m_Wrapper.m_ResultActionsCallbackInterface.OnGoToPlay;
                 @SelectLeftOnLevelUp.started -= m_Wrapper.m_ResultActionsCallbackInterface.OnSelectLeftOnLevelUp;
                 @SelectLeftOnLevelUp.performed -= m_Wrapper.m_ResultActionsCallbackInterface.OnSelectLeftOnLevelUp;
                 @SelectLeftOnLevelUp.canceled -= m_Wrapper.m_ResultActionsCallbackInterface.OnSelectLeftOnLevelUp;
@@ -1919,9 +2106,9 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
             m_Wrapper.m_ResultActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @BackToTitle.started += instance.OnBackToTitle;
-                @BackToTitle.performed += instance.OnBackToTitle;
-                @BackToTitle.canceled += instance.OnBackToTitle;
+                @GoToPlay.started += instance.OnGoToPlay;
+                @GoToPlay.performed += instance.OnGoToPlay;
+                @GoToPlay.canceled += instance.OnGoToPlay;
                 @SelectLeftOnLevelUp.started += instance.OnSelectLeftOnLevelUp;
                 @SelectLeftOnLevelUp.performed += instance.OnSelectLeftOnLevelUp;
                 @SelectLeftOnLevelUp.canceled += instance.OnSelectLeftOnLevelUp;
@@ -2211,7 +2398,7 @@ public partial class @ControlActions : IInputActionCollection2, IDisposable
     }
     public interface IResultActions
     {
-        void OnBackToTitle(InputAction.CallbackContext context);
+        void OnGoToPlay(InputAction.CallbackContext context);
         void OnSelectLeftOnLevelUp(InputAction.CallbackContext context);
         void OnSelectRightOnLevelUp(InputAction.CallbackContext context);
         void OnSelectUpOnEndLevelUp(InputAction.CallbackContext context);

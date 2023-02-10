@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 /*******************************************************************
  *  <ŠT—v>
@@ -18,10 +19,12 @@ public class ImmediateTreasureItem : ImmediateItemBase<TreasureInfo>
         m_treasureInfo.name = m_itemParamter.Name;
         m_treasureInfo.score = m_itemParamter.Score;
         GetComponent<SpriteRenderer>().sprite = m_itemParamter.Sprite;
-        var s = DOTween.Sequence();
-        s.Join(transform.DOScale(new Vector3(0.2f, 0.2f, 0.2f), 1.0f).SetEase(Ease.Linear).SetLoops(-1, LoopType.Yoyo));
-        s.Play();
-
+        if (SceneManager.GetActiveScene().name == "Play")
+        {
+            var s = DOTween.Sequence();
+            s.Join(transform.DOScale(new Vector3(0.2f, 0.2f, 0.2f), 1.0f).SetEase(Ease.Linear).SetLoops(-1, LoopType.Yoyo));
+            s.Play();
+        }
     }
     public override TreasureInfo GetInfo()
     {
